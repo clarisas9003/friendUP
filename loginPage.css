@@ -5,7 +5,9 @@ body {
     background-color: #003166;
 }
 label { 
-    color: #90EE90
+    color: #90EE90;
+    border-radius: 4px;
+    
 }
 
 body {
@@ -35,15 +37,18 @@ button:hover {
     background-color: #90EE90;    
 }
 
-form {
+.friendUp_form {
     font-family: 'Oswald';
-}
 
-label {
+    width: 26%;
+    margin-left: 37%;
+    margin-right: 37%;
     border-radius: 4px;
+    height: 475px;
+    background-color:white;
 }
 
 input {
     height: 25px;
-    width: 10%;
+    width: 200px;
 }
