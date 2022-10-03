@@ -11,7 +11,8 @@ label {
 }
 
 body {
-    text-align: center
+    text-align: center;
+    height: 100%;
 }
 p {
     color: #90EE90;
@@ -39,16 +40,35 @@ button:hover {
 
 .friendUp_form {
     font-family: 'Oswald';
-
-    width: 26%;
-    margin-left: 37%;
-    margin-right: 37%;
+    width: 50%;
     border-radius: 4px;
-    height: 475px;
     background-color:#003166;
+    margin-left: 20px;
 }
 
 input {
     height: 25px;
     width: 200px;
+}
+
+.left-right{
+    display: flex;
+    margin: 20px;
+    height: 95%;
+}
+.center {
+    height: 100%;
+    width: 50%;
+}
+
+html{
+    height: 100%;
+}
+
+.friendUpText{
+    height: 20%;
+}
+
+img{
+    border-radius: 4px;
 }
