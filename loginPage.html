@@ -10,6 +10,7 @@
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "firebase/app";
     import { getAnalytics } from "firebase/analytics";
+    import {getAuthorization} from "firebase/auth";
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,7 +38,7 @@ const analytics = getAnalytics(app);
     <p style="font-size:30px">friendUp!</p> 
     </p>
 
-    <form>
+    <form onsubmit = "login(event)">
     <label style="font-size:20px">Username:</label><br>
     <input type="text" id="fname" name="fname"><br>
     <br> <label style="font-size:20px">Password:</label><br>
@@ -45,12 +46,20 @@ const analytics = getAnalytics(app);
     <button type="button" id="loginBtn">Log In</button> 
     </form>
 
-    <form>
+    <form onsubmit = "event">
     <br> <label>Login using your Umich Profile</label><br><br>
     <label> Don't have an account?</label><br> <br>
     <label>Register yours today!</label><br><br>
     <button type="button" id="regBtn">Register Your Account</button>
     </form>
+
+    <script>
+        function logIn(event){
+          event.preventDefault();
+            
+        }
+    </script>
+
 
   </body>
 
