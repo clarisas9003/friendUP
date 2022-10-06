@@ -30,6 +30,7 @@
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+
 </script>
     <img src= catpic.jfif width="300" height="400" alt="cat" class="center">
 
@@ -37,7 +38,7 @@ const analytics = getAnalytics(app);
     <!--<label type = "text"> Login</label>-->
     <p style="font-size:30px">friendUp!</p> 
     </p>
-
+ <div id = "not-logged-in">
     <form onsubmit = "login(event)">
     <label style="font-size:20px">Username:</label><br>
     <input type="text" id="fname" name="fname"><br>
@@ -52,11 +53,15 @@ const analytics = getAnalytics(app);
     <label>Register yours today!</label><br><br>
     <button type="button" id="regBtn">Register Your Account</button>
     </form>
+  </div>
+  <div id="logged-in">
+    <h3> "You are logged in now</h3>
+  </div>
 
     <script>
         function logIn(event){
           event.preventDefault();
-            
+          
         }
     </script>
 
