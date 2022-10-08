@@ -1,41 +1,20 @@
-<!DOCType html>
+<!----><!DOCType html>
+
+
 <html lang = 'en'> 
   <head>
     <title>friendUP</title>
+    <script src = "connection.js"></script>
     <link href="loginPage.css" rel="stylesheet" type="text/css" />
    </head>
   <body>
-
-    <script>
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-    import {getAuthorization} from "firebase/auth";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-    apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
-    authDomain: "friendup-74935.firebaseapp.com",
-    projectId: "friendup-74935",
-    storageBucket: "friendup-74935.appspot.com",
-    messagingSenderId: "97865803459",
-    appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
-    measurementId: "G-JHX6HNC0ST"
-  };
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 
 </script>
     <img src= catpic.jfif width="300" height="400" alt="cat" class="center">
 
      <p> 
-    <!--<label type = "text"> Login</label>-->
+    <label type = "text"> Login</label>
     <p style="font-size:30px">friendUp!</p> 
     </p>
  <div id = "not-logged-in">
@@ -44,28 +23,115 @@ const analytics = getAnalytics(app);
     <input type="text" id="fname" name="fname"><br>
     <br> <label style="font-size:20px">Password:</label><br>
     <input type="text" id="password" name="password"><br><br>
-    <button type="button" id="loginBtn">Log In</button> 
+    <button type="submit" id="loginBtn">Log In</button> 
     </form>
 
-    <form onsubmit = "event">
+    <form onsubmit = "login(event)">
     <br> <label>Login using your Umich Profile</label><br><br>
     <label> Don't have an account?</label><br> <br>
     <label>Register yours today!</label><br><br>
-    <button type="button" id="regBtn">Register Your Account</button>
+    <button type="submit" id="regBtn">Register Your Account</button>
     </form>
   </div>
+
   <div id="logged-in">
     <h3> "You are logged in now</h3>
+    <button onclick = "logout()">Logout </button>
   </div>
+<script type = "module">
+  //NOT HAPPY ABOUT THIS
+  // Import the functions you need from the SDKs you need
+      import { initializeApp } from "firebase/app";
+      import { getAnalytics } from "firebase/analytics";
+     // import {getAuthorization} from "firebase/auth";
+      import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+      //import { getAuth, signOut } from "firebase/auth";
 
-    <script>
-        function logIn(event){
-          event.preventDefault();
-          
-        }
+  // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+        authDomain: "friendup-74935.firebaseapp.com",
+        projectId: "friendup-74935",
+        storageBucket: "friendup-74935.appspot.com",
+        messagingSenderId: "97865803459",
+        appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+        measurementId: "G-JHX6HNC0ST"
+      };
+      // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    function authentication(email, password){
+    const auth = getAuth();
+    if (document.getElementById("floatingInput").value=='') {
+        email = document.querySelector("#emailInput").value;
+    }
+    if (document.getElementById("floatingPassword").value==''){
+        password = document.querySelector("#passwordInput").value;
+    }
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log("Success (authentication)");
+            if (user !== null) {
+                    user.providerData.forEach((profile) => {
+                        if (profile.displayName !== null){
+                            document.querySelector("#user-click").innerHTML = `<span data-feather="file"></span>
+                        <i class="fa fa-fw fa-user"></i> ${profile.displayName}` ;
+                            console.log("Success in getting the display name");
+                        }
+                        
+                        return; //Only have the return here to get the first profile
+                    });
+
+                   
+                }
+
     </script>
-
-
+      
   </body>
 
 </html>
+
+
+<!--<script type="module">
+  
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-analytics.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, signOut, updatePassword } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-auth.js";-->
+
+<!--
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+  <meta charset = "UTF-8">
+  <meta name = "viewport" content = "width = device-width, initial-scale=1.0">
+  <title> Documente</title>
+  <script src ="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+  <script src ="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+  <script src ="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+</head>
+<body>
+
+    <h1> Our Web Application </h1>
+    <div id = "not-logged-in">
+    <form onsubmit = "login(event)">
+      <input type = "text" id = "email" placeholder = "email"/>
+      <input type = "password" id = "password" placeholder = "password"/>
+      <button type = "submit">Submit</button>
+    </form>
+    </div>
+    <div id="logged-in">
+        <h3> You are logged in</h3>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script type = "text/javascript" src = "webkids/connection.js"></script>
+  </body>
+
+</html>-->
