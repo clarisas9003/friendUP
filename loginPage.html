@@ -62,6 +62,22 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
+
+    //USE THIS FOR CENTER COLUMN!!!!!!!
+    firebase.auth().onAuthStateChanges(function(user) {
+        var notLoggedIN = document.getElementById('not-logged-in')
+        var notLoggedIN = document.getElementById('logged-in')
+        if (user){
+          //user is signed in
+          loggedIn.style.display = 'block'
+          notLoggedIN.style.display = 'none'
+        }
+        else {
+          //no user is signed in
+          loggedIn.style.display = 'none'
+          notLoggedIN.style.display = 'block'
+        }
+      }); 
     function authentication(email, password){
     const auth = getAuth();
     if (document.getElementById("floatingInput").value=='') {
