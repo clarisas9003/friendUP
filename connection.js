@@ -13,7 +13,7 @@
       function login(event){
         event.preventDefault();
         //sign in to DB
-        const auth = getAuth();
+     /*  const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
         // Signed in 
@@ -31,16 +31,20 @@
         debugger;
         alert(error.message)
         debugger;
-        });
-
+        });*/
+        console.log('you log in')
+        
       }
 
       function logout(){
-        const auth = getAuth();
+        /*const auth = getAuth();
         signOut(auth).then(() => {
           // Sign-out successful.
         }).catch((error) => {
           // An error happened.
-        });
+        });*/
+        console.log('hello, you log out')
 
       }
+
+      
