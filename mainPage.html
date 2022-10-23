@@ -3,6 +3,12 @@
 <head>
 <title>friendUp</title>
 <meta charset="UTF-8">
+<style>
+  #yor {display:none}
+  #loid {display:none}
+  #anya {display:none}
+  #coffeeGuy{display:block}
+  </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -14,29 +20,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </head>
 <body style = "background-color:#003166">
 
-<!-- Navbar -->
-<!--
-<div class="w3-left">
- <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-  <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Logo</a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
-  <div class="w3-dropdown-hover w3-hide-small">
-    <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
-    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-      <a href="#" class="w3-bar-item w3-button">One new friend request</a>
-      <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
-      <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
-    </div>
-  </div>
-  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
-    <img src="/w3images/avatar2.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
-  </a>
- </div>
-</div>
--->
+
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
   <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
@@ -145,14 +129,17 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     </div>
     
     <!-- Middle Column -->
+    
     <div class="w3-col m7">
     
       <div class="w3-row-padding">
         <div class="w3-col m12">
         </div>
       </div>
-      
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      <script>
+        
+      </script>
+      <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
               <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
@@ -164,10 +151,60 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <hr class="w3-clear">
         
         </div>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+        <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+        <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+      </div>
+
+
+      <div id = "yor"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <div class="w3-row-padding" style="margin:0 -16px">
+          <div class = "container">
+            <img src="https://www.looper.com/img/gallery/the-actress-behind-spy-x-familys-yor-forger-is-gorgeous-in-real-life/l-intro-1658249182.jpg" style="width:100%" alt="Yor">
+           
+            <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+          </div>
+          
+      <h4>Yor Forger</h4><br>
+      <hr class="w3-clear">
+      
+      </div>
+      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+      <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+    </div>
+
+
+    <div id = "loid" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      <div class="w3-row-padding" style="margin:0 -16px">
+        <div class = "container">
+          <img src="https://leosigh.com/wp-content/uploads/2022/04/Loid-Forger-in-Spy-x-Family-520x293.jpg" style="width:100%" alt="Loid">
+          <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+        </div>
+        
+    <h4>Loid Forger</h4><br>
+    <hr class="w3-clear">
+    
+    </div>
+    <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+    <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+  </div>
+
+
+  <div id = "anya" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class = "container">
+        <img src="http://cdn.shopify.com/s/files/1/0410/1053/articles/anyatranslation-featuredimage.jpg?v=1653587352" style="width:100%" alt="Anya">
+       <!-- <div class="top-left">Coffee Guy AA</div>-->
+        <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
       </div>
       
+  <h4>Anya Forger</h4><br>
+  <hr class="w3-clear">
+  
+  </div>
+  <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+  <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+</div>
+      <!--
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
         <span class="w3-right w3-opacity">16 min</span>
@@ -189,10 +226,50 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
         <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
       </div> 
+    -->
       
     <!-- End Middle Column -->
     </div>
-    
+
+
+    <script>
+
+      var array = ["coffeeGuy", "yor", "loid", "anya"]
+      var count = 0;
+
+      function yesFunction(){
+        console.log("Hello World")
+      }
+      
+      function noFunction(){
+        //load next element
+        if (array[count] == "coffeeGuy"){
+          count = count + 1;
+          hideShow("yor","coffeeGuy");
+          //document.getElementById(profile).style.display = "block";;
+        }
+        else if (array[count] == "yor"){
+          count = count + 1;
+          hideShow("loid","yor");
+        }
+        else if (array[count] == "loid"){
+          count = count + 1;
+          hideShow("anya","loid");
+        }
+        else if (array[count] == "anya") {
+          count = 0;
+          hideShow("coffeeGuy","anya");
+        } 
+      }
+
+      function hideShow(profile,noprofile){
+        var x = document.getElementById(profile);
+        var y = document.getElementById(noprofile);
+        x.style.display = "block";
+        y.style.display = "none";
+      }
+    </script>
+
     <!-- Right Column -->
     <div class="w3-col m2">
       <div class="w3-card w3-round w3-white w3-center">
@@ -242,14 +319,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </div>
 <br>
 
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-  <h5>Footer</h5>
-</footer>
 
-<footer class="w3-container w3-theme-d5">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</footer>
  
 <script>
 // Accordion
