@@ -16,7 +16,7 @@
 
 
   <div class="login">
-  <label style="font-size:25px">Username:</label><br>
+  <label style="font-size:25px">Email:</label><br>
   <input type="text" id="fname" name="fname" ><br>
   <br> <label style="font-size:25px">Password:</label><br>
   <input type="text" id="password" name="password"><br><br>
@@ -57,7 +57,7 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   import {getDatabase, set, ref, get} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 
   var loginBtn = document.querySelector('#loginBtn')
@@ -69,15 +69,24 @@
     var getPassword = document.getElementById('password').value
     
     const auth = getAuth();
-    signInWithEmailAndPassword(auth,getUsername,getPassword)
+    setPersistence(auth, browserLocalPersistence)
+    .then(()=>{
+      signInWithEmailAndPassword(auth,getUsername,getPassword)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user)
+      window.location.href = 'mainPage.html'
     })
     .catch((error)=>{
       const errorCode = error.code;
       const errorMessage = error.message;
+      alert("Unsuccessful log in attempt please try again")
     });
+    })
+    .catch((error)=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    })
+    
     
   }
   loginBtn.addEventListener('click', checkLogin)
