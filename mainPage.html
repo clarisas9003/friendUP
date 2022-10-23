@@ -9,6 +9,8 @@
   #anya {display:none}
   #coffeeGuy{display:block}
   </style>
+  <script src="thumbsUpHandler.js"></script>
+  <script src="firebaseConnection.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -233,41 +235,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
 
     <script>
-
-      var array = ["coffeeGuy", "yor", "loid", "anya"]
-      var count = 0;
-
-      function yesFunction(){
-        console.log("Hello World")
-      }
-      
-      function noFunction(){
-        //load next element
-        if (array[count] == "coffeeGuy"){
-          count = count + 1;
-          hideShow("yor","coffeeGuy");
-          //document.getElementById(profile).style.display = "block";;
-        }
-        else if (array[count] == "yor"){
-          count = count + 1;
-          hideShow("loid","yor");
-        }
-        else if (array[count] == "loid"){
-          count = count + 1;
-          hideShow("anya","loid");
-        }
-        else if (array[count] == "anya") {
-          count = 0;
-          hideShow("coffeeGuy","anya");
-        } 
-      }
-
-      function hideShow(profile,noprofile){
-        var x = document.getElementById(profile);
-        var y = document.getElementById(noprofile);
-        x.style.display = "block";
-        y.style.display = "none";
-      }
+ 
     </script>
 
     <!-- Right Column -->
@@ -346,5 +314,72 @@ function openNav() {
 }
 </script>
 
+<script type="module">
+  
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+    authDomain: "friendup-74935.firebaseapp.com",
+    projectId: "friendup-74935",
+    storageBucket: "friendup-74935.appspot.com",
+    messagingSenderId: "97865803459",
+    appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+    measurementId: "G-JHX6HNC0ST"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+      
+
+  /*function writeUserData(userId, name, email, imageUrl) {
+  const db = getDatabase();
+  set(ref(db, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}*/
+
+//const db = getDatabase();
+function readUserData(tableName){
+
+//Get the table you want to use and set that to table
+let table = tableName;
+const db = getDatabase();
+const dbRef = ref(db, table);
+let list = [];
+
+onValue(dbRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+        const childKey = childSnapshot.key;
+        const childData = childSnapshot.val();
+        list.push(childData);
+    });
+}, {
+onlyOnce: true
+});
+
+//setLandscapes(list);
+
+console.log(list);
+}
+
+readUserData("0");
+</script>
+
+
+
+</script>
+
 </body>
+
 </html> 
