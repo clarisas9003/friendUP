@@ -71,8 +71,13 @@
     
     signInWithEmailAndPassword(auth,getUsername,getPassword)
     .then((userCredential) => {
-      const user = userCredential.user;
-      window.location.href = 'mainPage.html'
+      const user = userCredential.user;      
+      sessionStorage.setItem('email',JSON.stringify(user.email))
+      var uniqueName = user.email
+      console.log(uniqueName)
+      var myVar = JSON.parse(sessionStorage.getItem('email'))
+      console.log(myVar.slice(0,myVar.indexOf('@')))
+      //window.location.href = 'mainPage.html'
     })
     .catch((error)=>{
       const errorCode = error.code;
