@@ -60,7 +60,7 @@
                     // ..
                 });
 
-                var file = document.getElementById("image").file[0]
+                var file = document.getElementById("image").files[0]
 
                 //uploads to storage in firebase, key is through email
                 uploadBytes(ref(storage,email), file).then((snapshot) => {
