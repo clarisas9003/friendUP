@@ -62,7 +62,10 @@
     
     createUserWithEmailAndPassword(auth,getUsername,getPassword)
     .then((userCredential) => {
-      const user = userCredential.user;
+      const user = userCredential.user;      
+      sessionStorage.setItem('email',JSON.stringify(user.email))
+      var uniqueName = JSON.stringify(user.email)      
+      sessionStorage.setItem('un',uniqueName.slice(1,uniqueName.indexOf('@')))
       window.location.href = 'mainPage.html'
     })
     .catch((error)=>{

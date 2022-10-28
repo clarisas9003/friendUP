@@ -73,11 +73,9 @@
     .then((userCredential) => {
       const user = userCredential.user;      
       sessionStorage.setItem('email',JSON.stringify(user.email))
-      var uniqueName = user.email
-      console.log(uniqueName)
-      var myVar = JSON.parse(sessionStorage.getItem('email'))
-      console.log(myVar.slice(0,myVar.indexOf('@')))
-      //window.location.href = 'mainPage.html'
+      var uniqueName = JSON.stringify(user.email)      
+      sessionStorage.setItem('un',uniqueName.slice(1,uniqueName.indexOf('@')))
+      window.location.href = 'mainPage.html'
     })
     .catch((error)=>{
       const errorCode = error.code;
