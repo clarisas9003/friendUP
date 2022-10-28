@@ -1,5 +1,31 @@
 var array = ["coffeeGuy", "yor", "loid", "anya"]
 var count = 0;
+let description = "";
+let username = "";
+let FN = "";
+let LN = "";
+let major = "";
+
+//document.getElementById("myHeader").textContent = username
+//var msgTitle = "<h1 class=\"myHeading\">Search Msg:" + username + "</h1>"
+
+
+
+
+
+function pageOnLoad(data){
+  
+  description = data["Description"];
+  username = data["Username"];
+  FN = data["FN"];
+  LN = data["LN"];
+  major = data["Major"];
+
+  document.getElementById("userDisplayName").innerHTML = username;
+  document.getElementById("about").innerHTML = description;
+  
+}
+
 
 function yesFunction(){
   console.log("Hello World")

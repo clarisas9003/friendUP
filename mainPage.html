@@ -8,9 +8,12 @@
   #loid {display:none}
   #anya {display:none}
   #coffeeGuy{display:block}
-  </style>
-  <script src="thumbsUpHandler.js"></script>
-  <script src="firebaseConnection.js"></script>
+ 
+</style>
+<!--img{max-width: 500px;}-->
+
+<script src="thumbsUpHandler.js"></script>
+<script src="firebaseConnection.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -138,18 +141,22 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <div class="w3-col m12">
         </div>
       </div>
+
       <script>
-        
+        //image fill not working!!!!!
       </script>
+
       <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
-              <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
+              <img id = "profilePic" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
              <!-- <div class="top-left">Coffee Guy AA</div>-->
-              <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+              <div id = "about" class="bottom-left"> About goes here</div>
             </div>
             
-        <h4>Coffee Guy AA</h4><br>
+            <h3 id = "userDisplayName">Username Here</h3>
+
+            
         <hr class="w3-clear">
         
         </div>
@@ -157,7 +164,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
 
-
+<!--
       <div id = "yor"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class = "container">
@@ -195,7 +202,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class = "container">
         <img src="http://cdn.shopify.com/s/files/1/0410/1053/articles/anyatranslation-featuredimage.jpg?v=1653587352" style="width:100%" alt="Anya">
-       <!-- <div class="top-left">Coffee Guy AA</div>-->
+      
         <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
       </div>
       
@@ -206,6 +213,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
   <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
   <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
 </div>
+-->
       <!--
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
@@ -319,11 +327,9 @@ function openNav() {
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
   import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  import { getStorage,  uploadBytes, getDownloadURL, ref as sRef  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  
   const firebaseConfig = {
     apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
     authDomain: "friendup-74935.firebaseapp.com",
@@ -337,43 +343,33 @@ function openNav() {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
-
-      
-
-  /*function writeUserData(userId, name, email, imageUrl) {
+  const storage = getStorage(app);
+  var email = "Lforger@gmail.com"; //document.getElementById("username").value
+  //var password = document.getElementById("password").value
+  var uniqname = "0";
+  
   const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}*/
-
-//const db = getDatabase();
-function readUserData(tableName){
-
-//Get the table you want to use and set that to table
-let table = tableName;
-const db = getDatabase();
-const dbRef = ref(db, table);
-let list = [];
-
-onValue(dbRef, (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-        list.push(childData);
-    });
-}, {
-onlyOnce: true
+  const userTableGet = ref(db, uniqname);
+  onValue(userTableGet, (snapshot) => {
+  
+  const data = snapshot.val();
+  pageOnLoad(data);
 });
 
-//setLandscapes(list);
-
-console.log(list);
-}
-
-readUserData("0");
+ 
+//retrieving image attached to email
+//has error "e._checkNotDeleted" is not a function: fix when there is time
+    getDownloadURL(sRef(storage, email))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("profilePic");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+//need event listener for the nope button module
+//most likely have initial load and then the preceding one be dynamic
 </script>
 
 
