@@ -1,5 +1,26 @@
 var array = ["coffeeGuy", "yor", "loid", "anya"]
 var count = 0;
+let description = "";
+let username = "";
+let FN = "";
+let LN = "";
+let major = "";
+
+function pageOnLoad(data){
+  
+  description = data["Description"];
+  username = data["Username"];
+  FN = data["FN"];
+  LN = data["LN"];
+  major = data["Major"];
+  console.log("description: " + data["Description"])
+  console.log("username: " + data["Username"])
+  console.log("FN: " + data["FN"])
+  console.log("LN: " + data["LN"])
+  console.log("major: " + data["Major"])
+
+}
+
 
 function yesFunction(){
   console.log("Hello World")

@@ -63,7 +63,7 @@
                 var file = document.getElementById("image").files[0]
 
                 //uploads to storage in firebase, key is through email
-                uploadBytes(ref(storage,email), file).then((snapshot) => {
+                uploadBytes(ref(storage, email), file).then((snapshot) => {
                     console.log('Uploaded a blob or file!');
                 });
             })

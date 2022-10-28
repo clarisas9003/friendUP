@@ -141,6 +141,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         </div>
       </div>
       <script>
+        //image fill not working!!!!!
         
       </script>
       <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
@@ -322,7 +323,7 @@ function openNav() {
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
   import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
+  import { getStorage,  uploadBytes, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
 
   
   const firebaseConfig = {
@@ -341,8 +342,15 @@ function openNav() {
   const storage = getStorage(app);
   var email = "coffeGuy@gmail.com"; //document.getElementById("username").value
   //var password = document.getElementById("password").value
-
-      
+  var uniqname = "0";
+  
+  const db = getDatabase();
+  const userTableGet = ref(db, uniqname);
+  onValue(userTableGet, (snapshot) => {
+  
+  const data = snapshot.val();
+  pageOnLoad(data);
+});
 
   /*function writeUserData(userId, name, email, imageUrl) {
   const db = getDatabase();
@@ -353,42 +361,21 @@ function openNav() {
   });
 }*/
 
-//const db = getDatabase();
-function readUserData(tableName){
 
-    //Get the table you want to use and set that to table
-    let table = tableName;
-    const db = getDatabase();
-    const dbRef = ref(db, table);
-    let list = [];
-
-    onValue(dbRef, (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            const childData = childSnapshot.val();
-            list.push(childData);
-        });
-    }, {
-    onlyOnce: true
-    });
-
-    //setLandscapes(list);
-
-    console.log(list);
-}
-
-//readUserData("0");
 
 //retrieving image attached to email
-                      getDownloadURL(ref(storage, email))
-                        .then((url) => {
-                            // Or inserted into an <img> element
-                            const img = document.getElementById('myimg');
-                            img.setAttribute('src', url);
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        });
-
+//has error "e._checkNotDeleted" is not a function: fix when there is time
+    getDownloadURL(ref(storage, email))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById('myimg');
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+//need event listener for the nope button module
+//most likely have initial load and then the preceding one be dynamic
 </script>
 
 
