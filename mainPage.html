@@ -352,25 +352,24 @@ function openNav() {
 //const db = getDatabase();
 function readUserData(tableName){
 
-//Get the table you want to use and set that to table
-let table = tableName;
-const db = getDatabase();
-const dbRef = ref(db, table);
-let list = [];
+    //Get the table you want to use and set that to table
+    let table = tableName;
+    const db = getDatabase();
+    const dbRef = ref(db, table);
+    let list = [];
 
-onValue(dbRef, (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-        list.push(childData);
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            list.push(childData);
+        });
+    }, {
+    onlyOnce: true
     });
-}, {
-onlyOnce: true
-});
 
-//setLandscapes(list);
+    //setLandscapes(list);
 
-console.log(list);
+    console.log(list);
 }
 
 readUserData("0");
