@@ -6,6 +6,13 @@ let FN = "";
 let LN = "";
 let major = "";
 
+//document.getElementById("myHeader").textContent = username
+//var msgTitle = "<h1 class=\"myHeading\">Search Msg:" + username + "</h1>"
+
+
+
+
+
 function pageOnLoad(data){
   
   description = data["Description"];
@@ -13,12 +20,10 @@ function pageOnLoad(data){
   FN = data["FN"];
   LN = data["LN"];
   major = data["Major"];
-  console.log("description: " + data["Description"])
-  console.log("username: " + data["Username"])
-  console.log("FN: " + data["FN"])
-  console.log("LN: " + data["LN"])
-  console.log("major: " + data["Major"])
 
+  document.getElementById("userDisplayName").innerHTML = username;
+  document.getElementById("about").innerHTML = description;
+  
 }
 
 
