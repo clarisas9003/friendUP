@@ -21,8 +21,8 @@ function pageOnLoad(data){
   LN = data["LN"];
   major = data["Major"];
 
-  document.getElementById("userDisplayName").innerHTML = username;
-  document.getElementById("about").innerHTML = description;
+  //document.getElementById("userDisplayName").innerHTML = username;
+  //document.getElementById("about").innerHTML = description;
   
 }
 
