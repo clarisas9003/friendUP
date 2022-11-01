@@ -16,8 +16,6 @@ let major = "";
 
 
 
-
-
 function pageOnLoad(data){
   
   description = data["Description"];
@@ -44,7 +42,7 @@ function noFunction(){
     //readUserData("1");
     //document.getElementById(profile).style.display = "block";;
   }
-  
+
   else if (array[count] == "yor"){
     count = count + 1;
     hideShow("loid","yor");
