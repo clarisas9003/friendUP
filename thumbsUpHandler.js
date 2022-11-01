@@ -1,4 +1,9 @@
 var array = ["coffeeGuy", "yor", "loid", "anya"]
+var email = ""; 
+  //var password = document.getElementById("password").value
+  //var uniqname = "0";
+var uniqname = "";
+  
 var count = 0;
 let description = "";
 let username = "";
@@ -39,6 +44,7 @@ function noFunction(){
     //readUserData("1");
     //document.getElementById(profile).style.display = "block";;
   }
+  
   else if (array[count] == "yor"){
     count = count + 1;
     hideShow("loid","yor");

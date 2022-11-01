@@ -8,7 +8,6 @@
   #loid {display:none}
   #anya {display:none}
   #coffeeGuy{display:block}
- 
 </style>
 <!--img{max-width: 500px;}-->
 
@@ -149,7 +148,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
-              <img id = "profilePic" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
+              <img id = "profilePic" src="" style="width:100%" alt="Northern Lights">
              <!-- <div class="top-left">Coffee Guy AA</div>-->
               <div id = "about" class="bottom-left"> About goes here</div>
             </div>
@@ -344,10 +343,10 @@ function openNav() {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const storage = getStorage(app);
-  var email = "Lforger@gmail.com"; //document.getElementById("username").value
-  //var password = document.getElementById("password").value
-  var uniqname = "0";
+  var email = "coffeeGuy@gmail.com"; 
+  var uniqname = "3";
   
+
   const db = getDatabase();
   const userTableGet = ref(db, uniqname);
   onValue(userTableGet, (snapshot) => {
@@ -358,7 +357,6 @@ function openNav() {
 
  
 //retrieving image attached to email
-//has error "e._checkNotDeleted" is not a function: fix when there is time
     getDownloadURL(sRef(storage, email))
         .then((url) => {
         // Or inserted into an <img> element
