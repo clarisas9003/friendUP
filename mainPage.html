@@ -58,136 +58,124 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       
       <!-- Accordion -->
       <div class="w3-card w3-round">
-        <div class="w3-white">
-          <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
-          <div id="Demo4" class="w3-hide w3-container">
-            <div class="w3-container">
-         <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-         <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-        </div>
-          </div>
+          <div class="w3-white">
+              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+              <div id="Demo4" class="w3-hide w3-container">
+                  <div class="w3-container">
+                      <h4 class="w3-center">My Profile</h4>
+                      <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+                      <hr>
+                      <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
+                      <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
+                      <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                  </div>
+              </div>
 
-            <!-- Chat Catalogue -->
-          <link rel="stylesheet" href="dropdown.css">
-          <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
-          <div id="Demo1" class="w3-hide w3-container">
-              <div style="padding-top:5px; padding-bottom:5px">
-                  <div>
-                      <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" alt="Northern Lights" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                  </div>
-                  <div style="overflow:hidden">
+              <!-- Chat Catalogue -->
+              <link rel="stylesheet" href="dropdown.css">
+              <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
+              <div id="Demo1" class="w3-hide w3-container">
+                  <div style="padding-top:5px; padding-bottom:5px">
                       <div>
-                          <span style="font-size:18px">Coffee Guy AA</span>
-                          <div class="dropdown">
-                              <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu1')"></span>
-                              <div id="DropDownMenu1" class="dropdown-content">
-                                  <a onclick="DropDown('DropDownMenu1')">Close</a>
-                                  <a>Delete Chat</a>
-                                  <a>Block User</a>
+                          <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" alt="Northern Lights" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
+                      </div>
+                      <div style="overflow:hidden">
+                          <div>
+                              <span style="font-size:18px">Coffee Guy AA</span>
+                              <div class="dropdown">
+                                  <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu1')"></span>
+                                  <div id="DropDownMenu1" class="dropdown-content">
+                                      <a onclick="DropDown('DropDownMenu1')">Close</a>
+                                      <a>Delete Chat</a>
+                                      <a>Block User</a>
+                                  </div>
                               </div>
-                              <script>
-                                  function DropDown(menu) {
-                                      document.getElementById(menu).classList.toggle("show");
-                                  }
-                              </script>
+                          </div>
+                          <div>
+                              <span>"This is the most recent message."</span>
+                              <span class="time-right">11:09</span>
                           </div>
                       </div>
+                  </div>
+                  <div style="padding-top:5px; padding-bottom:5px">
                       <div>
-                          <span>"This is the most recent message."</span>
-                          <span class="time-right">11:09</span>
+                          <img src="pumpkin.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
+                      </div>
+                      <div style="overflow:hidden">
+                          <div>
+                              <span style="font-size:18px">Pumpkin</span>
+                              <div class="dropdown">
+                                  <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu2')"></span>
+                                  <div id="DropDownMenu2" class="dropdown-content">
+                                      <a onclick="DropDown('DropDownMenu2')">Close</a>
+                                      <a>Delete Chat</a>
+                                      <a>Block User</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div>
+                              <span>"Meow"</span>
+                              <span class="time-right">6:15</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div style="padding-top:5px; padding-bottom:5px">
+                      <div>
+                          <img src="return the slab.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
+                      </div>
+                      <div style="overflow:hidden">
+                          <div>
+                              <span style="font-size:18px">King Ramses</span>
+                              <div class="dropdown">
+                                  <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu3')"></span>
+                                  <div id="DropDownMenu3" class="dropdown-content">
+                                      <a onclick="DropDown('DropDownMenu3')">Close</a>
+                                      <a>Delete Chat</a>
+                                      <a>Block User</a>
+                                  </div>
+                              </div>
+                          </div>
+                          <div>
+                              <span>"Return the slab"</span>
+                              <span class="time-right">12:00</span>
+                          </div>
                       </div>
                   </div>
               </div>
-              <div style="padding-top:5px; padding-bottom:5px">
-                  <div>
-                      <img src="pumpkin.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                  </div>
-                  <div style="overflow:hidden">
-                      <div>
-                          <span style="font-size:18px">Pumpkin</span>
-                          <div class="dropdown">
-                              <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu2')"></span>
-                              <div id="DropDownMenu2" class="dropdown-content">
-                                  <a onclick="DropDown('DropDownMenu2')">Close</a>
-                                  <a>Delete Chat</a>
-                                  <a>Block User</a>
-                              </div>
-                              <script>
-                                  function DropDown(menu)
-                                  {
-                                      document.getElementById(menu).classList.toggle("show");
-                                  }
-                              </script>
-                          </div>
+              <script>
+                  function DropDown(menu) {
+                      document.getElementById(menu).classList.toggle("show");
+                  }
+              </script>
+              <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Events I'm Attending</button>
+              <div id="Demo2" class="w3-hide w3-container">
+                  <p>UMD Homecoming</p>
+              </div>
+              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+              <div id="Demo3" class="w3-hide w3-container">
+                  <div class="w3-row-padding">
+                      <br>
+                      <div class="w3-half">
+                          <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
                       </div>
-                      <div>
-                          <span>"Meow"</span>
-                          <span class="time-right">6:15</span>
+                      <div class="w3-half">
+                          <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                      </div>
+                      <div class="w3-half">
+                          <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
+                      </div>
+                      <div class="w3-half">
+                          <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
+                      </div>
+                      <div class="w3-half">
+                          <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                      </div>
+                      <div class="w3-half">
+                          <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
                       </div>
                   </div>
               </div>
-              <div style="padding-top:5px; padding-bottom:5px">
-                  <div>
-                      <img src="return the slab.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                  </div>
-                  <div style="overflow:hidden">
-                      <div>
-                          <span style="font-size:18px">King Ramses</span>
-                          <div class="dropdown">
-                              <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu3')"></span>
-                              <div id="DropDownMenu3" class="dropdown-content">
-                                  <a onclick="DropDown('DropDownMenu3')">Close</a>
-                                  <a>Delete Chat</a>
-                                  <a>Block User</a>
-                              </div>
-                              <script>
-                                  function DropDown(menu)
-                                  {
-                                      document.getElementById(menu).classList.toggle("show");
-                                  }
-                              </script>
-                          </div>
-                      </div>
-                      <div>
-                          <span>"Return the slab"</span>
-                          <span class="time-right">12:00</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Events I'm Attending</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p>UMD Homecoming</p>
-          </div>
-          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
-          <div id="Demo3" class="w3-hide w3-container">
-         <div class="w3-row-padding">
-         <br>
-           <div class="w3-half">
-             <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-         </div>
-          </div>
-        </div>      
+          </div>      
       </div>
       <br>
       
