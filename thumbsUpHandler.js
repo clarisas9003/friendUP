@@ -59,6 +59,6 @@ function noFunction(){
 function hideShow(profile,noprofile){
   var x = document.getElementById(profile);
   var y = document.getElementById(noprofile);
-  x.style.display = "block";
-  y.style.display = "none";
+  x.style.display = "block"; //show
+  y.style.display = "none"; //hide
 }

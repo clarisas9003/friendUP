@@ -7,13 +7,15 @@
   #yor {display:none}
   #loid {display:none}
   #anya {display:none}
-  #coffeeGuy{display:block}
+  #profile {display: block}
+  #coffeeGuy{display:none}
  
 </style>
 <!--img{max-width: 500px;}-->
 
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
+<script src="myProfileClick.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -135,7 +137,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     
     <!-- Middle Column -->
     
-    <div class="w3-col m7">
+    <div id = "middleColumn" class="w3-col m7">
     
       <div class="w3-row-padding">
         <div class="w3-col m12">
@@ -241,6 +243,29 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     <!-- End Middle Column -->
     </div>
 
+    <!-- Begin profile clicked -->
+
+    <div id ="profile" class="w3-col m7">
+      <div   class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <div class="w3-row-padding" style="margin:0 -16px">
+          <div class = "container">
+            <img src="https://www.looper.com/img/gallery/the-actress-behind-spy-x-familys-yor-forger-is-gorgeous-in-real-life/l-intro-1658249182.jpg" style="width:100%" alt="Yor">
+           
+            <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+          </div>
+          
+      <h4>Yor Forger</h4><br>
+      <hr class="w3-clear">
+      
+      </div>
+      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+      <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+    </div>
+    </div>
+
+    </div>
+
+    <!-- End profile clicked-->
 
     <script>
  
@@ -294,8 +319,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 <!-- End Page Container -->
 </div>
 <br>
-
-
  
 <script>
 // Accordion
@@ -355,7 +378,6 @@ function openNav() {
   const data = snapshot.val();
   pageOnLoad(data);
 });
-
  
 //retrieving image attached to email
 //has error "e._checkNotDeleted" is not a function: fix when there is time
@@ -370,10 +392,6 @@ function openNav() {
       });
 //need event listener for the nope button module
 //most likely have initial load and then the preceding one be dynamic
-</script>
-
-
-
 </script>
 
 </body>
