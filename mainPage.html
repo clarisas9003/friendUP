@@ -9,7 +9,7 @@
   #anya {display:none}
   #coffeeGuy{display:block}
 </style>
-<!--img{max-width: 500px;}-->
+<!--#friendPending {display:none} img{max-width: 500px;}-->
 
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
@@ -134,7 +134,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     
     <!-- Middle Column -->
     
-    <div class="w3-col m7">
+    <div id = profile class="w3-col m7">
     
       <div class="w3-row-padding">
         <div class="w3-col m12">
@@ -258,11 +258,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
       <br>
       
-      <div class="w3-card w3-round w3-white w3-center">
+      <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
-          <p>POTENTIAL FEATURE</p>
-          <img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>
-          <span>Jane Doe</span>
+          <p>friend Pending</p>
+          <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
+          <h3 id = "friendPendName"> Jane Doe</h3>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
               <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
@@ -325,7 +325,7 @@ function openNav() {
   
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-  import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+  import { getDatabase, ref, set, onValue, child, push, update} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
   import { getStorage,  uploadBytes, getDownloadURL, ref as sRef  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
 
   
@@ -343,17 +343,56 @@ function openNav() {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const storage = getStorage(app);
-  var email = "coffeeGuy@gmail.com"; 
-  var uniqname = "3";
+  var email = "Lforger@gmail.com"; 
+  var uniqname = "Lforger";
   
+/*
+  const db = getDatabase();
+  const userTableGet = ref(db, "users");
+  onValue(userTableGet, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+  pageOnLoad(data);
+});*/
+/*
+function getData(tableName){
 
   const db = getDatabase();
-  const userTableGet = ref(db, uniqname);
+  const userTableGet = ref(db, "users");
   onValue(userTableGet, (snapshot) => {
-  
   const data = snapshot.val();
-  pageOnLoad(data);
-});
+  console.log(data);
+  }
+  });*/
+/*
+  function SelectAllDAta(){
+	firebase.database().ref('student').once('value,
+	function(AllREcords){
+		AllRecords.foreEach(
+			function(CurrentRecord){
+				var name = CurrentRecord.val().NameOfStudent;
+				AddItemsToTable(name, etc);
+			}
+		);
+	});
+}
+*/
+	
+
+function getData(tableName){
+  const db = getDatabase();
+  const userTableGet = ref(db, tableName);
+  onValue(userTableGet, (snapshot) => {
+    console.log(snapshot.val())
+    snapshot.forEach(childSnapshot => {
+      console.log(childSnapshot.val())
+    });
+  });
+    //const data = snapshot.val();
+  //console.log(data);
+}
+getData("users");
+
 
  
 //retrieving image attached to email
@@ -366,13 +405,19 @@ function openNav() {
       .catch((error) => {
       console.log(error)
       });
+/*
+      getDownloadURL(sRef(storage, "Yforger@gmail.com"))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });*/
 //need event listener for the nope button module
 //most likely have initial load and then the preceding one be dynamic
-</script>
-
-
-
-</script>
+  </script>
 
 </body>
 
