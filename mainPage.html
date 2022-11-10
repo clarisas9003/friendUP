@@ -141,9 +141,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         </div>
       </div>
 
-      <script>
-        //image fill not working!!!!!
-      </script>
 
       <div  id = "coffeeGuy" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
@@ -163,56 +160,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
 
-<!--
-      <div id = "yor"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <div class="w3-row-padding" style="margin:0 -16px">
-          <div class = "container">
-            <img src="https://www.looper.com/img/gallery/the-actress-behind-spy-x-familys-yor-forger-is-gorgeous-in-real-life/l-intro-1658249182.jpg" style="width:100%" alt="Yor">
-           
-            <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-          </div>
-          
-      <h4>Yor Forger</h4><br>
-      <hr class="w3-clear">
-      
-      </div>
-      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-      <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
-    </div>
 
-
-    <div id = "loid" class="w3-container w3-card w3-white w3-round w3-margin"><br>
-      <div class="w3-row-padding" style="margin:0 -16px">
-        <div class = "container">
-          <img src="https://leosigh.com/wp-content/uploads/2022/04/Loid-Forger-in-Spy-x-Family-520x293.jpg" style="width:100%" alt="Loid">
-          <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-        </div>
-        
-    <h4>Loid Forger</h4><br>
-    <hr class="w3-clear">
-    
-    </div>
-    <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-    <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
-  </div>
-
-
-  <div id = "anya" class="w3-container w3-card w3-white w3-round w3-margin"><br>
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class = "container">
-        <img src="http://cdn.shopify.com/s/files/1/0410/1053/articles/anyatranslation-featuredimage.jpg?v=1653587352" style="width:100%" alt="Anya">
-      
-        <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-      </div>
-      
-  <h4>Anya Forger</h4><br>
-  <hr class="w3-clear">
-  
-  </div>
-  <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-  <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
-</div>
--->
       <!--
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
@@ -379,19 +327,22 @@ function getData(tableName){
 */
 	
 
-function getData(tableName){
+function getData(tableName, uniqname){
   const db = getDatabase();
+ // let data;
   const userTableGet = ref(db, tableName);
   onValue(userTableGet, (snapshot) => {
-    console.log(snapshot.val())
     snapshot.forEach(childSnapshot => {
-      console.log(childSnapshot.val())
+      if (uniqname == childSnapshot.key){
+         const data = childSnapshot.val()
+          pageOnLoad(data);
+      }
+      //userArray.push(childSnapshot.key)
+      //super costly at high volumes, add in better parameters later
     });
   });
-    //const data = snapshot.val();
-  //console.log(data);
 }
-getData("users");
+getData("users", uniqname);
 
 
  
