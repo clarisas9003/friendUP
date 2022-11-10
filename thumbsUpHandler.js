@@ -11,8 +11,6 @@ let major = "";
 
 
 
-
-
 function pageOnLoad(data){
   
   description = data["Description"];
@@ -26,6 +24,9 @@ function pageOnLoad(data){
   
 }
 
+function fillSessionStorage(){
+  sessionStorage.setItem('un','testUser')
+}
 
 function yesFunction(){
   console.log("Hello World")
@@ -62,3 +63,4 @@ function hideShow(profile,noprofile){
   x.style.display = "block"; //show
   y.style.display = "none"; //hide
 }
+

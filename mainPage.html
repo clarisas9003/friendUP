@@ -15,7 +15,6 @@
 
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
-<script src="myProfileClick.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
@@ -26,7 +25,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
 <body style = "background-color:#003166">
-
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -50,7 +48,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+          <button onclick="myFunction('Demo4');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
@@ -245,25 +243,35 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
     <!-- Begin profile clicked -->
 
-    <div id ="profile" class="w3-col m7">
-      <div   class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <div class="w3-row-padding" style="margin:0 -16px">
-          <div class = "container">
-            <img src="https://www.looper.com/img/gallery/the-actress-behind-spy-x-familys-yor-forger-is-gorgeous-in-real-life/l-intro-1658249182.jpg" style="width:100%" alt="Yor">
-           
-            <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-          </div>
-          
-      <h4>Yor Forger</h4><br>
-      <hr class="w3-clear">
-      
+    <div id = "middleColumn" class="w3-col m7">
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+        </div>
       </div>
-      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-      <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
-    </div>
+
+      <script>
+        //image fill not working!!!!!
+      </script>
+
+      <div  id = "profile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <div class="w3-row-padding" style="margin:0 -16px">
+            <div class = "container">
+              <img id = "profilePic" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
+             <!-- <div class="top-left">Coffee Guy AA</div>-->
+             <div class="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+            </div>
+            
+            <h3 id = "profId">Coffee Guy AA</h3>
+
+            
+        <hr class="w3-clear">
+        
+        </div>
+      </div>
     </div>
 
-    </div>
+
 
     <!-- End profile clicked-->
 
@@ -392,8 +400,21 @@ function openNav() {
       });
 //need event listener for the nope button module
 //most likely have initial load and then the preceding one be dynamic
+
+function loadProfile() {
+  const gdb = getDatabase();
+  const starCountRef = ref(gdb, 'users/' + sessionStorage.getItem('un'));
+    onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    updateStarCount(postElement, data);
+  });
+  console.log(starCountRef)
+}
+
 </script>
 
+<button onclick="fillSessionStorage()">Fill session storage</button>
+<button onclick="loadProfile()">Load Profile</button>
 </body>
 
 </html> 
