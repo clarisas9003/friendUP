@@ -294,37 +294,6 @@ function openNav() {
   var email = "Lforger@gmail.com"; 
   var uniqname = "Lforger";
   
-/*
-  const db = getDatabase();
-  const userTableGet = ref(db, "users");
-  onValue(userTableGet, (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-  pageOnLoad(data);
-});*/
-/*
-function getData(tableName){
-
-  const db = getDatabase();
-  const userTableGet = ref(db, "users");
-  onValue(userTableGet, (snapshot) => {
-  const data = snapshot.val();
-  console.log(data);
-  }
-  });*/
-/*
-  function SelectAllDAta(){
-	firebase.database().ref('student').once('value,
-	function(AllREcords){
-		AllRecords.foreEach(
-			function(CurrentRecord){
-				var name = CurrentRecord.val().NameOfStudent;
-				AddItemsToTable(name, etc);
-			}
-		);
-	});
-}
-*/
 	
 
 function getData(tableName, uniqname){
