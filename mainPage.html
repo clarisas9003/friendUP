@@ -257,9 +257,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div  id = "profile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
-              <img id = "profilePic" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
+              <img id = "profilePicUser" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
              <!-- <div class="top-left">Coffee Guy AA</div>-->
-             <div class="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+             <div id="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
             </div>
             
             <h3 id = "profId">Coffee Guy AA</h3>
@@ -402,19 +402,38 @@ function openNav() {
 //most likely have initial load and then the preceding one be dynamic
 
 function loadProfile() {
+  var updatepage
   const gdb = getDatabase();
   const starCountRef = ref(gdb, 'users/' + sessionStorage.getItem('un'));
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
-    updateStarCount(postElement, data);
+    updatepage = data
+    document.getElementById("profDescription").innerHTML = updatepage.Description
   });
-  console.log(starCountRef)
+  
+  const storage = getStorage();  
+  getDownloadURL(sRef(storage, '2aa2c91c-959c-44e1-8aaa-5c584ba67248-unnamed.jpg'))
+  .then((url)=>{
+  const img = document.getElementById("profilePicUser")
+  img.setAttribute('src', url)
+  })
+  .catch((error)=>{
+    consoel.log(error)
+  })
+
+  document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
+  //
+  document.getElementById("profilePicUser").innerHTML  
+  
 }
+
+var loadProfilebtn = document.querySelector('#profload')
+loadProfilebtn.addEventListener('click', loadProfile)
 
 </script>
 
 <button onclick="fillSessionStorage()">Fill session storage</button>
-<button onclick="loadProfile()">Load Profile</button>
+<button id="profload">Load Profile</button>
 </body>
 
 </html> 
