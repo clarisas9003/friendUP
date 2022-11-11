@@ -17,19 +17,28 @@ let major= "";
 
 
 
-function pageOnLoad(data){
+function pageOnLoad(data, users){
  
-  description = data["Description"];
-  username = data["Username"];
-  FN = data["FN"];
-  LN = data["LN"];
-  major = data["Major"];
+//if current user != to users[0]
+  description = data["0"]["Description"];
+  //console.log(description)
+  username = data["0"]["Username"];
+  FN = data["0"]["FN"];
+  LN = data["0"]["LN"];
+  major = data["0"]["Major"];
+  uniqname = data["0"]["uniqname"]
+  email = data["0"]["email"]
+//else
+ //description = data["1"]["Description"]
 
   document.getElementById("userDisplayName").innerHTML = username;
   document.getElementById("about").innerHTML = description;
+
+  //assignPicture(email);
+  
+  return email;
   
 }
-
 
 function yesFunction(){
   //yesArray.push(uniqname);

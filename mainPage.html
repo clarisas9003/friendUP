@@ -291,32 +291,51 @@ function openNav() {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const storage = getStorage(app);
-  var email = "Lforger@gmail.com"; 
-  var uniqname = "Lforger";
-  
-	
+  //var email = "Lforger@gmail.com"; 
+  //var uniqname = "Lforger";
 
-function getData(tableName, uniqname){
+
+
+function getData(tableName){
   const db = getDatabase();
  // let data;
+ let emale ='';
+ let userArray = [];
+ let dataArray = [];
   const userTableGet = ref(db, tableName);
   onValue(userTableGet, (snapshot) => {
+    
     snapshot.forEach(childSnapshot => {
-      if (uniqname == childSnapshot.key){
+      userArray.push(childSnapshot.key)
+      dataArray.push(childSnapshot.val())
+
+      /*let UN = userArray[0];
+      console.log(UN);
+      assignEmail(UN);*/
+      /*if (UN == childSnapshot.key){
          const data = childSnapshot.val()
           pageOnLoad(data);
-      }
+          noFunction()
+      }*/
       //userArray.push(childSnapshot.key)
       //super costly at high volumes, add in better parameters later
     });
+   
+      emale = pageOnLoad(dataArray, userArray);
+      console.log(emale)
+      return emale;
   });
+  //return emale;
 }
-getData("users", uniqname);
+let mail = getData("users");
+console.log(mail);
 
+//return email from pageOnLoad to get data which will then return email
 
- 
+function assignPicture(email){
+let Email = email;
 //retrieving image attached to email
-    getDownloadURL(sRef(storage, email))
+    getDownloadURL(sRef(storage, Email))
         .then((url) => {
         // Or inserted into an <img> element
       const img = document.getElementById("profilePic");
@@ -325,6 +344,7 @@ getData("users", uniqname);
       .catch((error) => {
       console.log(error)
       });
+}
 /*
       getDownloadURL(sRef(storage, "Yforger@gmail.com"))
         .then((url) => {
