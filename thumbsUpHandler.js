@@ -24,8 +24,22 @@ function pageOnLoad(data){
   
 }
 
+//Remove this when connected to log in page
 function fillSessionStorage(){
   sessionStorage.setItem('un','testUser')
+}
+
+function checkProfile(openProfile,myProfile,notProfile)
+{
+  if(openProfile==false)
+  {
+    hideShow(myProfile,notProfile)
+  }
+  else
+  {
+    hideShow(notProfile,myProfile)    
+  }
+  return !openProfile;
 }
 
 function yesFunction(){

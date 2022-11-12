@@ -7,8 +7,8 @@
   #yor {display:none}
   #loid {display:none}
   #anya {display:none}
-  #profile {display: block}
-  #coffeeGuy{display:none}
+  #profile {display: none}
+  #coffeeGuy{display:block}
  
 </style>
 <!--img{max-width: 500px;}-->
@@ -24,7 +24,7 @@
 html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
-<body style = "background-color:#003166">
+<body style = "background-color:#003166" onload="profileOpen = false">
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -48,7 +48,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button onclick="myFunction('Demo4');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+          <button id="profileClick" onclick="myFunction('Demo4');profileOpen = checkProfile(profileOpen,'profile','middleColumn')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
@@ -243,16 +243,12 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
     <!-- Begin profile clicked -->
 
-    <div id = "middleColumn" class="w3-col m7">
+    <div id = "middleColumnP" class="w3-col m7">
     
       <div class="w3-row-padding">
         <div class="w3-col m12">
         </div>
       </div>
-
-      <script>
-        //image fill not working!!!!!
-      </script>
 
       <div  id = "profile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
@@ -409,6 +405,7 @@ function loadProfile() {
     const data = snapshot.val();
     updatepage = data
     document.getElementById("profDescription").innerHTML = updatepage.Description
+    
   });
   
   const storage = getStorage();  
@@ -423,17 +420,17 @@ function loadProfile() {
 
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
   //
-  document.getElementById("profilePicUser").innerHTML  
+  document.getElementById("profilePicUser").innerHTML 
   
 }
 
-var loadProfilebtn = document.querySelector('#profload')
+var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
 
 </script>
 
 <button onclick="fillSessionStorage()">Fill session storage</button>
-<button id="profload">Load Profile</button>
+
 </body>
 
 </html> 
