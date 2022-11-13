@@ -10,7 +10,7 @@
   #coffeeGuy{display:block}
 </style>
 <!--#friendPending {display:none} img{max-width: 500px;}-->
-<script> let email3 = ""; </script>
+
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </head>
 <body style = "background-color:#003166">
 
+  <script> window.email3; </script>
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -149,7 +150,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
              <!-- <div class="top-left">Coffee Guy AA</div>-->
               <div id = "about" class="bottom-left"> About goes here</div>
             </div>
-            
+            <p id="email6"> email cheat</p>
             <h3 id = "userDisplayName">Username Here</h3>
 
             
@@ -157,17 +158,13 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         
         </div>
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-        <button id = "thumbsDown" onclick= "email3 = noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+        <button id = "thumbsDown" onclick= "email3 = noFunction();" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
 
       
     <!-- End Middle Column -->
     </div>
 
-
-    <script>
- 
-    </script>
 
     <!-- Right Column -->
     <div class="w3-col m2">
@@ -276,47 +273,51 @@ function openNav() {
  let dataArray = [];
 
 
-function getData(tableName){
-  const db = getDatabase();
-  const userTableGet = ref(db, tableName);
-  onValue(userTableGet, (snapshot) => {
-    snapshot.forEach(childSnapshot => {
-      userArray.push(childSnapshot.key)
-      dataArray.push(childSnapshot.val())
-      //super costly at high volumes, add in better parameters later
-    });
-    emale = pageOnLoad(dataArray);
-    assignPicture(emale)
-  });
-  
-}
-getData("users");
-console.log(email3)
-function assignPicture(email){
-let Email = email;
-//retrieving image attached to email
-    getDownloadURL(sRef(storage, Email))
-        .then((url) => {
-        // Or inserted into an <img> element
-      const img = document.getElementById("profilePic");
-      img.setAttribute('src', url);
-      })
-      .catch((error) => {
-      console.log(error)
+ 
+  function getData(tableName){
+    const db = getDatabase();
+    const userTableGet = ref(db, tableName);
+    onValue(userTableGet, (snapshot) => {
+      snapshot.forEach(childSnapshot => {
+        userArray.push(childSnapshot.key)
+        dataArray.push(childSnapshot.val())
+        //super costly at high volumes, add in better parameters later
       });
+      emale = pageOnLoad(dataArray);
+      assignPicture(emale)
+    });
+  }
+
+getData("users");
+
+//erases with current method
+//pull array with snapshot, assign to variable, push, and update
+function updatefriendArray() {
+  const db = getDatabase();
+  let friendsPending = [];
+  friendsPending.push("DDesmond");
+  update(ref(db, "users/" + "Aforger"), {
+    friendsPending: friendsPending//.push("Lforger")
+  });
 }
-/*
-      getDownloadURL(sRef(storage, "Yforger@gmail.com"))
-        .then((url) => {
-        // Or inserted into an <img> element
-      const img = document.getElementById("friendWaiting");
-      img.setAttribute('src', url);
-      })
-      .catch((error) => {
-      console.log(error)
-      });*/
-//need event listener for the nope button module
-//most likely have initial load and then the preceding one be dynamic
+updatefriendArray();
+
+
+
+  function assignPicture(email3){
+  let Email = email3;
+  //retrieving image attached to email
+      getDownloadURL(sRef(storage, Email))
+          .then((url) => {
+          // Or inserted into an <img> element
+        const img = document.getElementById("profilePic");
+        img.setAttribute('src', url);
+        })
+        .catch((error) => {
+        console.log(error)
+        });
+  }
+
   </script>
 
 </body>

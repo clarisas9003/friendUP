@@ -20,8 +20,6 @@ function assignData(dataArray){
     dataList[i] = dataArray[i]
     i = i + 1;
    }
-   
-
 }
 console.log(dataList)
 //rework function to be called by noFunction for the dataAssignment
@@ -46,6 +44,7 @@ function pageOnLoad(data){
 
   document.getElementById("userDisplayName").innerHTML = username;
   document.getElementById("about").innerHTML = description;
+  document.getElementById("email6").innerHTML = email;
 
   //assignPicture(email);
   if((count+1) <= (data.length-1)){
@@ -53,7 +52,6 @@ function pageOnLoad(data){
   }
   else { count = 0; }
   
- 
   return email;
 }
 
@@ -76,7 +74,8 @@ function yesFunction(){
 function noFunction(){
   
   email2 = pageOnLoad(dataList);
-  
+  console.log(email2)
+  //assignPicture(email2);
   //assignPicture(email2)
   return email2
 }
@@ -88,30 +87,3 @@ function hideShow(profile,noprofile){
   y.style.display = "none"; //hide
 }
 
-/*
-
-  //load next element
-  if (array[count] == "coffeeGuy"){
-    count = count + 1;
-    hideShow("yor","coffeeGuy");
-    //readUserData("1");
-    //document.getElementById(profile).style.display = "block";;
-  }
-
-  else if (array[count] == "yor"){
-    count = count + 1;
-    hideShow("loid","yor");
-    //readUserData("2");
-  }
-  else if (array[count] == "loid"){
-    count = count + 1;
-    hideShow("anya","loid");
-    //readUserData("3");
-  }
-  else if (array[count] == "anya") {
-    count = 0;
-    hideShow("coffeeGuy","anya");
-    //readUserData("0");
-  } 
-
-*/
