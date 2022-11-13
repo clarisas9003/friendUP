@@ -10,7 +10,7 @@
   #coffeeGuy{display:block}
 </style>
 <!--#friendPending {display:none} img{max-width: 500px;}-->
-
+<script> let email3 = ""; </script>
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -157,33 +157,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         
         </div>
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-        <button id = "thumbsDown" onclick= "noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+        <button id = "thumbsDown" onclick= "email3 = noFunction()" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
 
-
-      <!--
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">16 min</span>
-        <h4>Jane Doe</h4><br>
-        <hr class="w3-clear">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div>  
-
-      <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">32 min</span>
-        <h4>Angie Jane</h4><br>
-        <hr class="w3-clear">
-        <p>Have you seen this?</p>
-        <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-      </div> 
-    -->
       
     <!-- End Middle Column -->
     </div>
@@ -293,45 +269,29 @@ function openNav() {
   const storage = getStorage(app);
   //var email = "Lforger@gmail.com"; 
   //var uniqname = "Lforger";
-
+ 
+ 
+ let emale ="";
+ let userArray = [];
+ let dataArray = [];
 
 
 function getData(tableName){
   const db = getDatabase();
- // let data;
- let emale ='';
- let userArray = [];
- let dataArray = [];
   const userTableGet = ref(db, tableName);
   onValue(userTableGet, (snapshot) => {
-    
     snapshot.forEach(childSnapshot => {
       userArray.push(childSnapshot.key)
       dataArray.push(childSnapshot.val())
-
-      /*let UN = userArray[0];
-      console.log(UN);
-      assignEmail(UN);*/
-      /*if (UN == childSnapshot.key){
-         const data = childSnapshot.val()
-          pageOnLoad(data);
-          noFunction()
-      }*/
-      //userArray.push(childSnapshot.key)
       //super costly at high volumes, add in better parameters later
     });
-   
-      emale = pageOnLoad(dataArray, userArray);
-      console.log(emale)
-      return emale;
+    emale = pageOnLoad(dataArray);
+    assignPicture(emale)
   });
-  //return emale;
+  
 }
-let mail = getData("users");
-console.log(mail);
-
-//return email from pageOnLoad to get data which will then return email
-
+getData("users");
+console.log(email3)
 function assignPicture(email){
 let Email = email;
 //retrieving image attached to email

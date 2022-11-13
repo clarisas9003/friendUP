@@ -1,8 +1,6 @@
-var array = ["coffeeGuy", "yor", "loid", "anya"];
 let yesArray = [];
-var email = ""; 
-  //var password = document.getElementById("password").value
-  //var uniqname = "0";
+var email = "";
+var email2 = ""; 
 var uniqname = "";
   
 var count = 0;
@@ -11,23 +9,38 @@ let username= "";
 let FN= "";
 let LN= "";
 let major= "";
+let dataList = [];
+let i = 0;
 
 //document.getElementById("myHeader").textContent = username
 //var msgTitle = "<h1 class=\"myHeading\">Search Msg:" + username + "</h1>"
 
+function assignData(dataArray){
+  while(dataArray.length > i){
+    dataList[i] = dataArray[i]
+    i = i + 1;
+   }
+   
 
-
-function pageOnLoad(data, users){
+}
+console.log(dataList)
+//rework function to be called by noFunction for the dataAssignment
+function pageOnLoad(data){
+ if (count == 0){
+  assignData(data)
+  
+ }
+ 
  
 //if current user != to users[0]
-  description = data["0"]["Description"];
+  description = data[count]["Description"];
   //console.log(description)
-  username = data["0"]["Username"];
-  FN = data["0"]["FN"];
-  LN = data["0"]["LN"];
-  major = data["0"]["Major"];
-  uniqname = data["0"]["uniqname"]
-  email = data["0"]["email"]
+  username = data[count]["Username"];
+  FN = data[count]["FN"];
+  LN = data[count]["LN"];
+  major = data[count]["Major"];
+  uniqname = data[count]["uniqname"]
+  email = data[count]["email"]
 //else
  //description = data["1"]["Description"]
 
@@ -35,9 +48,13 @@ function pageOnLoad(data, users){
   document.getElementById("about").innerHTML = description;
 
   //assignPicture(email);
+  if((count+1) <= (data.length-1)){
+    count = count + 1;
+  }
+  else { count = 0; }
   
+ 
   return email;
-  
 }
 
 function yesFunction(){
@@ -55,7 +72,24 @@ function yesFunction(){
 */
 }
 
+//update picture is last issue for now
 function noFunction(){
+  
+  email2 = pageOnLoad(dataList);
+  
+  //assignPicture(email2)
+  return email2
+}
+
+function hideShow(profile,noprofile){
+  var x = document.getElementById(profile);
+  var y = document.getElementById(noprofile);
+  x.style.display = "block"; //show
+  y.style.display = "none"; //hide
+}
+
+/*
+
   //load next element
   if (array[count] == "coffeeGuy"){
     count = count + 1;
@@ -79,11 +113,5 @@ function noFunction(){
     hideShow("coffeeGuy","anya");
     //readUserData("0");
   } 
-}
 
-function hideShow(profile,noprofile){
-  var x = document.getElementById(profile);
-  var y = document.getElementById(noprofile);
-  x.style.display = "block"; //show
-  y.style.display = "none"; //hide
-}
+*/
