@@ -10,41 +10,69 @@ let FN= "";
 let LN= "";
 let major= "";
 let dataList = [];
+let userList = [];
 let i = 0;
+let currentUser = "Aforger@gmail.com"
+//THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
 
-
-function assignData(dataArray){
+//transfer database to workable array
+function assignData(dataArray, userArray){
   while(dataArray.length > i){
     dataList[i] = dataArray[i]
     i = i + 1;
    }
+   i = 0;
+   while(userArray.length > i){
+    userList[i] = userArray[i]
+    i = i + 1;
+   }
 }
 
-//rework function to be called by noFunction for the dataAssignment
-function pageOnLoad(data, emailArray){
+//loads potential friend profiles
+function pageOnLoad(data, userArray){
  if (count == 0){
-  assignData(data)
+  assignData(data, userArray)
  }
- 
- 
-//if current user != to users[0]
-  description = data[count]["Description"];
-  //console.log(description)
-  username = data[count]["Username"];
-  FN = data[count]["FN"];
-  LN = data[count]["LN"];
-  major = data[count]["Major"];
-  uniqname = data[count]["uniqname"]
-  email = data[count]["email"]
-//else
- //description = data["1"]["Description"]
+  //if current user != to users[0]
+  console.log(userList[count])
 
-  document.getElementById("userDisplayName").innerHTML = username;
+
+  //if else caused it to break, find out why and you're golden
+if(userArray[count] != currentUser){
+  
+    description = dataList[count]["Description"];
+    //console.log(description)
+    username = dataList[count]["Username"];
+    FN = dataList[count]["FN"];
+    LN = dataList[count]["LN"];
+    major = dataList[count]["Major"];
+    uniqname = dataList[count]["uniqname"]
+    email = dataList[count]["email"]
+    document.getElementById("userDisplayName").innerHTML = username;
   document.getElementById("about").innerHTML = description;
   document.getElementById("email6").innerHTML = email;
+  }
+  else {
+    if(count < (data.length-1)){
+      count = count + 1;
+    }
+    else { count = 0; }
+    description = dataList[count]["Description"];
+    //console.log(description)
+    username = dataList[count]["Username"];
+    FN = dataList[count]["FN"];
+    LN = dataList[count]["LN"];
+    major = dataList[count]["Major"];
+    uniqname = dataList[count]["uniqname"]
+    email = dataList[count]["email"]
+    document.getElementById("userDisplayName").innerHTML = username;
+  document.getElementById("about").innerHTML = description;
+  document.getElementById("email6").innerHTML = email;
+  }
 
+  
 
-  if((count+1) <= (data.length-1)){
+  if(count <= (data.length-1)){
     count = count + 1;
   }
   else { count = 0; }
