@@ -12,8 +12,6 @@ let major= "";
 let dataList = [];
 let i = 0;
 
-//document.getElementById("myHeader").textContent = username
-//var msgTitle = "<h1 class=\"myHeading\">Search Msg:" + username + "</h1>"
 
 function assignData(dataArray){
   while(dataArray.length > i){
@@ -21,12 +19,11 @@ function assignData(dataArray){
     i = i + 1;
    }
 }
-console.log(dataList)
+
 //rework function to be called by noFunction for the dataAssignment
-function pageOnLoad(data){
+function pageOnLoad(data, emailArray){
  if (count == 0){
   assignData(data)
-  
  }
  
  
@@ -46,12 +43,12 @@ function pageOnLoad(data){
   document.getElementById("about").innerHTML = description;
   document.getElementById("email6").innerHTML = email;
 
-  //assignPicture(email);
+
   if((count+1) <= (data.length-1)){
     count = count + 1;
   }
   else { count = 0; }
-  
+
   return email;
 }
 
@@ -73,11 +70,9 @@ function yesFunction(){
 //update picture is last issue for now
 function noFunction(){
   
-  email2 = pageOnLoad(dataList);
-  console.log(email2)
-  //assignPicture(email2);
-  //assignPicture(email2)
-  return email2
+pageOnLoad(dataList);
+
+  
 }
 
 function hideShow(profile,noprofile){

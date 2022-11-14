@@ -158,9 +158,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         
         </div>
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-        <button id = "thumbsDown" onclick= "email3 = noFunction();assignPicture(email3);" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+        <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
-
+<!--onclick= "noFunction()"-->
       
     <!-- End Middle Column -->
     </div>
@@ -268,9 +268,10 @@ function openNav() {
   //var uniqname = "Lforger";
  
  
- let emale ="";
+ let emale =0;
  let userArray = [];
  let dataArray = [];
+ let emailArray = [];
 
 
  
@@ -283,35 +284,53 @@ function openNav() {
         dataArray.push(childSnapshot.val())
         //super costly at high volumes, add in better parameters later
       });
-      emale = pageOnLoad(dataArray);
-      assignPicture(emale)
+      while(emale < dataArray.length){
+        emailArray.push(dataArray[emale]["email"])
+        emale = emale + 1;
+      }
+      pageOnLoad(dataArray, emailArray);
+      assignPicture(email)
+      loadNextImg(emailArray);
     });
   }
 
 getData("users");
 
 //erases with current method
+
 //pull array with snapshot, assign to variable, push, and update
-
-
-function updatefriendArray() {
+/*function updatefriendArray() {
  
   const db = getDatabase();
   let friendsPending = [];
   friendsPending.push("Bforger");
-
   update(ref(db, "users/" + "Aforger"), {
     friendsPending: friendsPending
     
   });
 }
 
-updatefriendArray();
-
-
+updatefriendArray();*/
+let num = 0;
+let num2 = 0;
+let myArray = [];
+function loadNextImg(data){
+ 
+  if(myArray.length==0){
+    while(data.length > num2){
+      myArray[num2] = data[num2]
+      num2 = num2 + 1;
+    }
+  }
+  let electronicMail = myArray[num]
+  assignPicture(electronicMail)
+  if((num+1) < (myArray.length)){ num = num + 1; }
+  else { num = 0; }
+}
 
   function assignPicture(email3){
   let Email = email3;
+
   //retrieving image attached to email
       getDownloadURL(sRef(storage, Email))
           .then((url) => {
@@ -324,12 +343,10 @@ updatefriendArray();
         });
   }
 
-/*
-var loadProfileBtn = document.querySelector('#profileClick')
-loadprofbtn.addEventLIstener('click', loadProfile)
 
-add event listener for onClick iterate the email array and pass to the function 
-  */
+var nextImg = document.querySelector('#thumbsDown');
+nextImg.addEventListener("click", loadNextImg);
+nextImg.addEventListener("click", noFunction)
 
   </script>
 
