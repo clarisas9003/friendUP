@@ -26,7 +26,7 @@ function pageOnLoad(data){
 
 //Remove this when connected to log in page
 function fillSessionStorage(){
-  sessionStorage.setItem('un','testUser')
+  sessionStorage.setItem('un','Aforger')
 }
 
 function checkProfile(openProfile,myProfile,notProfile)

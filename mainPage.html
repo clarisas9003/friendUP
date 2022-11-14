@@ -52,11 +52,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+         <p id="Major"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
+         <p id="Location"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
+         <p id="userEmail"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
         </div>
           </div>
           <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> friends/Chat</button>
@@ -253,7 +253,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div  id = "profile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
-              <img id = "profilePicUser" src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
+              <img id = "profilePicUser" src="" style="width:100%" alt="Northern Lights">
              <!-- <div class="top-left">Coffee Guy AA</div>-->
              <div id="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
             </div>
@@ -404,15 +404,21 @@ function loadProfile() {
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    document.getElementById("profDescription").innerHTML = updatepage.Description
-    
+    document.getElementById("profDescription").innerHTML = data.Description 
+    document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
+    document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
+    document.getElementById("userEmail").innerHTML = "Email: " + updatepage.email
+    console.log('here')
   });
   
-  const storage = getStorage();  
-  getDownloadURL(sRef(storage, '2aa2c91c-959c-44e1-8aaa-5c584ba67248-unnamed.jpg'))
+  const storage = getStorage(); 
+  //In prod change image to 
+  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
   .then((url)=>{
   const img = document.getElementById("profilePicUser")
   img.setAttribute('src', url)
+  const miniImg = document.getElementById("miniImage")
+  miniImg.setAttribute('src', url)
   })
   .catch((error)=>{
     consoel.log(error)
