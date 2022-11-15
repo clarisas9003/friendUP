@@ -49,6 +49,8 @@ function pageOnLoad(data, userArray){
     major = dataList[count]["Major"];
     uniqname = dataList[count]["uniqname"]
     email = dataList[count]["email"]
+
+    
     document.getElementById("userDisplayName").innerHTML = username;
     document.getElementById("about").innerHTML = description;
     document.getElementById("email6").innerHTML = email;
