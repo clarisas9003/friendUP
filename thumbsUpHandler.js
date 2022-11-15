@@ -1,9 +1,10 @@
-let yesArray = [];
+//let userArray = [];
 var email = "";
 var email2 = ""; 
 var uniqname = "";
   
 var count = 0;
+let flag = false;
 let description = "";
 let username= "";
 let FN= "";
@@ -22,44 +23,44 @@ function assignData(dataArray, userArray){
     i = i + 1;
    }
    i = 0;
-   while(userArray.length > i){
+   console.log(userArray)
+   console.log(userArray.length)
+   while((userArray.length) > (i)){
     userList[i] = userArray[i]
     i = i + 1;
    }
 }
 
+
 //loads potential friend profiles
 function pageOnLoad(data, userArray){
- if (count == 0){
+ if (count == 0 && flag == false){
   assignData(data, userArray)
  }
   //if current user != to users[0]
-  console.log(userList[count])
-
 
   //if else caused it to break, find out why and you're golden
 
   
     description = dataList[count]["Description"];
-    //console.log(description)
     username = dataList[count]["Username"];
     FN = dataList[count]["FN"];
     LN = dataList[count]["LN"];
     major = dataList[count]["Major"];
     uniqname = dataList[count]["uniqname"]
     email = dataList[count]["email"]
+   
     document.getElementById("userDisplayName").innerHTML = username;
-  document.getElementById("about").innerHTML = description;
-  document.getElementById("email6").innerHTML = email;
+    document.getElementById("about").innerHTML = description;
+    document.getElementById("email6").innerHTML = email;
   
   
 
-  
 
-  if(count <= (data.length-1)){
+  if((count+1) < (dataList.length)){
     count = count + 1;
   }
-  else { count = 0; }
+  else { count = 0; flag = true; }
 
   return email;
 }

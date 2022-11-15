@@ -288,7 +288,8 @@ function openNav() {
         emailArray.push(dataArray[emale]["email"])
         emale = emale + 1;
       }
-      pageOnLoad(dataArray, emailArray);
+      //console.log(userArray)
+      pageOnLoad(dataArray, userArray);
       assignPicture(email)
       loadNextImg(emailArray);
     });
@@ -314,6 +315,7 @@ updatefriendArray();*/
 let num = 0;
 let num2 = 0;
 let myArray = [];
+
 function loadNextImg(data){
  
   if(myArray.length==0){
