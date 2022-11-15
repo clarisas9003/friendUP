@@ -38,7 +38,7 @@ function pageOnLoad(data, userArray){
 
 
   //if else caused it to break, find out why and you're golden
-if(userArray[count] != currentUser){
+
   
     description = dataList[count]["Description"];
     //console.log(description)
@@ -51,24 +51,8 @@ if(userArray[count] != currentUser){
     document.getElementById("userDisplayName").innerHTML = username;
   document.getElementById("about").innerHTML = description;
   document.getElementById("email6").innerHTML = email;
-  }
-  else {
-    if(count < (data.length-1)){
-      count = count + 1;
-    }
-    else { count = 0; }
-    description = dataList[count]["Description"];
-    //console.log(description)
-    username = dataList[count]["Username"];
-    FN = dataList[count]["FN"];
-    LN = dataList[count]["LN"];
-    major = dataList[count]["Major"];
-    uniqname = dataList[count]["uniqname"]
-    email = dataList[count]["email"]
-    document.getElementById("userDisplayName").innerHTML = username;
-  document.getElementById("about").innerHTML = description;
-  document.getElementById("email6").innerHTML = email;
-  }
+  
+  
 
   
 
