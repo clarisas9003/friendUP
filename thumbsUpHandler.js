@@ -13,7 +13,7 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUser = "Aforger@gmail.com"
+let currentUser = "Aforger"
 //THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
 
 //transfer database to workable array
@@ -37,11 +37,29 @@ function pageOnLoad(data, userArray){
  if (count == 0 && flag == false){
   assignData(data, userArray)
  }
-  //if current user != to users[0]
-
-  //if else caused it to break, find out why and you're golden
-
   
+  //if else caused it to break, find out why and you're golden
+  if(userList[count] != currentUser){
+
+    description = dataList[count]["Description"];
+    //console.log(description)
+    username = dataList[count]["Username"];
+    FN = dataList[count]["FN"];
+    LN = dataList[count]["LN"];
+    major = dataList[count]["Major"];
+    uniqname = dataList[count]["uniqname"]
+    email = dataList[count]["email"]
+    document.getElementById("userDisplayName").innerHTML = username;
+    document.getElementById("about").innerHTML = description;
+    document.getElementById("email6").innerHTML = email;
+  }
+
+  else {
+    if((count+1) < (dataList.length)){
+      count = count + 1;
+    }
+    else { count = 0; flag = true; }
+
     description = dataList[count]["Description"];
     username = dataList[count]["Username"];
     FN = dataList[count]["FN"];
@@ -49,19 +67,17 @@ function pageOnLoad(data, userArray){
     major = dataList[count]["Major"];
     uniqname = dataList[count]["uniqname"]
     email = dataList[count]["email"]
-   
     document.getElementById("userDisplayName").innerHTML = username;
     document.getElementById("about").innerHTML = description;
     document.getElementById("email6").innerHTML = email;
+  }
   
-  
-
 
   if((count+1) < (dataList.length)){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-
+  console.log(email);
   return email;
 }
 

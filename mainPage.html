@@ -278,6 +278,7 @@ function openNav() {
   function getData(tableName){
     const db = getDatabase();
     const userTableGet = ref(db, tableName);
+    let emails ="";
     onValue(userTableGet, (snapshot) => {
       snapshot.forEach(childSnapshot => {
         userArray.push(childSnapshot.key)
@@ -289,8 +290,9 @@ function openNav() {
         emale = emale + 1;
       }
       //console.log(userArray)
-      pageOnLoad(dataArray, userArray);
-      assignPicture(email)
+     emails = pageOnLoad(dataArray, userArray);
+
+      assignPicture(emails)
       loadNextImg(emailArray);
     });
   }
@@ -315,19 +317,36 @@ updatefriendArray();*/
 let num = 0;
 let num2 = 0;
 let myArray = [];
+let currentUser = "Aforger@gmail.com"
 
 function loadNextImg(data){
- 
+  //have second variable that pulls the CURRENT USER TO USE THE IF STATEMENTS
+
+
+  //lagging 1 step behind data
   if(myArray.length==0){
     while(data.length > num2){
       myArray[num2] = data[num2]
       num2 = num2 + 1;
     }
+    if((num+1) <= (myArray.length)){ num = num + 1; }
+    else { num = 0; }
   }
+  else {
   let electronicMail = myArray[num]
-  assignPicture(electronicMail)
-  if((num+1) < (myArray.length)){ num = num + 1; }
-  else { num = 0; }
+  console.log(electronicMail)
+  if(electronicMail == currentUser){
+    if((num+1) <= (myArray.length)){ num = num + 1; }
+    else { num = 0; }
+    currentUser = "lskdfjsfs"
+  }
+  else{
+    assignPicture(electronicMail)
+    if((num+1) <= (myArray.length)){ num = num + 1; }
+    else { num = 0; }
+  }
+  }
+  console.log(myArray);
 }
 
   function assignPicture(email3){
