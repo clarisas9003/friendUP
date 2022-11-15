@@ -9,6 +9,7 @@
   #anya {display:none}
   #profile {display: none}
   #coffeeGuy{display:block}
+  #settings{display: none}
  
 </style>
 <!--img{max-width: 500px;}-->
@@ -75,7 +76,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           update first and last name
           update about
           add/remove intrest-->
-          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
          <div class="w3-row-padding">
          <br>
@@ -277,6 +278,36 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
     <!-- End profile clicked-->
 
+    <!-- Begin settings clicked -->
+
+    <div id = "middleColumnS" class="w3-col m7">
+    
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
+        </div>
+      </div>
+
+      <div  id = "settings" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <div class="w3-row-padding" style="margin:0 -16px">
+            <div class = "container">
+              <img id = "profilePicUser" src="" style="width:100%" alt="Northern Lights">
+             <!-- <div class="top-left">Coffee Guy AA</div>-->
+             <div id="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+            </div>
+            
+            <h3 id = "profId">Coffee Guy AA</h3>
+
+            <button>Update Profile</button>
+        <hr class="w3-clear">
+        
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- End settings clicked-->
+
     <script>
  
     </script>
@@ -414,7 +445,6 @@ function loadProfile() {
     document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
     document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
     document.getElementById("userEmail").innerHTML = "Email: " + updatepage.email
-    console.log('here')
   });
   
   const storage = getStorage(); 
@@ -438,6 +468,9 @@ function loadProfile() {
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
+
+var settingsBtn = document.querySelector('#settingsClick')
+settingsBtn.addEventListener('click',loadProfile)
 
 </script>
 
