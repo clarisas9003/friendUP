@@ -78,27 +78,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           add/remove intrest-->
           <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
-         <div class="w3-row-padding">
-         <br>
-           <div class="w3-half">
-             <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-         </div>
           </div>
         </div>      
       </div>
@@ -441,14 +420,13 @@ function loadProfile() {
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    document.getElementById("profDescription").innerHTML = data.Description 
+    document.getElementById("profDescription").innerHTML = updatepage.Description 
     document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
     document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
     document.getElementById("userEmail").innerHTML = "Email: " + updatepage.email
   });
   
-  const storage = getStorage(); 
-  //In prod change image to 
+  const storage = getStorage();  
   getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
   .then((url)=>{
   const img = document.getElementById("profilePicUser")
@@ -461,9 +439,17 @@ function loadProfile() {
   })
 
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
-  //
-  document.getElementById("profilePicUser").innerHTML 
-  
+  document.getElementById("profilePicUser").innerHTML   
+}
+
+function loadSettings()
+{
+  var updateAcc
+  const SDB = getDatabase()
+  const SettingRef = ref(SDB, 'users/' + sessionStorage.getItem('un'))
+  onValue(SDB, (snapshot)=>{
+    const data = snapshot.val()
+  })
 }
 
 var loadProfilebtn = document.querySelector('#profileClick')
