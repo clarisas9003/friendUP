@@ -269,6 +269,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
             <div class = "container">
               <input id = "settingsFirstName" value="FirstNameHolder"></input><br>
               <input id = "settingsLastname" value="LastNameHolder"></input><br>
+              <input id="submitNewPic" type="file"></input>
              <img id = "settingsPicUser" src="" style="width:100%" alt="Northern Lights"><br>
              <!-- <div class="top-left">Coffee Guy AA</div>-->
              <input id="settingsDescription" value="DescriptionHolder"></input><br>
@@ -451,7 +452,7 @@ function loadSettings()
     document.getElementById("settingsInterests").value = data.Interests
   })
   const storage = getStorage();  
-  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
+  getDownloadURL(sRef(storage, /* sessionStorage.getItem('un') */'Aforger'+ '@gmail.com'))
   .then((url)=>{
   const img = document.getElementById("settingsPicUser")
   img.setAttribute('src', url)
@@ -465,7 +466,7 @@ function loadSettings()
 function updateSettings()
 {
   
-  update(ref(db, "users/" + sessionStorage.getItem('un')), {
+  update(ref(db, "users/" + 'IanTestUser'), {
     FN:1,
     LN:2,
     Description:3,
@@ -481,6 +482,7 @@ var settingsBtn = document.querySelector('#settingsClick')
 settingsBtn.addEventListener('click',loadSettings)
 
 var updateSettingsBtn = document.querySelector('#updateProfileBtn')
+updateSettingsBtn.addEventListener('click',updateSettings)
 
 </script>
 
