@@ -25,7 +25,7 @@
 html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
-<body style = "background-color:#003166" onload="profileOpen = false">
+<body style = "background-color:#003166" onload="profileOpen = false; settingsOpen = false">
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -76,7 +76,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           update first and last name
           update about
           add/remove intrest-->
-          <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+          <button onclick="myFunction('Demo3');settingsOpen = checkProfile(settingsOpen,'settings','middleColumn')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
           </div>
         </div>      
@@ -253,8 +253,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
     </div>
 
-
-
     <!-- End profile clicked-->
 
     <!-- Begin settings clicked -->
@@ -269,21 +267,20 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div  id = "settings" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
-              <img id = "profilePicUser" src="" style="width:100%" alt="Northern Lights">
+              <input id = "settingsFirstName" value="FirstNameHolder"></input><br>
+              <input id = "settingsLastname" value="LastNameHolder"></input><br>
+             <img id = "settingsPicUser" src="" style="width:100%" alt="Northern Lights"><br>
              <!-- <div class="top-left">Coffee Guy AA</div>-->
-             <div id="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-            </div>
-            
-            <h3 id = "profId">Coffee Guy AA</h3>
+             <input id="settingsDescription" value="DescriptionHolder"></input><br>
+             <input id= "settingsInterests" value="settingsHolder"></input>
+            </div>            
 
-            <button>Update Profile</button>
+            <button id="updateProfileBtn">Update Profile</button>
         <hr class="w3-clear">
         
         </div>
       </div>
     </div>
-
-
 
     <!-- End settings clicked-->
 
@@ -444,19 +441,46 @@ function loadProfile() {
 
 function loadSettings()
 {
-  var updateAcc
   const SDB = getDatabase()
   const SettingRef = ref(SDB, 'users/' + sessionStorage.getItem('un'))
-  onValue(SDB, (snapshot)=>{
+  onValue(SettingRef, (snapshot)=>{
     const data = snapshot.val()
+    document.getElementById("settingsFirstName").value = data.FN
+    document.getElementById("settingsLastname").value = data.LN
+    document.getElementById("settingsDescription").value = data.Description
+    document.getElementById("settingsInterests").value = data.Interests
   })
+  const storage = getStorage();  
+  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
+  .then((url)=>{
+  const img = document.getElementById("settingsPicUser")
+  img.setAttribute('src', url)
+  })
+  .catch((error)=>{
+    console.log(error)
+  })
+  
+}
+
+function updateSettings()
+{
+  
+  update(ref(db, "users/" + sessionStorage.getItem('un')), {
+    FN:1,
+    LN:2,
+    Description:3,
+    Interests:4,
+    
+  });
 }
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
 
 var settingsBtn = document.querySelector('#settingsClick')
-settingsBtn.addEventListener('click',loadProfile)
+settingsBtn.addEventListener('click',loadSettings)
+
+var updateSettingsBtn = document.querySelector('#updateProfileBtn')
 
 </script>
 
