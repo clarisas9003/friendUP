@@ -72,76 +72,12 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                         </div>
 
                         <!-- Chat Catalogue -->
+                        <link rel="stylesheet" href="friendEntry.css">
                         <link rel="stylesheet" href="dropdown.css">
                         <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
-                        <div id="Demo1" class="w3-hide w3-container">
-                            <div style="padding-top:5px; padding-bottom:5px">
-                                <div>
-                                    <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" alt="Northern Lights" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                                </div>
-                                <div style="overflow:hidden">
-                                    <div>
-                                        <span style="font-size:18px">Coffee Guy AA</span>
-                                        <div class="dropdown">
-                                            <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu1')"></span>
-                                            <div id="DropDownMenu1" class="dropdown-content">
-                                                <a onclick="DropDown('DropDownMenu1')">Close</a>
-                                                <a>Delete Chat</a>
-                                                <a>Block User</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span>"This is the most recent message."</span>
-                                        <span class="time-right">11:09</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-top:5px; padding-bottom:5px">
-                                <div>
-                                    <img src="pumpkin.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                                </div>
-                                <div style="overflow:hidden">
-                                    <div>
-                                        <span style="font-size:18px">Pumpkin</span>
-                                        <div class="dropdown">
-                                            <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu2')"></span>
-                                            <div id="DropDownMenu2" class="dropdown-content">
-                                                <a onclick="DropDown('DropDownMenu2')">Close</a>
-                                                <a>Delete Chat</a>
-                                                <a>Block User</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span>"Meow"</span>
-                                        <span class="time-right">6:15</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding-top:5px; padding-bottom:5px">
-                                <div>
-                                    <img src="return the slab.jpg" class="w3-left w3-circle w3-margin-right" style="width:50px; height:50px">
-                                </div>
-                                <div style="overflow:hidden">
-                                    <div>
-                                        <span style="font-size:18px">King Ramses</span>
-                                        <div class="dropdown">
-                                            <span class="fa fa-ellipsis-v" style="font-size:18px; float:right" onclick="DropDown('DropDownMenu3')"></span>
-                                            <div id="DropDownMenu3" class="dropdown-content">
-                                                <a onclick="DropDown('DropDownMenu3')">Close</a>
-                                                <a>Delete Chat</a>
-                                                <a>Block User</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span>"Return the slab"</span>
-                                        <span class="time-right">12:00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="Demo1" class="w3-hide w3-container"></div>
+                        <!-- Chat Catalog End -->
+
                         <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Events I'm Attending</button>
                         <div id="Demo2" class="w3-hide w3-container">
                             <p>UMD Homecoming</p>
@@ -204,15 +140,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                 </div>
                 <br>
 
-                <!-- Alert Box -->
-                <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-                    <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
-                        <i class="fa fa-remove"></i>
-                    </span>
-                    <p><strong>Hey!</strong></p>
-                    <p>People are looking at your profile. Find out who.</p>
-                </div>
-
                 <!-- End Left Column -->
             </div>
 
@@ -238,12 +165,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
                         <!-- Messages -->
                         <div style="height:370px; overflow:auto" id="messageBody"></div>
-
-                        <!-- Put scrollbar at bottom by default -->
-                        <script>
-                            var messageBody = document.getElementById("messageBody");
-                            messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
-                        </script>
 
                     </div>
                     <br>
@@ -272,49 +193,16 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                     <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button>
                 </div>
 
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
-                    <br>
-                    <img src="/w3images/avatar5.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                    <span class="w3-right w3-opacity">16 min</span>
-                    <h4>Jane Doe</h4><br>
-                    <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-                </div>
-
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
-                    <br>
-                    <img src="/w3images/avatar6.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-                    <span class="w3-right w3-opacity">32 min</span>
-                    <h4>Angie Jane</h4><br>
-                    <hr class="w3-clear">
-                    <p>Have you seen this?</p>
-                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-                </div>
-
                 <!-- End Middle Column -->
             </div>
 
             <!-- Right Column -->
             <div class="w3-col m2">
-                <div class="w3-card w3-round w3-white w3-center">
-                    <div class="w3-container">
-                        <p>POTENTIAL FEATURE</p>
-                        <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
-                        <p><strong>Holiday</strong></p>
-                        <p>Friday 15:00</p>
-                        <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
-                    </div>
-                </div>
                 <br>
 
                 <div class="w3-card w3-round w3-white w3-center">
                     <div class="w3-container">
-                        <p>POTENTIAL FEATURE</p>
+                        <p>PENDING FRIENDS</p>
                         <img src="/w3images/avatar6.png" alt="Avatar" style="width:50%"><br>
                         <span>Jane Doe</span>
                         <div class="w3-row w3-opacity">
@@ -328,15 +216,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                     </div>
                 </div>
                 <br>
-
-                <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
-                    <p>ADS</p>
-                </div>
-                <br>
-
-                <div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-                    <p><i class="fa fa-bug w3-xxlarge"></i></p>
-                </div>
 
                 <!-- End Right Column -->
             </div>
@@ -388,7 +267,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, child, push, update, get } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, child, push, update, get, query, limitToLast, orderByChild } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
         import { getStorage, uploadBytes, getDownloadURL, ref as sRef } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
 
         const firebaseConfig = {
@@ -407,10 +286,101 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         const storage = getStorage(app);
 
         const currentUser = "Aforger";
-
+        
         const friend = "Lforger";
         
         const user = ref(database, "users");
+        const friends = ref(database, "Friends/" + currentUser + "/Friends List");
+
+        // Chat Catalog
+
+        function displayFriendsList()
+        {
+            const catalog = document.getElementById("Demo1");
+            onValue(friends, (snapshot) => {
+                catalog.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    const friendContainer = document.createElement("div");
+                    friendContainer.classList.add("friendEntry")
+
+                    const friendEmail = childData.email;
+                    const uniqname = childData.Name;
+                    const friendKey = childData.ChatKey;
+
+                    //Profile Pictures
+
+                    const pfpdiv = document.createElement("div");
+                    const pfp = document.createElement("img");
+
+                    getDownloadURL(sRef(storage, friendEmail)).then((url) => {
+                        pfp.setAttribute('src', url);
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                        });
+
+                    pfpdiv.appendChild(pfp);
+
+                    //User Info
+                    const infodiv = document.createElement("div");
+                    infodiv.style = "overflow:hidden";
+
+                    get(child(user, uniqname)).then((snapshot) => {
+
+                        //Usernames
+                        const namediv = document.createElement("div");
+
+                        const username = document.createElement("span");
+                        username.style = "font-size:18px";
+                        username.textContent = snapshot.val().Username;
+
+                        namediv.appendChild(username);
+
+                        //Recent Messages
+
+                        const lastMessage = query(ref(database, "Chat/" + friendKey), limitToLast(1));
+                        const messagediv = document.createElement("div");
+
+                        get(lastMessage).then((snapshot) => {
+                            //messagediv.innerHTML = ''
+                            snapshot.forEach((childSnapshot) => {
+                                const childData = childSnapshot.val();
+
+                                const message = document.createElement("span");
+                                const time = document.createElement("span");
+                                time.classList.add("time-right");
+
+                                message.textContent = childData.Message;
+                                time.textContent = childData.Timestamp;
+
+                                messagediv.appendChild(message);
+                                messagediv.appendChild(time);
+
+                                infodiv.appendChild(namediv);
+                                infodiv.appendChild(messagediv);
+
+                                friendContainer.appendChild(pfpdiv);
+                                friendContainer.appendChild(infodiv);
+
+                                catalog.appendChild(friendContainer);
+                            });
+
+                        });
+
+                    });
+
+                    //TODO: Dropdown Menu Generation
+                });
+
+
+            });
+        }
+        
+
+        var chatKey = 0;
 
         //Chat Header
         get(child(user, friend)).then((snapshot) => {
@@ -433,8 +403,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
             }
         });
 
-        var chatKey = 0;
-
         //Display Messages
         const messages = ref(database, "Chat/" + chatKey);
 
@@ -449,6 +417,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
         onValue(messages, (snapshot) => {
             //testfunction(snapshot)
+            displayFriendsList();
             count = 0;
             mb.innerHTML = '';
             snapshot.forEach((childSnapshot) => {
@@ -522,6 +491,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                 mb.appendChild(newMsg);
 
                 count++;
+
+                mb.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
             });
         });
 
