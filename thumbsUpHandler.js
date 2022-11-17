@@ -98,11 +98,8 @@ function yesFunction(){
 */
 }
 
-//update picture is last issue for now
 function noFunction(){
-  
 pageOnLoad(dataList);
-
   
 }
 

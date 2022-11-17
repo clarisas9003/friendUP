@@ -314,42 +314,42 @@ getData("users");
 }
 
 updatefriendArray();*/
-let num = 0;
+let num = 1;
 let num2 = 0;
 let myArray = [];
 let currentUser = "Aforger@gmail.com"
+let endOfDB = false;
 
 function loadNextImg(data){
   //have second variable that pulls the CURRENT USER TO USE THE IF STATEMENTS
 
-
-  //lagging 1 step behind data
   if(myArray.length==0){
     while(data.length > num2){
       myArray[num2] = data[num2]
       num2 = num2 + 1;
     }
-    
-    if((num+1) <= (myArray.length)){ num = num + 1; }
-    else { num = 0; }
   }
-  else {
   let electronicMail = myArray[num]
-  console.log(electronicMail)
-  if(electronicMail == currentUser){
-    if((num+1) <= (myArray.length)){ num = num + 1; }
-    else { num = 0; }
-    currentUser = "lskdfjsfs"
+  if (currentUser == electronicMail){
+    if((num+1) < (myArray.length)){ num = num + 1; }
+  else { endOfDB = true; }
   }
   else{
     assignPicture(electronicMail)
-    if((num+1) <= (myArray.length)){ num = num + 1; }
-    else { num = 0; }
+  if((num+1) < (myArray.length)){ num = num + 1; }
+  else { endOfDB = true; }
   }
+  if (endOfDB = true){
+    console.log("hello");
+    //call function here
   }
-  console.log(myArray);
 }
-
+//create div, show when end of database is reached
+//button to reset db
+function endOfDatabase(){
+  var x = document.getElementById("endOfdbPage");
+  x.style.display = "block"; //show
+}
   function assignPicture(email3){
   let Email = email3;
 
