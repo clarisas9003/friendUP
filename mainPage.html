@@ -350,8 +350,10 @@ function endOfDatabase(){
   var x = document.getElementById("endOfdbPage");
   x.style.display = "block"; //show
 }
-  function assignPicture(email3){
-  let Email = email3;
+
+function assignPicture(email3){
+
+   let Email = email3;
 
   //retrieving image attached to email
       getDownloadURL(sRef(storage, Email))
