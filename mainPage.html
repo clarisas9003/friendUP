@@ -4,9 +4,7 @@
 <title>friendUp</title>
 <meta charset="UTF-8">
 <style>
-  #yor {display:none}
-  #loid {display:none}
-  #anya {display:none}
+  #endOfdbpage {display:none}
   #coffeeGuy{display:block}
 </style>
 <!--#friendPending {display:none} img{max-width: 500px;}-->
@@ -161,6 +159,24 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
         <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
+
+      <div  id = "endOfdbPage" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+        <div class="w3-row-padding" style="margin:0 -16px">
+          <div class = "container">
+            <img id = "profilePic" src="" style="width:100%" alt="Northern Lights">
+           <!-- <div class="top-left">Coffee Guy AA</div>-->
+            <div id = "about" class="bottom-left"> About goes here</div>
+          </div>
+          <p id="email6"> email cheat</p>
+          <h3 id = "userDisplayName">Username Here</h3>
+
+          
+      <hr class="w3-clear">
+      
+      </div>
+      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
+      <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+    </div>
       
     <!-- End Middle Column -->
     </div>
@@ -342,6 +358,7 @@ function loadNextImg(data){
   if (endOfDB = true){
     console.log("hello");
     //call function here
+    endOfDatabase();
   }
 }
 //create div, show when end of database is reached
