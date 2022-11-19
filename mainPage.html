@@ -73,7 +73,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
                         <!-- Chat Catalogue -->
                         <link rel="stylesheet" href="friendEntry.css">
-                        <link rel="stylesheet" href="dropdown.css">
                         <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
                         <div id="Demo1" class="w3-hide w3-container"></div>
                         <!-- Chat Catalog End -->
@@ -109,12 +108,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                     </div>
                 </div>
                 <br>
-
-                <script>
-                    function DropDown(menu) {
-                        document.getElementById(menu).classList.toggle("show");
-                    }
-                </script>
 
                 <!-- Interests -->
                 <div class="w3-card w3-round w3-white w3-hide-small">
@@ -153,11 +146,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
                 <!-- Chat Box -->
                 <link rel="stylesheet" href="chatBox.css">
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                <link rel="stylesheet" href="dropdown.css">
+                <div id="chatbox" class="w3-container w3-card w3-white w3-round w3-margin">
                     <br>
                     <!-- Chat Header -->
                     <img id="Header Image" class="w3-left w3-circle w3-margin-right" style="width:100px; height:100px">
                     <br><h3 id="Header Name"></h3>
+                    <div class="dropdown">
+                        <button id="dropbtn" class="dropbtn">Options</button>
+                        <div id="DropDownMenu" class="dropdown-content">
+                            <a id="ViewProfile">View Profile</a>
+                            <a id="ClearChat">Clear Chat</a>
+                            <a id="Unfriend">Unfriend</a>
+                        </div>
+                    </div>
+
                     <div class="w3-row-padding" style="margin:0 -16px">
                         <div class="container">
                         </div>
@@ -167,7 +170,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                         <div style="height:370px; overflow:auto" id="messageBody"></div>
 
                     </div>
+
+
                     <br>
+
                     <!-- Message Input -->
                     <form>
                         <input type="text" id="message" name="message" size="80">&nbsp;&nbsp;&nbsp;
@@ -175,6 +181,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                     </form>
 
                 </div>
+                <!-- End Chatbox -->
 
                 <div class="w3-container w3-card w3-white w3-round w3-margin">
                     <br>
@@ -267,7 +274,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, child, push, update, get, query, limitToLast, orderByChild } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, child, push, update, remove, get, query, limitToLast } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
         import { getStorage, uploadBytes, getDownloadURL, ref as sRef } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
 
         const firebaseConfig = {
@@ -286,29 +293,31 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         const storage = getStorage(app);
 
         const currentUser = "Aforger";
-        
-        const friend = "Lforger";
-        
+       
         const user = ref(database, "users");
         const friends = ref(database, "Friends/" + currentUser + "/Friends List");
 
         // Chat Catalog
 
-        function displayFriendsList()
-        {
-            const catalog = document.getElementById("Demo1");
-            onValue(friends, (snapshot) => {
+        onValue(friends, (snapshot) => {
+            if (snapshot.exists())
+            {
+                const catalog = document.getElementById("Demo1");
                 catalog.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
 
-                    const friendContainer = document.createElement("div");
-                    friendContainer.classList.add("friendEntry")
-
                     const friendEmail = childData.email;
                     const uniqname = childData.Name;
                     const friendKey = childData.ChatKey;
+
+                    const friendContainer = document.createElement("div");
+                    friendContainer.classList.add("friendEntry");
+
+                    friendContainer.addEventListener("click", function () {
+                        displayChat(friendKey, uniqname);
+                    });
 
                     //Profile Pictures
 
@@ -345,16 +354,39 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                         const messagediv = document.createElement("div");
 
                         get(lastMessage).then((snapshot) => {
-                            //messagediv.innerHTML = ''
-                            snapshot.forEach((childSnapshot) => {
-                                const childData = childSnapshot.val();
+                            if (snapshot.exists()) {
+                                snapshot.forEach((childSnapshot) => {
+                                    const childData = childSnapshot.val();
 
+                                    const message = document.createElement("span");
+                                    const time = document.createElement("span");
+                                    time.classList.add("time-right");
+
+                                    message.textContent = childData.Message;
+                                    time.textContent = childData.Timestamp;
+
+                                    messagediv.appendChild(message);
+                                    messagediv.appendChild(time);
+
+                                    infodiv.appendChild(namediv);
+                                    infodiv.appendChild(messagediv);
+
+                                    friendContainer.appendChild(pfpdiv);
+                                    friendContainer.appendChild(infodiv);
+
+                                    catalog.appendChild(friendContainer);
+                                });
+                            }
+                            else
+                            {
+                                //Chatroom is empty
                                 const message = document.createElement("span");
                                 const time = document.createElement("span");
                                 time.classList.add("time-right");
 
-                                message.textContent = childData.Message;
-                                time.textContent = childData.Timestamp;
+                                message.textContent = "No new messages";
+                                message.style = "color: #aaa;";
+                                time.textContent = "";
 
                                 messagediv.appendChild(message);
                                 messagediv.appendChild(time);
@@ -366,159 +398,287 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                                 friendContainer.appendChild(infodiv);
 
                                 catalog.appendChild(friendContainer);
-                            });
+                            }
+
 
                         });
 
                     });
-
-                    //TODO: Dropdown Menu Generation
                 });
-
-
-            });
-        }
-        
-
-        var chatKey = 0;
-
-        //Chat Header
-        get(child(user, friend)).then((snapshot) => {
-            if (snapshot.exists())
+            }
+            else
             {
-                //Header Name
-                const hname = document.getElementById("Header Name");
-                hname.textContent = snapshot.val().Username;
-
-                //Profile Picture
-                const friendEmail = snapshot.val().email;
-
-                getDownloadURL(sRef(storage, friendEmail)).then((url) => {
-                    const hpfp = document.getElementById("Header Image");
-                    hpfp.setAttribute('src', url);
-                })
-                    .catch((error) => {
-                        console.log(error)
-                    });
+                //User has no friends :(
+                const noFriends = document.createElement("div");
+                noFriends.textContent = "No friends to show :(";
+                catalog.appendChild(noFriends);
             }
         });
 
-        //Display Messages
-        const messages = ref(database, "Chat/" + chatKey);
-
-        const mb = document.getElementById("messageBody");
-
-        var count = 0
-
-        function testfunction(snapshot)
+        function displayChat(chatKey, friend)
         {
-            console.log(snapshot.val()['0'].Message)
+            //Chat Header
+            get(child(user, friend)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    //Header Name
+                    const hname = document.getElementById("Header Name");
+                    hname.textContent = snapshot.val().Username;
+
+                    //Profile Picture
+                    const friendEmail = snapshot.val().email;
+
+                    getDownloadURL(sRef(storage, friendEmail)).then((url) => {
+                        const hpfp = document.getElementById("Header Image");
+                        hpfp.setAttribute('src', url);
+                    })
+                        .catch((error) => {
+                            console.log(error)
+                        });
+                }
+
+
+            });
+
+            //Display Messages
+
+            const messages = ref(database, "Chat/" + chatKey);
+
+            const mb = document.getElementById("messageBody");
+
+            var count = 0
+
+            onValue(messages, (snapshot) => {
+
+                count = 0;
+
+                mb.innerHTML = '';
+
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    const newMsg = document.createElement("div");
+
+                    if (childData.Sender == currentUser) {
+                        newMsg.classList.add("outgoingMessage");
+                    }
+                    else {
+                        newMsg.classList.add("incomingMessage");
+                    }
+
+                    var pfp = document.createElement("img");
+                    pfp.style = "width:60px, height:60px";
+
+                    if (childData.Sender == currentUser) {
+                        //User Profile Picture
+                        get(child(user, currentUser)).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const userEmail = snapshot.val().email;
+
+                                getDownloadURL(sRef(storage, userEmail)).then((url) => {
+                                    pfp.setAttribute('src', url);
+                                })
+                                    .catch((error) => {
+                                        console.log(error)
+                                    });
+                            }
+                        });
+                    }
+                    else {
+                        //Friend's Profile Picture
+                        get(child(user, friend)).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const friendEmail = snapshot.val().email;
+
+                                getDownloadURL(sRef(storage, friendEmail)).then((url) => {
+                                    pfp.setAttribute('src', url);
+                                })
+                                    .catch((error) => {
+                                        console.log(error)
+                                    });
+                            }
+                        });
+                    }
+
+                    const text = document.createElement("p")
+                    text.textContent = childData.Message;
+
+                    const time = document.createElement("span");
+
+                    if (childData.Sender == currentUser) {
+                        time.classList.add("time-left");
+                    }
+                    else {
+                        time.classList.add("time-right");
+                    }
+
+                    time.textContent = childData.Timestamp;
+
+                    newMsg.appendChild(pfp);
+                    newMsg.appendChild(text);
+                    newMsg.appendChild(time);
+
+                    mb.appendChild(newMsg);
+
+                    count++;
+
+                    mb.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+                });
+
+                //Clear Chat Button Listener
+                var clear = document.querySelector('#ClearChat');
+                clear.onclick = function () { clearChat(chatKey) };
+
+                //Send Button Listener
+                var send = document.querySelector('#SendButton');
+                send.onclick = function () { SendMessage(chatKey, friend, count) };
+
+                //Unfriend Button Listener
+                var unfriend = document.querySelector('#Unfriend');
+                unfriend.onclick = function () { Unfriend(friend, chatKey) };
+            });
         }
 
-        onValue(messages, (snapshot) => {
-            //testfunction(snapshot)
-            displayFriendsList();
-            count = 0;
-            mb.innerHTML = '';
-            snapshot.forEach((childSnapshot) => {
-                const childKey = childSnapshot.key;
-                const childData = childSnapshot.val();
-
-                const newMsg = document.createElement("div");
-
-                if (childData.Sender == currentUser) {
-                    newMsg.classList.add("outgoingMessage");
-                }
-                else {
-                    newMsg.classList.add("incomingMessage");
-                }
-
-                var pfp = document.createElement("img");
-                pfp.style = "width:60px, height:60px";
-
-                if (childData.Sender == currentUser)
-                {
-                    //User Profile Picture
-                    get(child(user, currentUser)).then((snapshot) => {
-                        if (snapshot.exists())
-                        {
-                            const userEmail = snapshot.val().email;
-
-                            getDownloadURL(sRef(storage, userEmail)).then((url) => {
-                                pfp.setAttribute('src', url);
-                            })
-                                .catch((error) => {
-                                    console.log(error)
-                                });
-                        }
-                    });
-                }
-                else
-                {
-                    //Friend's Profile Picture
-                    get(child(user, friend)).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            const friendEmail = snapshot.val().email;
-
-                            getDownloadURL(sRef(storage, friendEmail)).then((url) => {
-                                pfp.setAttribute('src', url);
-                            })
-                                .catch((error) => {
-                                    console.log(error)
-                                });
-                        }
-                    });
-                }
-
-                const text = document.createElement("p")
-                text.textContent = childData.Message;
-
-                const time = document.createElement("span");
-
-                if (childData.Sender == currentUser) {
-                    time.classList.add("time-left");
-                }
-                else {
-                    time.classList.add("time-right");
-                }
-
-                time.textContent = childData.Timestamp;
-
-                newMsg.appendChild(pfp);
-                newMsg.appendChild(text);
-                newMsg.appendChild(time);
-
-                mb.appendChild(newMsg);
-
-                count++;
-
-                mb.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
-            });
-        });
-
         //Send Button
-        function SendMessage() {
-            if (document.getElementById("message").value != "") {
+        function SendMessage(chatKey, friend, count)
+        {
+            if (document.getElementById("message").value != "")
+            {
+                const message = document.getElementById("message").value;
                 const d = new Date();
                 let time = d.toLocaleString();
 
                 const newMsg = ref(database, "Chat/" + chatKey + "/" + count);
                 set(newMsg, {
-                    Message: document.getElementById("message").value,
+                    Message: message,
                     Receiver: friend,
                     Sender: currentUser,
                     Timestamp: time
                 });
 
+                //Update Recent Message in friends list entry
+                get(friends).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            if (childData.Name == friend)
+                            {
+                                console.log(message)
+                                update(ref(database, "Friends/" + currentUser + "/Friends List/" + childKey), {
+                                    recentMsg: message
+                                });
+                            }
+
+                        });
+                    }
+                });
+
+                get(ref(database, "Friends/" + friend + "/Friends List")).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            if (childData.Name == currentUser)
+                            {
+                                console.log(message)
+                                update(ref(database, "Friends/" + friend + "/Friends List/" + childKey), {
+                                    recentMsg: message
+                                });
+                            }
+                        });
+                    }
+                });
+                
                 document.getElementById("message").value = '';
             }
         }
 
-        //Listeners
+        //Options Button
+        var options = document.querySelector('#dropbtn');
+        options.onclick = function () {dropdown()};
 
-        //Send Button
-        var send = document.querySelector('#SendButton')
-        send.addEventListener("click", SendMessage)
+        //Open dropdown menu
+        function dropdown()
+        {
+            document.getElementById("DropDownMenu").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        //Dropdown Menu Options
+        //----------------------
+
+        //View Profile
+        var view = document.querySelector('#ViewProfile');
+        view.addEventListener("click", function () {
+            viewProfile();
+        });
+
+        function viewProfile()
+        {
+            console.log("View Profile");
+        }
+
+        //Clear Chat
+        function clearChat(chatKey)
+        {
+            remove(ref(database, "Chat/" + chatKey));
+        }
+
+        //Unfriend
+        function Unfriend(friend, chatKey)
+        {
+            //Clear Chat
+
+            clearChat(chatKey);
+            
+            //Delete friend from user's Friends List
+            get(friends).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (childData.Name == friend)
+                        {
+                            remove(ref(database, "Friends/" + currentUser + "/Friends List/" + childKey));
+                        }
+                    });
+                }
+            });
+
+            //Delete user from friend's Friends List
+            get(ref(database, "Friends/" + friend + "/Friends List")).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (childData.Name == currentUser)
+                        {
+                            remove(ref(database, "Friends/" + friend + "/Friends List/" + childKey));
+                        }
+                    });
+                }
+            });
+        }
 
     </script>
 
