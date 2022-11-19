@@ -26,7 +26,7 @@
 html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
-<body style = "background-color:#003166" onload="profileOpen = false; settingsOpen = false">
+<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false}">
 
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
@@ -50,7 +50,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button id="profileClick" onclick="myFunction('Demo4');profileOpen = checkProfile(profileOpen,'profile','middleColumn')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+          <button id="profileClick" onclick="myFunction('Demo4');openProfile(sideMenu,'profile','middleColumn','settings')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
@@ -77,7 +77,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           update first and last name
           update about
           add/remove intrest-->
-          <button onclick="settingsOpen = checkProfile(settingsOpen,'settings','middleColumn')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+          <button onclick=" openSettings(sideMenu,'settings','middleColumn','profile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
           </div>
         </div>      

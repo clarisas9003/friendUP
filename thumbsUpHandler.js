@@ -29,9 +29,10 @@ function fillSessionStorage(){
   sessionStorage.setItem('un','IanTestUser')
 }
 
-function checkProfile(openProfile,myProfile,notProfile)
+function openProfile(openProfile,myProfile,notProfile,settings)
 {
-  if(openProfile==false)
+
+  if(openProfile.profileOpen==false)
   {
     hideShow(myProfile,notProfile)
   }
@@ -39,7 +40,33 @@ function checkProfile(openProfile,myProfile,notProfile)
   {
     hideShow(notProfile,myProfile)    
   }
-  return !openProfile;
+  openProfile.profileOpen = !openProfile.profileOpen;
+
+  if(openProfile.settingsOpen){
+    document.getElementById(settings).style.display = 'none'
+    openProfile.settingsOpen = !openProfile.settingsOpen
+  }
+  else{/* do nothing */}
+}
+
+function openSettings(openSettings,settings,middle,profile)
+{
+  if(openSettings.settingsOpen==false)
+  {
+    hideShow(settings,middle)
+  }
+  else
+  {
+    hideShow(middle,settings)
+  }
+  openSettings.settingsOpen = !openSettings.settingsOpen
+
+  if(openSettings.profileOpen){
+    document.getElementById(profile).style.display = 'none'
+    openSettings.profileOpen = !openSettings.profileOpen
+    myFunction('Demo4')
+  }
+  else{ /* do nothing */}
 }
 
 function yesFunction(){
