@@ -46,6 +46,13 @@ function openProfile(openProfile,myProfile,notProfile,settings)
     document.getElementById(settings).style.display = 'none'
     openProfile.settingsOpen = !openProfile.settingsOpen
   }
+  else if (openProfile.chatOpen)
+  {
+    //fill with chat id    \/
+    document.getElementById().style.display = 'none'
+    openProfile.chatOpen = !openProfile.chatOpen
+    myFunction('Demo1')
+  }
   else{/* do nothing */}
 }
 
@@ -65,6 +72,13 @@ function openSettings(openSettings,settings,middle,profile)
     document.getElementById(profile).style.display = 'none'
     openSettings.profileOpen = !openSettings.profileOpen
     myFunction('Demo4')
+  }
+  else if (openSettings.chatOpen)
+  {
+    //fill with chat id    \/
+    document.getElementById().style.display = 'none'
+    openSettings.chatOpen = !openSettings.chatOpen
+    myFunction('Demo1')
   }
   else{ /* do nothing */}
 }
