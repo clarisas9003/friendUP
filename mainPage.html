@@ -378,7 +378,7 @@ function loadImg(data){
   let friend =  document.getElementById("friendPendName").innerHTML;
   let [first, last] = friend.split(' ');
   let friend2 = first.slice(0,1) + last.toLowerCase();
-  while(!myArray2[ii].includes(friend2)){
+  while(myArray2[ii].includes(friend2)){
     console.log("hi")
   }
 
