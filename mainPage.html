@@ -4,14 +4,16 @@
 <title>friendUp</title>
 <meta charset="UTF-8">
 <style>
-  #endOfdbpage {display:none}
+  #endOfdbPage {display:none}
   #coffeeGuy{display:block}
+  #friendPending{display:none}
 </style>
 <!--#friendPending {display:none} img{max-width: 500px;}-->
 
 <script src="thumbsUpHandler.js"></script>
 <script src="firebaseConnection.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="https://i.pinimg.com/564x/c6/b8/d4/c6b8d40a0af2b06eafc9b8c2d7ba30d2.jpg">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
@@ -146,7 +148,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
               <img id = "profilePic" src="" style="width:100%" alt="Northern Lights">
-             <!-- <div class="top-left">Coffee Guy AA</div>-->
               <div id = "about" class="bottom-left"> About goes here</div>
             </div>
             <p id="email6"> email cheat</p>
@@ -159,23 +160,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
         <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
-
-      <div  id = "endOfdbPage" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      <!--Needs work-->
+      <div id = "endOfdbPage"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class = "container">
-            <img id = "profilePic" src="" style="width:100%" alt="Northern Lights">
-           <!-- <div class="top-left">Coffee Guy AA</div>-->
-            <div id = "about" class="bottom-left"> About goes here</div>
+            <img id = "faviconPic" src="" style="width:60%" alt="friendUpIcon" class = "w3-center">
+            <div id = "endOfNote" class="w3-center"> Congratulations! You have seen all potential friends!</div>
+            <div id = "endOfNote" class="w3-center"> Use the chat feature to levelUP your new friendships</div>
           </div>
-          <p id="email6"> email cheat</p>
-          <h3 id = "userDisplayName">Username Here</h3>
-
           
+      
       <hr class="w3-clear">
       
       </div>
-      <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
-      <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
+    </div>
+      
     </div>
       
     <!-- End Middle Column -->
@@ -308,8 +307,9 @@ function openNav() {
       //console.log(userArray)
      emails = pageOnLoad(dataArray, userArray);
 
-      assignPicture(emails)
+      assignPicture(emails);
       loadNextImg(emailArray);
+      loadImg(emailArray);
     });
   }
 
@@ -336,6 +336,8 @@ let myArray = [];
 let currentUser = "Aforger@gmail.com"
 let endOfDB = false;
 
+//need favicon to not be in array!!!
+//creates next profile
 function loadNextImg(data){
   //have second variable that pulls the CURRENT USER TO USE THE IF STATEMENTS
 
@@ -355,19 +357,55 @@ function loadNextImg(data){
   if((num+1) < (myArray.length)){ num = num + 1; }
   else { endOfDB = true; }
   }
-  if (endOfDB = true){
+  if (endOfDB == true){
     console.log("hello");
     //call function here
     endOfDatabase();
   }
 }
+
+let myArray2 = [];
+function loadImg(data){
+  num2 = 0;
+  if(myArray2.length==0){
+    while(data.length > num2){
+      myArray2[num2] = data[num2]
+      num2 = num2 + 1;
+    }
+  }
+  console.log(myArray2);
+  let ii= 0; 
+  let friend =  document.getElementById("friendPendName").innerHTML;
+  let [first, last] = friend.split(' ');
+  let friend2 = first.slice(0,1) + last.toLowerCase();
+  while(!myArray2[ii].includes(friend2)){
+    console.log("hi")
+  }
+
+
+}
 //create div, show when end of database is reached
 //button to reset db
 function endOfDatabase(){
   var x = document.getElementById("endOfdbPage");
+  var y = document.getElementById("coffeeGuy");
   x.style.display = "block"; //show
+  y.style.display = "none"; //hide
+  
+  console.log("before assignPic")
+  getDownloadURL(sRef(storage, "favicon"))
+          .then((url) => {
+          // Or inserted into an <img> element
+        const img = document.getElementById("faviconPic");
+        img.setAttribute('src', url);
+        })
+        .catch((error) => {
+        console.log(error)
+        });
+  //needs work
+  //store where the user leaves off/ how many times they hit the end to only pull from the users added since last time
 }
-
+// make bool in thumbsUpHandler to check endOfDatabase //or just take out the button
 function assignPicture(email3){
 
    let Email = email3;
@@ -384,10 +422,21 @@ function assignPicture(email3){
         });
   }
 
+  //controls hiding of friend pending
+function showHide(){
+  var x = document.getElementById("friendPending");
+  x.style.display = "block"; //show
+}
 
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", noFunction)
+var frenPend = document.querySelector('#thumbsUp');
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg)
+frenPend.addEventListener("click", showHide);
+//frenPend.addEventListener("click", noFunction)
+
 
   </script>
 

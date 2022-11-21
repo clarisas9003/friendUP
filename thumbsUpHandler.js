@@ -89,12 +89,15 @@ function yesFunction(){
   //grab username
   //add username to @umich.edu
   //let friendEmail = username + "@umich.edu";
-  console.log("hello");
+    document.getElementById("friendPendName").innerHTML = FN + " " + LN;
+    //document.getElementById("about").innerHTML = description;
+   // document.getElementById("email6").innerHTML = email;
+  console.log(email);
   //not showing
   /*document.getElementById("friendPendName").innerHTML = "Yor Forger";
   let friendPending = document.getElementById("friendPendName");
   friendPending.style.display = "block";
-  //pop current user into other user's suggestion
+  //pop current user username into their pending too
 */
 }
 
