@@ -14,20 +14,12 @@
 <p style="font-size:60px" class="friendUpText">friendUp!</p> 
 </p>
 
-
   <div class="login">
-  <label style="font-size:25px">Email:</label><br>
-  <input type="text" id="fname" name="fname" ><br>
-  <br> <label style="font-size:25px">Password:</label><br>
+  <label style="font-size:25px">Enter your umich email:</label><br>
+  <input type="text" id="email" name="email" ><br>
+  <br> <label style="font-size:25px">Set your password:</label><br>
   <input type="password" id="password" name="password"><br><br>
-  <button id="loginBtn">Log In</button> 
-  </div> 
-
-  <div class="sign up">
-  <br> <label>Login using your Umich Profile</label><br><br>
-  <label> Don't have an account?</label><br> <br>
-  <label>Register yours today!</label><br><br>
-  <button id="regBtn" onclick="location.href = 'signupPage.html'">Register Your Account</button>
+  <button id="createAccountBtn">Create friendUp! Account</button> 
   </div>
 
 </div>
@@ -56,20 +48,19 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   import {getDatabase, set, ref, get} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 
-  var loginBtn = document.querySelector('#loginBtn')
-  var registerBtn = document.querySelector('#regBtn')
+  var createAccountBtn = document.querySelector('#createAccountBtn')
 
-  function checkLogin(){
+  function createAccount(){
     
-    var getUsername = document.getElementById('fname').value  
+    var getUsername = document.getElementById('email').value  
     var getPassword = document.getElementById('password').value
     
-    const auth = getAuth();   
+    const auth = getAuth();
     
-    signInWithEmailAndPassword(auth,getUsername,getPassword)
+    createUserWithEmailAndPassword(auth,getUsername,getPassword)
     .then((userCredential) => {
       const user = userCredential.user;      
       sessionStorage.setItem('email',JSON.stringify(user.email))
@@ -80,10 +71,11 @@
     .catch((error)=>{
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Unsuccessful log in attempt please try again")
-    });    
-  }
-  loginBtn.addEventListener('click', checkLogin)
+      alert("Unsuccessful attempt please try again")
+    });
+}
+  
+  createAccountBtn.addEventListener('click', createAccount)
   
 </script>
 
