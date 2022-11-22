@@ -7,7 +7,7 @@
   #yor {display:none}
   #loid {display:none}
   #anya {display:none}
-  #profile {display: none}
+  #userProfile {display: none}
   #coffeeGuy{display:block}
   #settings{display: none}
  
@@ -50,7 +50,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button id="profileClick" onclick="myFunction('Demo4');openProfile(sideMenu,'profile','middleColumn','settings')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+          <button id="profileClick" onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
@@ -77,7 +77,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           update first and last name
           update about
           add/remove intrest-->
-          <button onclick=" openSettings(sideMenu,'settings','middleColumn','profile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+          <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
           </div>
         </div>      
@@ -237,7 +237,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         </div>
       </div>
 
-      <div  id = "profile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+      <div  id = "userProfile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
           <div class="w3-row-padding" style="margin:0 -16px">
             <div class = "container">
               <img id = "profilePicUser" src="" style="width:100%" alt="Northern Lights">
@@ -454,7 +454,7 @@ function loadProfile() {
   miniImg.setAttribute('src', url)
   })
   .catch((error)=>{
-    consoel.log(error)
+    console.log(error)
   })
 
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
