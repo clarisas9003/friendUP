@@ -183,22 +183,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                 </div>
                 <!-- End Chatbox -->
 
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
-                    <br>
+                <div  id = "profile" style="display:none;" class="w3-container w3-card w3-white w3-round w3-margin"><br>
                     <div class="w3-row-padding" style="margin:0 -16px">
-                        <div class="container">
-                            <img src="https://cdna.artstation.com/p/assets/images/images/033/784/516/large/v-j-godots.jpg?1610556178&dl=1" style="width:100%" alt="Northern Lights">
-                            <!-- <div class="top-left">Coffee Guy AA</div>-->
-                            <div class="bottom-left">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-                        </div>
-
-                        <h4>Coffee Guy AA</h4><br>
+                      <div class = "container">
+                        <img id = "profilePicUser" src="" style="width:100%">
+                       <!-- <div class="top-left">Coffee Guy AA</div>-->
+                       <div id="Major"></div>
+                       <div id="Location"></div>
+                       <div id="profDescription"></div>
+                      </div>
                         <hr class="w3-clear">
 
                     </div>
-                    <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button>
                 </div>
+
+                
 
                 <!-- End Middle Column -->
             </div>
@@ -292,7 +291,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         const database = getDatabase(app);
         const storage = getStorage(app);
 
-        const currentUser = "Aforger";
+        const currentUser = sessionStorage.getItem('un');
        
         const user = ref(database, "users");
         const friends = ref(database, "Friends/" + currentUser + "/Friends List");
@@ -536,6 +535,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
                 //Unfriend Button Listener
                 var unfriend = document.querySelector('#Unfriend');
                 unfriend.onclick = function () { Unfriend(friend, chatKey) };
+
+                //view friend profile button listener
+                var view = document.querySelector('#ViewProfile');
+                view.onclick = function () { viewProfile(friend) };
             });
         }
 
@@ -623,16 +626,57 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         //Dropdown Menu Options
         //----------------------
 
-        //View Profile
-        var view = document.querySelector('#ViewProfile');
-        view.addEventListener("click", function () {
-            viewProfile();
-        });
-
-        function viewProfile()
+        //View Friend Profile
+        function viewProfile(friend)
         {
-            console.log("View Profile");
+            var updatepage;
+
+            const database = getDatabase();
+            get(friends).then((snapshot) => {
+                if (snapshot.exists())
+                {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        
+
+                        if (childData.Name == friend)
+                        {
+                            get(ref(database, "users/" + friend)).then((snapshot) => {
+                
+                            const data = snapshot.val();
+                            updatepage = data
+                            
+                            document.getElementById("profDescription").innerHTML = updatepage.Description 
+                            console.log(updatepage.Major);
+                            document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
+                            document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
+            
+                            const storage = getStorage();  
+                            getDownloadURL(sRef(storage, friend + '@gmail.com'))
+                            .then((url)=>{
+                             const img = document.getElementById("profilePicUser")
+                                img.setAttribute('src', url)
+                            const miniImg = document.getElementById("miniImage")
+                            miniImg.setAttribute('src', url)
+                             })
+                            .catch((error)=>{
+                            console.log(error)
+                            })
+
+                            document.getElementById("profilePicUser").innerHTML   
+                            });
+                            document.getElementById('profile').style.display="inherit"
+
+                        }
+
+                    });
+                }
+            });
+            
+
         }
+       
 
         //Clear Chat
         function clearChat(chatKey)
