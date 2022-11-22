@@ -287,6 +287,8 @@ function openNav() {
  let userArray = [];
  let dataArray = [];
  let emailArray = [];
+ let friendPendArray = [];
+ let pendNum = 0;
 
 
  
@@ -304,22 +306,51 @@ function openNav() {
         emailArray.push(dataArray[emale]["email"])
         emale = emale + 1;
       }
-      //console.log(userArray)
-     emails = pageOnLoad(dataArray, userArray);
+      while(pendNum < dataArray.length){
+        friendPendArray.push(dataArray[pendNum]["friendsPending"])
+        pendNum = pendNum + 1;
+      }
 
+     emails = pageOnLoad(dataArray, userArray);
+      
       assignPicture(emails);
       loadNextImg(emailArray);
-      loadImg(emailArray);
+      updatefriendArray(friendPendArray)
+      incrementIt(userArray);
+      //loadImg(emailArray);
     });
   }
+  //in progress
+let incremen = 0;
+let incre = [];
+function incrementIt(userArray){
+  let num3 = 0; 
+  if (incre.length == 0){
+    
+    incre[num3] = userArray[num3];
+    num3 = num3 + 1;
+  }
+  console.log(incre)
+  if (currentUser == userArray[incremen+1]){
+    incremen = incremen + 2;
+  }
+  else {
+    incremen = incremen + 1;
+  }
+  console.log(incremen)
+}
+
+
 
 getData("users");
 
+
+let myArray3 = [];
 //erases with current method
 
 //pull array with snapshot, assign to variable, push, and update
-/*function updatefriendArray() {
- 
+function updatefriendArray(friendPendArray) {
+
   const db = getDatabase();
   let friendsPending = [];
   friendsPending.push("Bforger");
@@ -329,7 +360,8 @@ getData("users");
   });
 }
 
-updatefriendArray();*/
+updatefriendArray();
+
 let num = 1;
 let num2 = 0;
 let myArray = [];
@@ -364,28 +396,31 @@ function loadNextImg(data){
   }
 }
 
+
+//loads image for friend Pending
+//needs cookie once connected
 let myArray2 = [];
 function loadImg(data){
   num2 = 0;
-  if(myArray2.length==0){
-    while(data.length > num2){
-      myArray2[num2] = data[num2]
-      num2 = num2 + 1;
-    }
-  }
-  console.log(myArray2);
+
   let ii= 0; 
   let friend =  document.getElementById("friendPendName").innerHTML;
   let [first, last] = friend.split(' ');
   let friend2 = first.slice(0,1) + last.toLowerCase();
-  while(myArray2[ii].includes(friend2)){
-    console.log("hi")
-  }
-
-
+  friend2 = friend2 + "@gmail.com"
+ 
+  getDownloadURL(sRef(storage, friend2))
+          .then((url) => {
+          // Or inserted into an <img> element
+        const img = document.getElementById("friendWaiting");
+        img.setAttribute('src', url);
+        })
+        .catch((error) => {
+        console.log(error)
+        });
 }
+
 //create div, show when end of database is reached
-//button to reset db
 function endOfDatabase(){
   var x = document.getElementById("endOfdbPage");
   var y = document.getElementById("coffeeGuy");
@@ -405,7 +440,8 @@ function endOfDatabase(){
   //needs work
   //store where the user leaves off/ how many times they hit the end to only pull from the users added since last time
 }
-// make bool in thumbsUpHandler to check endOfDatabase //or just take out the button
+
+//main picture loading handler for noFunction
 function assignPicture(email3){
 
    let Email = email3;
@@ -422,20 +458,26 @@ function assignPicture(email3){
         });
   }
 
-  //controls hiding of friend pending
+//controls hiding of friend pending
 function showHide(){
   var x = document.getElementById("friendPending");
   x.style.display = "block"; //show
 }
 
+//monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", loadNextImg);
-nextImg.addEventListener("click", noFunction)
+nextImg.addEventListener("click", noFunction);
+nextImg.addEventListener("click", incrementIt);
+
+//monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg)
 frenPend.addEventListener("click", showHide);
-//frenPend.addEventListener("click", noFunction)
+frenPend.addEventListener("click", noFunction);
+frenPend.addEventListener("click", loadNextImg);
+frenPend.addEventListener("click", incrementIt);
 
 
   </script>

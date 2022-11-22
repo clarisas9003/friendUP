@@ -83,22 +83,19 @@ function pageOnLoad(data, userArray){
   return email;
 }
 
+//most functionality not here
+//what happens when you thumb
 function yesFunction(){
-  //yesArray.push(uniqname);
-  //grab profile pic
-  //grab username
-  //add username to @umich.edu
-  //let friendEmail = username + "@umich.edu";
-    document.getElementById("friendPendName").innerHTML = FN + " " + LN;
-    //document.getElementById("about").innerHTML = description;
-   // document.getElementById("email6").innerHTML = email;
-  console.log(email);
-  //not showing
-  /*document.getElementById("friendPendName").innerHTML = "Yor Forger";
-  let friendPending = document.getElementById("friendPendName");
-  friendPending.style.display = "block";
-  //pop current user username into their pending too
-*/
+  //puts the side friend pending div in
+  document.getElementById("friendPendName").innerHTML = FN + " " + LN;
+  //calls noFunction so next user will be called on event
+  //load friend pending into each user's array
+  //listener for array update 
+  //when that happens, display friend pending
+}
+
+function loadFriendPending(){
+
 }
 
 function noFunction(){
