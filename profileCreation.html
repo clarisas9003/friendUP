@@ -1,9 +1,12 @@
-
+<!DOCTYPE html>
+<html>
+<head>
 <link href="profile.css" rel="stylesheet" type="text/css" />
 
 
 <div class="container-xl px-4 mt-4">
-
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js"></script>
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-xl-4 split left">
@@ -11,38 +14,11 @@
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header">Profile Picture</div>
                 <div class="card-body text-center body-left">
-                    <!-- Profile picture image-->
-                    <img class="img-account-profile rounded-circle mb-2" src="punk.jpg" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-                    <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                    <input type="file" id="profile_picture_input" accept="image/jpg, image/png">
+                    <div id="profile_picture"></div>
                     
-                </div>
-                <div class="card-header">Picture 1</div>
-                <div class="card-body text-center body-left">
-                    <!-- Profile picture 1-->
-                    <img class="img-account-profile mb-2" src="punk1.jpg" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4"></div>
-                    <!-- Profile picture upload button-->              
-                </div>
-                <div class="card-header">Picture 2</div>
-                <div class="card-body text-center body-left">
-                    <!-- Profile picture 2-->
-                    <img class="img-account-profile mb-2" src="punk2.jpg" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4"></div>
-                    <!-- Profile picture upload button-->                 
-                </div>
-                <div class="card-header">Picture 3</div>
-                <div class="card-body text-center body-left">
-                    <!-- Profile picture 3-->
-                    <img class="img-account-profile mb-2" src="punk3.jpg" alt="">
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4"></div>
-                    <!-- Profile picture upload button-->
-                   <br> <button class="btn btn-primary" type="button">Upload new image</button>                    
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                                
                 </div>
             </div>
         </div>
@@ -51,7 +27,10 @@
             <div class="card mb-4 split right body-right">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
+                    
                     <form>
+                       
+
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
@@ -84,19 +63,87 @@
                             <input class="form-control" id="inputDescription" type="text" placeholder="About me">
                         </div>
                         <!-- Form Row-->
-                        <div class="row gx-3 mb-3">
-                            <!-- Form Group (tag)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1 input-title" for="inputTag">Tag</label>
-                                <input class="form-control" id="inputTag" type="text" placeholder="Tag">
-                            </div>
-                          
-                        </div>
+   
                         <!-- Save changes button-->
-                        <br> <button class="btn btn-primary" type="button">Create Profile</button>
+                        <br><br><br><input id="saveProfileBtn" class="btn btn-primary" type="button" value="Next" />
+                        
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
+    <script type="module">
+  
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, child, push, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+        import { getStorage,  uploadBytes, getDownloadURL, ref as sRef  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-storage.js";
+      
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyD81cBEPMt9kcBIFANHK8Z7E9zAMv0uYCg",
+          authDomain: "friendup-74935.firebaseapp.com",
+          projectId: "friendup-74935",
+          storageBucket: "friendup-74935.appspot.com",
+          messagingSenderId: "97865803459",
+          appId: "1:97865803459:web:b5456ce09d5fb2106d2476",
+          measurementId: "G-JHX6HNC0ST"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+        var email = "Lforger@gmail.com"; //document.getElementById("username").value
+        //var password = document.getElementById("password").value
+        var uniqname = "0";
+        
+        const db = getDatabase();
+        const userTableGet = ref(db, uniqname);
+        onValue(userTableGet, (snapshot) => {
+        
+        const data = snapshot.val();
+        pageOnLoad(data);
+      });
+       
+      //saves info to database
+      function saveProfile()
+      {
+         var firstName =  document.getElementById("inputFirstName").value 
+         var lastName = document.getElementById("inputLastName").value
+         var location = document.getElementById("inputLocation").value
+         var major = document.getElementById("inputMajor").value   
+         var description = document.getElementById("inputDescription").value 
+        set(ref(db, "users/" + sessionStorage.getItem('un')), {
+          FN:firstName,
+          LN:lastName,
+          Location:location,
+          Major:major,
+          Description:description,
+          Interests:"",
+          
+        });
+        var upadateImg = document.getElementById("profile_picture_input").files[0]
+        if(upadateImg != undefined){
+        uploadBytes(sRef(storage, sessionStorage.getItem('un') +'@gmail.com'), upadateImg).then((snapshot) => {
+                          console.log('Uploaded a blob or file!');
+                      });
+                    }
+        else{console.log("imgage not updated")}
+
+        window.location.href = "index.html";
+
+      }
+      
+      var saveProfileBtn = document.querySelector('#saveProfileBtn')
+      saveProfileBtn.addEventListener('click', saveProfile)
+      
+      </script>  
 </div>
+
+
+  
+
+
+</html> 
