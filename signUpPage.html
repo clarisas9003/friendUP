@@ -66,7 +66,7 @@
       sessionStorage.setItem('email',JSON.stringify(user.email))
       var uniqueName = JSON.stringify(user.email)      
       sessionStorage.setItem('un',uniqueName.slice(1,uniqueName.indexOf('@')))
-      window.location.href = 'mainPage.html'
+      window.location.href = 'profileCreation.html'
     })
     .catch((error)=>{
       const errorCode = error.code;
@@ -81,13 +81,7 @@
 
 </body>
 
-<!--<font color="blue">  
-  JavaTpoint   <br>  
-  </font>  
-  <font color="green">  
-  Html Tutorial   <br>  
-  How to Change the Text Color in Html  
-  </font>  -->
+
 </html>
 
 <!--.center {
