@@ -47,9 +47,9 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  import {getDatabase, set, ref, get} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+  import {getDatabase, set, ref, get, push} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
   import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
-
+  const db = getDatabase();
 
   var createAccountBtn = document.querySelector('#createAccountBtn')
 
@@ -63,9 +63,9 @@
     createUserWithEmailAndPassword(auth,getUsername,getPassword)
     .then((userCredential) => {
       const user = userCredential.user;      
-      sessionStorage.setItem('email',JSON.stringify(user.email))
+      sessionStorage.setItem('email',getUsername)
       var uniqueName = JSON.stringify(user.email)      
-      sessionStorage.setItem('un',uniqueName.slice(1,uniqueName.indexOf('@')))
+      sessionStorage.setItem('un',getUsername.slice(0,getUsername.indexOf('@')))
       window.location.href = 'profileCreation.html'
     })
     .catch((error)=>{
@@ -73,6 +73,7 @@
       const errorMessage = error.message;
       alert("Unsuccessful attempt please try again")
     });
+  
 }
   
   createAccountBtn.addEventListener('click', createAccount)

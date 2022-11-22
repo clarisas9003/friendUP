@@ -50,14 +50,15 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <!-- Accordion -->
       <div class="w3-card w3-round">
         <div class="w3-white">
-          <button id = "profileClick" onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+          <button id = 'profileClick' onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+         <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
+         <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
+         <p id="proEmail"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
         </div>
     </div>
 
@@ -71,11 +72,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div id="Demo2" class="w3-hide w3-container">
             <p>UMD Homecoming</p>
           </div>
-          <button onclick=" openSettings(sideMenu,'settings','middleColumn','profile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+          <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
 
           
-         </div>
           </div>
         </div>      
       </div>
@@ -105,14 +105,13 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
       <br>
       
-      
     
     <!-- End Left Column -->
     </div>
     
     <!-- Middle Column -->
     
-    <div class="w3-col m7">
+    <div id="middleColumn" class="w3-col m7">
     
       <div class="w3-row-padding">
         <div class="w3-col m12">
@@ -205,86 +204,89 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       
     </div>
       
-    <!-- End Middle Column -->
-    </div>
+        <!-- Begin profile clicked -->
 
-    <!-- Begin profile clicked -->
-
-    <div id = "middleColumnP" class="w3-col m7">
+        <div id = "middleColumnP" class="w3-col m7">
     
-        <div class="w3-row-padding">
-          <div class="w3-col m12">
+          <div class="w3-row-padding">
+            <div class="w3-col m12">
+            </div>
+          </div>
+    
+          <div  id = "userProfile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+              <div class="w3-row-padding" style="margin:0 -16px">
+                <div class = "container">
+                  <img id = "profilePicforUser" src="" style="width:100%" alt="Northern Lights">
+                 <!-- <div class="top-left">Coffee Guy AA</div>-->
+                 <div id="profileDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
+                </div>
+                
+                <h3 id = "profId">Coffee Guy AA</h3>
+    
+                
+            <hr class="w3-clear">
+            
+            </div>
           </div>
         </div>
-  
-        <div  id = "userProfile" class="w3-container w3-card w3-white w3-round w3-margin"><br>
-            <div class="w3-row-padding" style="margin:0 -16px">
-              <div class = "container">
-                <img id = "profilePicUser" src="" style="width:100%" alt="Northern Lights">
-               <!-- <div class="top-left">Coffee Guy AA</div>-->
-               <div id="profDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
-              </div>
-              
-              <h3 id = "profId">Coffee Guy AA</h3>
-  
-              
-          <hr class="w3-clear">
-          
-          </div>
-        </div>
-      </div>
-  
-      <!-- End profile clicked-->
+    
+        <!-- End profile clicked-->
 
-       <!-- Begin settings clicked -->
+               <!-- Begin settings clicked -->
 
     <div id = "middleColumnS" class="w3-col m7">
     
-        <div class="w3-row-padding">
-          <div class="w3-col m12">
-          </div>
-        </div>
-  
-        <div  id = "settings" class="w3-container w3-card w3-white w3-round w3-margin"><br>
-            <div class="w3-row-padding" style="margin:0 -16px">
-              <div class = "container">
-                <label >Edit First Name: </label><br>
-                <input id = "settingsFirstName" value="FirstNameHolder" style="width: 33%;"></input><br>
-                <label>Edit Last Name: </label><br>
-                <input id = "settingsLastname" value="LastNameHolder" style="width: 33%;"></input><br>
-                <label>Update Description: </label><br>
-               <textarea id="settingsDescription" value="DescriptionHolder" maxlength="500" style="width:100%;height: 80px; border-radius: 3px;overflow-wrap:break-word; resize: none;"></textarea>
-               <label>Change Interests: </label><br>
-               <input id= "settingsInterests" value="settingsHolder" style="width: 33%;"></input><br>
-                <label>Update Profile Picture: </label><br>
-                <input id="submitNewPic" onchange="loadFile(event)" type="file" accept="image/png, image/jpeg"></input><br>
-                <label>Profile Picture Preview</label>
-               <img id = "settingsPicUser"  src="" style="width:100%" alt="Northern Lights"><br>
-               <!-- <div class="top-left">Coffee Guy AA</div>-->
-               
-              </div>            
-  
-              <br>
-              <br>
-              <button style="float: left;" id="updateProfileBtn">Update Profile</button>
-          <hr class="w3-clear">
-          
-              <script>
-                var loadFile = function(event) {
-                  var output = document.getElementById('settingsPicUser');
-                  output.src = URL.createObjectURL(event.target.files[0]);
-  
-                  output.onload = function() {
-                    URL.revokeObjectURL(output.src) // free memory
-                  }
-                };
-              </script>
-          
-          </div>
+      <div class="w3-row-padding">
+        <div class="w3-col m12">
         </div>
       </div>
-  
-      <!-- End settings clicked-->
+
+      <div  id = "settings" class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <div class="w3-row-padding" style="margin:0 -16px">
+            <div class = "container">
+              <label >Edit First Name: </label><br>
+              <input id = "settingsFirstName" value="FirstNameHolder" style="width: 33%;"></input><br>
+              <label>Edit Last Name: </label><br>
+              <input id = "settingsLastname" value="LastNameHolder" style="width: 33%;"></input><br>
+              <label>Update Description: </label><br>
+             <textarea id="settingsDescription" value="DescriptionHolder" maxlength="500" style="width:100%;height: 80px; border-radius: 3px;overflow-wrap:break-word; resize: none;"></textarea>
+             <label>Change Interests: </label><br>
+             <input id= "settingsInterests" value="settingsHolder" style="width: 33%;"></input><br>
+              <label>Update Profile Picture: </label><br>
+              <input id="submitNewPic" onchange="loadFile(event)" type="file" accept="image/png, image/jpeg"></input><br>
+              <label>Profile Picture Preview</label>
+             <img id = "settingsPicUser"  src="" style="width:100%" alt="Northern Lights"><br>
+             <!-- <div class="top-left">Coffee Guy AA</div>-->
+             
+            </div>            
+
+            <br>
+            <br>
+            <button style="float: left;" id="updateProfileBtn">Update Profile</button>
+        <hr class="w3-clear">
+        
+            <script>
+              var loadFile = function(event) {
+                var output = document.getElementById('settingsPicUser');
+                output.src = URL.createObjectURL(event.target.files[0]);
+
+                output.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+              };
+            </script>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- End settings clicked-->
+    <!-- End Middle Column -->
+    </div>
+
+
+
+
 
     <!-- Right Column -->
     <div class="w3-col m2">
@@ -379,6 +381,12 @@ function openNav() {
   const database = getDatabase(app);
   const storage = getStorage(app);
   const user = ref(database, "users");
+  let num = 1;
+  let num2 = 0;
+  let myArray = [];
+  let currentUser = sessionStorage.getItem('un')
+  let endOfDB = false;
+
         const friends = ref(database, "Friends/" + currentUser + "/Friends List");
 
         // Chat Catalog
@@ -802,7 +810,7 @@ function openNav() {
                     });
                 }
             });
- 
+          }
  
  let emale =0;
  let userArray = [];
@@ -883,11 +891,7 @@ function updatefriendArray(friendPendArray) {
 
 updatefriendArray();
 
-let num = 1;
-let num2 = 0;
-let myArray = [];
-let currentUser = "Aforger@gmail.com"
-let endOfDB = false;
+
 
 //need favicon to not be in array!!!
 //creates next profile
@@ -988,37 +992,38 @@ function showHide(){
 
 function loadProfile() {
   var updatepage
-  const gdb = getDatabase();
-  const starCountRef = ref(gdb, 'users/' + sessionStorage.getItem('un'));
+
+  const starCountRef = ref(database, 'users/' + sessionStorage.getItem('un'));
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    document.getElementById("profDescription").innerHTML = updatepage.Description 
-    document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
-    document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
-    document.getElementById("userEmail").innerHTML = "Email: " + updatepage.email
+    console.log(data)
+    document.getElementById("profileDescription").innerHTML = data.Description 
+    document.getElementById("proMajor").innerHTML = "Major: " + updatepage.Major
+    document.getElementById("proLocation").innerHTML = "Location: " + updatepage.Location
+    document.getElementById("proEmail").innerHTML = "Email: " + updatepage.email
   });
   
-  const storage = getStorage();  
+
   getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
   .then((url)=>{
-  const img = document.getElementById("profilePicUser")
+  const img = document.getElementById("profilePicforUser")
   img.setAttribute('src', url)
   const miniImg = document.getElementById("miniImage")
   miniImg.setAttribute('src', url)
   })
   .catch((error)=>{
-    consoel.log(error)
+    console.log(error)
   })
 
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
-  document.getElementById("profilePicUser").innerHTML   
+  document.getElementById("profilePicforUser").innerHTML   
 }
 
 function loadSettings()
 {
-  const SDB = getDatabase()
-  const SettingRef = ref(SDB, 'users/' + sessionStorage.getItem('un'))
+
+  const SettingRef = ref(database, 'users/' + sessionStorage.getItem('un'))
   onValue(SettingRef, (snapshot)=>{
     const data = snapshot.val()
     document.getElementById("settingsFirstName").value = data.FN
@@ -1026,10 +1031,10 @@ function loadSettings()
     document.getElementById("settingsDescription").value = data.Description
     document.getElementById("settingsInterests").value = data.Interests
   })
-  const settStorage = getStorage(app);  
-  getDownloadURL(sRef(settStorage, sessionStorage.getItem('un')+'@gmail.com'))
+ 
+  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+'@gmail.com'))
   .then((url)=>{
-  const img = document.getElementById("settingsPicUser")
+    const img = document.getElementById("settingsPicUser")
   
   img.setAttribute('src', url)
   })
@@ -1045,7 +1050,7 @@ function updateSettings()
    var lastName = document.getElementById("settingsLastname").value 
    var description = document.getElementById("settingsDescription").value 
    var interests =  document.getElementById("settingsInterests").value
-  update(ref(db, "users/" + sessionStorage.getItem('un')), {
+  update(ref(database, "users/" + sessionStorage.getItem('un')), {
     FN:firstName,
     LN:lastName,
     Description:description,
@@ -1086,7 +1091,7 @@ settingsBtn.addEventListener('click',loadSettings)
 var updateSettingsBtn = document.querySelector('#updateProfileBtn')
 updateSettingsBtn.addEventListener('click',updateSettings)
 
-}
+
 
 
 
