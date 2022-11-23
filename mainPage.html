@@ -389,6 +389,17 @@ function openNav() {
 
         const friends = ref(database, "Friends/" + currentUser + "/Friends List");
 
+        //Universal image function
+        function setImg(email, img)
+        {
+            getDownloadURL(sRef(storage, email)).then((url) => {
+                img.setAttribute('src', url);
+            })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+
         // Chat Catalog
 
         onValue(friends, (snapshot) => {
@@ -416,12 +427,7 @@ function openNav() {
                     const pfpdiv = document.createElement("div");
                     const pfp = document.createElement("img");
 
-                    getDownloadURL(sRef(storage, friendEmail)).then((url) => {
-                        pfp.setAttribute('src', url);
-                    })
-                        .catch((error) => {
-                            console.log(error)
-                        });
+                    setImg(friendEmail, pfp);
 
                     pfpdiv.appendChild(pfp);
 
@@ -519,16 +525,10 @@ function openNav() {
                     //Profile Picture
                     const friendEmail = snapshot.val().email;
 
-                    getDownloadURL(sRef(storage, friendEmail)).then((url) => {
-                        const hpfp = document.getElementById("Header Image");
-                        hpfp.setAttribute('src', url);
-                    })
-                        .catch((error) => {
-                            console.log(error)
-                        });
+                    const hpfp = document.getElementById("Header Image");
+
+                    setImg(friendEmail, hpfp)
                 }
-
-
             });
 
             //Display Messages
@@ -559,35 +559,27 @@ function openNav() {
                     }
 
                     var pfp = document.createElement("img");
-                    pfp.style = "width:60px, height:60px";
 
-                    if (childData.Sender == currentUser) {
+                    if (childData.Sender == currentUser)
+                    {
                         //User Profile Picture
                         get(child(user, currentUser)).then((snapshot) => {
                             if (snapshot.exists()) {
                                 const userEmail = snapshot.val().email;
 
-                                getDownloadURL(sRef(storage, userEmail)).then((url) => {
-                                    pfp.setAttribute('src', url);
-                                })
-                                    .catch((error) => {
-                                        console.log(error)
-                                    });
+                                setImg(userEmail, pfp);
                             }
                         });
                     }
-                    else {
+                    else
+                    {
                         //Friend's Profile Picture
                         get(child(user, friend)).then((snapshot) => {
                             if (snapshot.exists()) {
                                 const friendEmail = snapshot.val().email;
 
-                                getDownloadURL(sRef(storage, friendEmail)).then((url) => {
-                                    pfp.setAttribute('src', url);
-                                })
-                                    .catch((error) => {
-                                        console.log(error)
-                                    });
+                                setImg(friendEmail, pfp);
+
                             }
                         });
                     }
@@ -743,15 +735,10 @@ function openNav() {
                             document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
                             document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
             
-                             
-                            getDownloadURL(sRef(storage, friend + '@gmail.com'))
-                            .then((url)=>{
-                             const img = document.getElementById("profilePicUser")
-                                img.setAttribute('src', url)
-                             })
-                            .catch((error)=>{
-                            console.log(error)
-                            })
+                            const friendEmail = data.email;
+                            const img = document.getElementById("profilePicUser");
+
+                            setImg(friendEmail, img);
 
                             document.getElementById("profilePicUser").innerHTML   
                             });
@@ -933,16 +920,11 @@ function loadImg(data){
   let [first, last] = friend.split(' ');
   let friend2 = first.slice(0,1) + last.toLowerCase();
   friend2 = friend2 + "@gmail.com"
- 
-  getDownloadURL(sRef(storage, friend2))
-          .then((url) => {
-          // Or inserted into an <img> element
-        const img = document.getElementById("friendWaiting");
-        img.setAttribute('src', url);
-        })
-        .catch((error) => {
-        console.log(error)
-        });
+
+  const img = document.getElementById("friendWaiting");
+
+  setImg(friend2, img);
+
 }
 
 //create div, show when end of database is reached
@@ -953,15 +935,11 @@ function endOfDatabase(){
   y.style.display = "none"; //hide
   
   console.log("before assignPic")
-  getDownloadURL(sRef(storage, "favicon"))
-          .then((url) => {
-          // Or inserted into an <img> element
-        const img = document.getElementById("faviconPic");
-        img.setAttribute('src', url);
-        })
-        .catch((error) => {
-        console.log(error)
-        });
+
+  const img = document.getElementById("faviconPic");
+
+  setImg("favicon", img);
+
   //needs work
   //store where the user leaves off/ how many times they hit the end to only pull from the users added since last time
 }
@@ -1004,17 +982,11 @@ function loadProfile() {
     document.getElementById("proEmail").innerHTML = "Email: " + updatepage.email
   });
   
+    const img = document.getElementById("profilePicforUser")
+    const miniImg = document.getElementById("miniImage")
 
-  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+ '@gmail.com'))
-  .then((url)=>{
-  const img = document.getElementById("profilePicforUser")
-  img.setAttribute('src', url)
-  const miniImg = document.getElementById("miniImage")
-  miniImg.setAttribute('src', url)
-  })
-  .catch((error)=>{
-    console.log(error)
-  })
+    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
+    setImg(sessionStorage.getItem('un') + '@gmail.com', miniImg);
 
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
   document.getElementById("profilePicforUser").innerHTML   
@@ -1031,16 +1003,10 @@ function loadSettings()
     document.getElementById("settingsDescription").value = data.Description
     document.getElementById("settingsInterests").value = data.Interests
   })
- 
-  getDownloadURL(sRef(storage, sessionStorage.getItem('un')+'@gmail.com'))
-  .then((url)=>{
+
     const img = document.getElementById("settingsPicUser")
-  
-  img.setAttribute('src', url)
-  })
-  .catch((error)=>{
-    console.log(error)
-  })
+
+    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
 
 }
 
