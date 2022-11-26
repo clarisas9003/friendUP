@@ -355,9 +355,9 @@ function updatefriendArray(friendPendArray) {
   let myArray3 = [];
     let i = 0;
     let k = 0;
-    //console.log(friendPendArray[incremen].length)
     while(friendPendArray[incremen].length > k){
-      myArray3[k] = friendPendArray[incremen][k];
+      myArray3.push(friendPendArray[incremen][k]);
+      k = k + 1
     }
     //myArray3.push(friendPendArray[incremen]);
     while(i < myArray3.length){
