@@ -13,7 +13,7 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUser = "Aforger"
+let currentUser = "Lforger"
 //THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
 
 //transfer database to workable array
@@ -79,7 +79,6 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-  console.log(email);
   return email;
 }
 
@@ -88,6 +87,7 @@ function pageOnLoad(data, userArray){
 function yesFunction(){
   //puts the side friend pending div in
   document.getElementById("friendPendName").innerHTML = FN + " " + LN;
+  
   //calls noFunction so next user will be called on event
   //load friend pending into each user's array
   //listener for array update 
