@@ -8,6 +8,7 @@
   #coffeeGuy{display:block}
   #friendPending{display:none}
   #otherFriended{display:none}
+  #alertBox{display:none}
 </style>
 <!--#friendPending {display:none} img{max-width: 500px;}-->
 
@@ -75,24 +76,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div id="Demo3" class="w3-hide w3-container">
          <div class="w3-row-padding">
          <br>
-          <!-- <div class="w3-half">
-             <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>
-           <div class="w3-half">
-             <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-           </div>-->
          </div>
           </div>
         </div>      
@@ -124,13 +107,13 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <br>
       
       <!-- Alert Box -->
-      <!--<div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+      <div id = "alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
         <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
           <i class="fa fa-remove"></i>
         </span>
         <p><strong>Hey!</strong></p>
-        <p>People are looking at your profile. Find out who.</p>
-      </div>-->
+        <p>friendUp! with a quick chat!</p>
+      </div>
     
     <!-- End Left Column -->
     </div>
@@ -208,8 +191,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>friend Pending</p>
-          <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
-          <h3 id = "friendPendName"> Jane Doe</h3>
+          <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
+          <h3 id = "newFriendName"> Jane Doe</h3>
+          <h3 id = "descrip"> Jane Doe</h3>
+          <h3 id = "email4"> Jane Doe</h3>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
               <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
@@ -319,11 +304,16 @@ function openNav() {
      emails = pageOnLoad(dataArray, userArray);
       assignPicture(emails);
       loadNextImg(emailArray);
-      //console.log(friendPendArray);
-      updatefriendArray(friendPendArray, userArray);
+      updatefriendArray(userArray);
       loadImg(emailArray);
     });
   }
+
+function handleNewFriend(data){s
+    document.getElementById("newFriendName").innerHTML = data["Username"];
+    document.getElementById("descrip").innerHTML = data["Description"];
+    document.getElementById("email4").innerHTML = data["email"];
+}
 
 //handles friend pending picture assigning
 let incremen = 0;
@@ -337,32 +327,15 @@ getData("users");
 
 //pull array with snapshot, assign to variable, push, and update
 
-let friendsPending = [];
+let friendsPending = "";
 let myArray3 = [];
 let usArray = [];
-const dataB = getDatabase();
 
-function updatefriendArray() {
-    let i = 0;
-    let k = 0;
-    let j = 0;
-consol.log("hello")
-    friendsPending.push("HI")
-    update(ref(dataB, "users/" + "DDesmond"), {
-      friendsPending: friendsPending
-    });
-
-    /*update(ref(dataB, "users/" + currentFriend), {
-      friendsPending: friendsPending
-    });*/
-  
-}
-
-//changed
 let num = 1;
 let num2 = 0;
 let myArray = [];
-let currentUser = "Lforger@gmail.com"
+let currentUser = "Lforger@gmail.com";
+let currentRec = "Lforger";
 let endOfDB = false;
 
 //need favicon to not be in array!!!
@@ -428,8 +401,59 @@ let num2 = 0;
         console.log(error)
         });
   }
- 
- 
+}
+let myArray5 = [];
+function loadPending(data){
+
+    let friend2 = data["email"]
+   console.log(friend2);
+    getDownloadURL(sRef(storage, friend2))
+          .then((url) => {
+          // Or inserted into an <img> element
+        const img = document.getElementById("friendPicWaiting");
+        img.setAttribute('src', url);
+        })
+        .catch((error) => {
+        console.log(error)
+        });
+        
+}
+
+function updatefriendArray(data) {
+  const db = getDatabase();
+  let num2 = 0;
+  if(myArray3.length==0){
+    if(myArray3.length==0){
+    while(data.length > num2){
+      myArray3[num2] = data[num2]
+      num2 = num2 + 1;
+    }
+  }
+  }
+  else{
+    /*let currentUsers = "";
+    currentUsers = myArray3[incremen];
+    friendsPending = currentRec;
+    update(ref(db, "users/" + currentUsers), {
+      friendsPending: friendsPending
+    });*/
+    let currentUsers = "";
+    currentUsers = myArray3[incremen];
+    friendsPending = currentRec;
+    update(ref(db, "users/" + "Lforger"), {
+      friendsPending: friendsPending
+    });
+  }
+}
+
+function deletefriendArray() {
+  const db = getDatabase();
+    let currentUsers = "";
+    currentUsers = currentRec;
+    let friendsPending = null;
+    update(ref(db, "users/" + currentUsers), {
+      friendsPending: friendsPending
+    });
 }
 
 //create div, show when end of database is reached
@@ -478,13 +502,34 @@ function showHideS(){
   var x = document.getElementById("otherFriended");
   x.style.display = "block"; //show
 }
+function showHideSS(){
+  var x = document.getElementById("alertBox");
+  x.style.display = "block"; //show
+}
+function hideShow(){
+  var x = document.getElementById("otherFriended");
+  x.style.display = "none"; //show
+}
 
+
+function listener(){
+  const daba = getDatabase();
+  const friendChange = ref(daba, 'users/' + currentUsers);
+  onValue(friendChange, (snapshot) => {
+    const data = snapshot.val();
+    showHideS();
+
+    handleNewFriend(data);
+    loadPending(data);
+  });
+}
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", noFunction);
 nextImg.addEventListener("click", incrementIt);
+nextImg.addEventListener("click", listener);
 
 //read from friend pending array to friend Pending unit
 
@@ -497,13 +542,20 @@ frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", incrementIt);
+frenPend.addEventListener("click", listener);
 
-//frenPend.addEventListener("click", showHideS);
 
-//var greenCheck = document.querySelector('#greenCheck');
-//greenCheck.addEventListener("click", showHides);
+var greenCheck = document.querySelector('#greenCheck');
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", showHideSS);
+greenCheck.addEventListener("click", listener);
 
-//var redX = document.querySelector('#redX');
+
+var redX = document.querySelector('#redX');
+redX.addEventListener("click", deletefriendArray);
+redX.addEventListener("click", hideShow);
+redX.addEventListener("click", listener);
 
 
   </script>

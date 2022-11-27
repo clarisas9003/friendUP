@@ -93,9 +93,7 @@ function yesFunction(){
   //when that happens, display friend pending
 }
 
-function loadFriendPending(){
 
-}
 
 function noFunction(){
 pageOnLoad(dataList);
