@@ -342,57 +342,20 @@ let myArray3 = [];
 let usArray = [];
 const dataB = getDatabase();
 
-function updatefriendArray(friendPendArray, userArray) {
+function updatefriendArray() {
     let i = 0;
     let k = 0;
     let j = 0;
- //console.log(friendPendArray[incremen][0])
-  if(friendsPending.length == 0){
-    
-    if(friendPendArray[incremen].length > 1){
-      while(friendPendArray[incremen].length > k){
-        myArray3.push(friendPendArray[incremen][k]);
-        k = k + 1
-      }
-    //console.log(incremen);
-    while(i < myArray3.length){
-      friendsPending[i] = myArray3[i];
-      i = i + 1;
-    }
-  
-    while(j < userArray.length){
-      usArray[j] = userArray[j];
-      j = j + 1; 
-    }
-  }
-  else{
-    
-      if(usArray.length == 0){
-        while(j < userArray.length){
-        usArray[j] = userArray[j];
-        j = j + 1; 
-        }
-      }
-      //console.log(usArray);
-    friendsPending.push(currentUsers);
-    //console.log(friendsPending)
-   // console.log(currentFriend)
-    let currentFriend = usArray[incremen];
-    console.log(currentFriend)
-   // console.log(friendsPending);
-    update(ref(dataB, "users/" + currentFriend), {
+consol.log("hello")
+    friendsPending.push("HI")
+    update(ref(dataB, "users/" + "DDesmond"), {
       friendsPending: friendsPending
     });
-  }
-  }
-  else {
-    friendsPending.push(currentUsers);
-    let currentFriend = usArray[incremen];
-   console.log("hello");
+
     /*update(ref(dataB, "users/" + currentFriend), {
       friendsPending: friendsPending
     });*/
-  }
+  
 }
 
 //changed
