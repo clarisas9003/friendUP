@@ -309,7 +309,7 @@ function openNav() {
     });
   }
 
-function handleNewFriend(data){s
+function handleNewFriend(data){
     document.getElementById("newFriendName").innerHTML = data["Username"];
     document.getElementById("descrip").innerHTML = data["Description"];
     document.getElementById("email4").innerHTML = data["email"];
@@ -427,8 +427,8 @@ function updatefriendArray(data) {
     while(data.length > num2){
       myArray3[num2] = data[num2]
       num2 = num2 + 1;
+      }
     }
-  }
   }
   else{
     /*let currentUsers = "";
@@ -478,7 +478,6 @@ function endOfDatabase(){
 
 //main picture loading handler for noFunction
 function assignPicture(email3){
-
    let Email = email3;
 
   //retrieving image attached to email
