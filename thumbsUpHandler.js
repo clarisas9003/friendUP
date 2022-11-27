@@ -23,8 +23,8 @@ function assignData(dataArray, userArray){
     i = i + 1;
    }
    i = 0;
-   console.log(userArray)
-   console.log(userArray.length)
+   //console.log(userArray)
+   //console.log(userArray.length)
    while((userArray.length) > (i)){
     userList[i] = userArray[i]
     i = i + 1;
@@ -39,7 +39,7 @@ function pageOnLoad(data, userArray){
  }
   
   if(userList[count] != currentUsers){
-    console.log(currentUsers)
+    //console.log(currentUsers)
     description = dataList[count]["Description"];
     username = dataList[count]["Username"];
     FN = dataList[count]["FN"];
@@ -77,7 +77,7 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-  console.log(email)
+  //console.log(email)
   return email;
 }
 

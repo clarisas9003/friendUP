@@ -319,8 +319,8 @@ function openNav() {
      emails = pageOnLoad(dataArray, userArray);
       assignPicture(emails);
       loadNextImg(emailArray);
-      console.log(friendPendArray);
-      updatefriendArray(friendPendArray);
+      //console.log(friendPendArray);
+      updatefriendArray(friendPendArray, userArray);
       loadImg(emailArray);
     });
   }
@@ -329,40 +329,70 @@ function openNav() {
 let incremen = 0;
 function incrementIt(){
   incremen = incremen + 1;
+ // console.log(incremen)
 }
 
 
 getData("users");
 
 //pull array with snapshot, assign to variable, push, and update
+
 let friendsPending = [];
 let myArray3 = [];
 let usArray = [];
+const dataB = getDatabase();
+
 function updatefriendArray(friendPendArray, userArray) {
     let i = 0;
     let k = 0;
     let j = 0;
+ //console.log(friendPendArray[incremen][0])
   if(friendsPending.length == 0){
-    while(friendPendArray[incremen].length > k){
-      myArray3.push(friendPendArray[incremen][k]);
-      k = k + 1
-    }
+    
+    if(friendPendArray[incremen].length > 1){
+      while(friendPendArray[incremen].length > k){
+        myArray3.push(friendPendArray[incremen][k]);
+        k = k + 1
+      }
+    //console.log(incremen);
     while(i < myArray3.length){
       friendsPending[i] = myArray3[i];
       i = i + 1;
     }
+  
+    while(j < userArray.length){
+      usArray[j] = userArray[j];
+      j = j + 1; 
+    }
   }
-
-  else {
-
-    const db = getDatabase();
-    friendsPending.push(currentUser);
-    //let currentFriend = usArray[incremen];
-    //console.log(currentFriend)
-    update(ref(db, "users/" + "DDesmond"), {
+  else{
+    
+      if(usArray.length == 0){
+        while(j < userArray.length){
+        usArray[j] = userArray[j];
+        j = j + 1; 
+        }
+      }
+      //console.log(usArray);
+    friendsPending.push(currentUsers);
+    //console.log(friendsPending)
+   // console.log(currentFriend)
+    let currentFriend = usArray[incremen];
+    console.log(currentFriend)
+   // console.log(friendsPending);
+    update(ref(dataB, "users/" + currentFriend), {
       friendsPending: friendsPending
     });
-}
+  }
+  }
+  else {
+    friendsPending.push(currentUsers);
+    let currentFriend = usArray[incremen];
+   console.log("hello");
+    /*update(ref(dataB, "users/" + currentFriend), {
+      friendsPending: friendsPending
+    });*/
+  }
 }
 
 //changed
@@ -392,7 +422,7 @@ function loadNextImg(data){
     }
     //else{
     assignPicture(electronicMail);
-    console.log(electronicMail)
+    
     if((num+1) < (myArray.length)){ num = num + 1; }
     else { endOfDB = true; }
     //}
