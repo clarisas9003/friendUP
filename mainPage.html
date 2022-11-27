@@ -317,62 +317,52 @@ function openNav() {
       }
 
      emails = pageOnLoad(dataArray, userArray);
-      
       assignPicture(emails);
       loadNextImg(emailArray);
+      console.log(friendPendArray);
       updatefriendArray(friendPendArray);
-      incrementIt(userArray);
       loadImg(emailArray);
     });
   }
 
 //handles friend pending picture assigning
 let incremen = 0;
-let incre = [];
-function incrementIt(userArray){
-  let num3 = 0; 
-  if (incre.length == 0){
-    incre[num3] = userArray[num3];
-    num3 = num3 + 1;
-  }
-  else{
-    incremen = incremen + 1;
-  }
-
-  console.log("incremented " + incremen);
+function incrementIt(){
+  incremen = incremen + 1;
 }
 
 
 getData("users");
 
-
-
-//erases with current method
-//let myArray4 = [];
 //pull array with snapshot, assign to variable, push, and update
-function updatefriendArray(friendPendArray) {
-  let friendsPending = [];
-  let myArray3 = [];
+let friendsPending = [];
+let myArray3 = [];
+let usArray = [];
+function updatefriendArray(friendPendArray, userArray) {
     let i = 0;
     let k = 0;
+    let j = 0;
+  if(friendsPending.length == 0){
     while(friendPendArray[incremen].length > k){
       myArray3.push(friendPendArray[incremen][k]);
       k = k + 1
     }
-    //myArray3.push(friendPendArray[incremen]);
     while(i < myArray3.length){
       friendsPending[i] = myArray3[i];
       i = i + 1;
     }
-  console.log(friendsPending)
-  
-  const db = getDatabase();
-  friendsPending.push("Yforger");
-  console.log(friendsPending)
-  update(ref(db, "users/" + "Aforger"), {
-    friendsPending: friendsPending
-    
-  });
+  }
+
+  else {
+
+    const db = getDatabase();
+    friendsPending.push(currentUser);
+    //let currentFriend = usArray[incremen];
+    //console.log(currentFriend)
+    update(ref(db, "users/" + "DDesmond"), {
+      friendsPending: friendsPending
+    });
+}
 }
 
 //changed
@@ -394,22 +384,24 @@ function loadNextImg(data){
     }
   }
   else{
-  let electronicMail = myArray[num]
-  if (currentUser == electronicMail){
+    let electronicMail = myArray[num]
+    if (currentUser == electronicMail){
+      if((num+1) < (myArray.length)){ num = num + 1; }
+      else { endOfDB = true; }
+      electronicMail = myArray[num];
+    }
+    //else{
+    assignPicture(electronicMail);
+    console.log(electronicMail)
     if((num+1) < (myArray.length)){ num = num + 1; }
     else { endOfDB = true; }
-    electronicMail = myArray[num];
-  }
-  //else{
-  assignPicture(electronicMail);
-  if((num+1) < (myArray.length)){ num = num + 1; }
-  else { endOfDB = true; }
-  //}
+    //}
   }
   if (endOfDB == true){
     //call function here
     endOfDatabase();
   }
+
 }
 
 
@@ -433,7 +425,6 @@ let num2 = 0;
       incremen = incremen + 1;
     }
     let friend2 = myArray2[incremen];
-    console.log(friend2)
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
           // Or inserted into an <img> element
@@ -501,7 +492,7 @@ var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", noFunction);
 nextImg.addEventListener("click", incrementIt);
-//add user to other's friend pending array
+
 //read from friend pending array to friend Pending unit
 
 //monitors and controls thumbsUp
@@ -511,13 +502,15 @@ frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
+frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", incrementIt);
+
 //frenPend.addEventListener("click", showHideS);
 
-var greenCheck = document.querySelector('#greenCheck');
+//var greenCheck = document.querySelector('#greenCheck');
 //greenCheck.addEventListener("click", showHides);
 
-var redX = document.querySelector('#redX');
+//var redX = document.querySelector('#redX');
 
 
   </script>

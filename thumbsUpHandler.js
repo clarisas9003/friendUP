@@ -13,7 +13,7 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUser = "Lforger"
+let currentUsers = "Lforger"
 //THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
 
 //transfer database to workable array
@@ -38,11 +38,9 @@ function pageOnLoad(data, userArray){
   assignData(data, userArray)
  }
   
-  //if else caused it to break, find out why and you're golden
-  if(userList[count] != currentUser){
-
+  if(userList[count] != currentUsers){
+    console.log(currentUsers)
     description = dataList[count]["Description"];
-    //console.log(description)
     username = dataList[count]["Username"];
     FN = dataList[count]["FN"];
     LN = dataList[count]["LN"];
@@ -79,6 +77,7 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
+  console.log(email)
   return email;
 }
 
