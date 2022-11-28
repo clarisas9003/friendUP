@@ -57,7 +57,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
+         <p class="w3-center"><img src="" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
          <hr>
          <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
          <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
@@ -405,7 +405,7 @@ function openNav() {
   let num = 1;
   let num2 = 0;
   let myArray = [];
-  let currentUser = sessionStorage.getItem('un')
+  let currentUser = sessionStorage.getItem('un');
   let endOfDB = false;
 
         const friends = ref(database, "Friends/" + currentUser + "/Friends List");
@@ -839,15 +839,14 @@ function openNav() {
         emailArray.push(dataArray[emale]["email"])
         emale = emale + 1;
       }
-
-      emails = pageOnLoad(dataArray, userArray);
+      emails = pageOnLoad(dataArray, userArray); //testing
       assignPicture(emails);
       loadNextImg(emailArray);
       updatefriendArray(userArray);
       loadImg(emailArray);
     });
   }
-  function handleNewFriend(data){s
+  function handleNewFriend(data){
     document.getElementById("newFriendName").innerHTML = data["Username"];
     document.getElementById("descrip").innerHTML = data["Description"];
     document.getElementById("email4").innerHTML = data["email"];
@@ -857,7 +856,8 @@ function openNav() {
 let incremen = 0;
 function incrementIt(){
   incremen = incremen + 1;
- // console.log(incremen)
+  
+  console.log(incremen)
 }
 
 
@@ -937,7 +937,7 @@ let myArray5 = [];
 function loadPending(data){
 
     let friend2 = data["email"]
-   console.log(friend2);
+   //console.log(friend2);
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
           // Or inserted into an <img> element
@@ -962,16 +962,10 @@ function updatefriendArray(data) {
   }
   }
   else{
-    /*let currentUsers = "";
-    currentUsers = myArray3[incremen];
-    friendsPending = currentRec;
-    update(ref(db, "users/" + currentUsers), {
-      friendsPending: friendsPending
-    });*/
     let currentUsers = "";
     currentUsers = myArray3[incremen];
-    friendsPending = currentRec;
-    update(ref(db, "users/" + "Lforger"), {
+    friendsPending = sessionStorage.getItem('un');
+    update(ref(db, "users/" + currentUsers), {
       friendsPending: friendsPending
     });
   }
@@ -980,7 +974,7 @@ function updatefriendArray(data) {
 function deletefriendArray() {
   const db = getDatabase();
     let currentUsers = "";
-    currentUsers = currentRec;
+    currentUsers = sessionStorage.getItem('un');
     let friendsPending = null;
     update(ref(db, "users/" + currentUsers), {
       friendsPending: friendsPending
@@ -1043,7 +1037,7 @@ function chatShow(){
 
 function listener(){
   const daba = getDatabase();
-  const friendChange = ref(daba, 'users/' + currentUsers);
+  const friendChange = ref(daba, 'users/' + sessionStorage.getItem('un'));
   onValue(friendChange, (snapshot) => {
     const data = snapshot.val();
     showHideS();
@@ -1060,7 +1054,7 @@ function loadProfile() {
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    console.log(data)
+    //console.log(data)
     document.getElementById("profileDescription").innerHTML = data.Description 
     document.getElementById("proMajor").innerHTML = "Major: " + updatepage.Major
     document.getElementById("proLocation").innerHTML = "Location: " + updatepage.Location

@@ -1,8 +1,5 @@
-//let userArray = [];
 var email = "";
-var email2 = ""; 
 var uniqname = "";
-  
 var count = 0;
 let flag = false;
 let description = "";
@@ -13,18 +10,16 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUser = "Aforger"
-//THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
+let currentUser = sessionStorage.getItem('un');
 
-//transfer database to workable array
+
+//transfers database to workable array
 function assignData(dataArray, userArray){
   while(dataArray.length > i){
     dataList[i] = dataArray[i]
     i = i + 1;
    }
    i = 0;
-   console.log(userArray)
-   console.log(userArray.length)
    while((userArray.length) > (i)){
     userList[i] = userArray[i]
     i = i + 1;
@@ -79,23 +74,13 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-  console.log(email);
   return email;
 }
 
-//most functionality not here
-//what happens when you thumb
+//functionality handled by eventListener
+//what happens when you click thumbs up
 function yesFunction(){
-  //puts the side friend pending div in
   document.getElementById("friendPendName").innerHTML = FN + " " + LN;
-  //calls noFunction so next user will be called on event
-  //load friend pending into each user's array
-  //listener for array update 
-  //when that happens, display friend pending
-}
-
-function loadFriendPending(){
-
 }
 
 function noFunction(){
@@ -105,12 +90,10 @@ pageOnLoad(dataList);
 function openProfile(openProfile,myProfile,notProfile,settings)
 {
 
-  if(openProfile.profileOpen==false)
-  {
+  if(openProfile.profileOpen==false)  {
     hideShow(myProfile,notProfile)
   }
-  else
-  {
+  else {
     hideShow(notProfile,myProfile)    
   }
   openProfile.profileOpen = !openProfile.profileOpen;
@@ -124,14 +107,11 @@ function openProfile(openProfile,myProfile,notProfile,settings)
 }
 
 
-function openSettings(openSettings,settings,middle,profile)
-{
-  if(openSettings.settingsOpen==false)
-  {
+function openSettings(openSettings,settings,middle,profile){
+  if(openSettings.settingsOpen==false)  {
     hideShow(settings,middle)
   }
-  else
-  {
+  else  {
     hideShow(middle,settings)
   }
   openSettings.settingsOpen = !openSettings.settingsOpen
@@ -144,8 +124,6 @@ function openSettings(openSettings,settings,middle,profile)
  
   else{ /* do nothing */}
 }
-
-
 
 function hideShow(profile,noprofile){
   var x = document.getElementById(profile);
