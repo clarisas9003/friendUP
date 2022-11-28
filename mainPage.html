@@ -82,29 +82,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
       <br>
       
-      <!-- Interests --> 
-      <div class="w3-card w3-round w3-white w3-hide-small">
-        <div class="w3-container">
-          <p>Interests</p>
-          <p>
-          
-          <!--load into an array from initial profile creation-->
-          <!--have person indicate level of interest on profile creation??-->
-          
-            <span class="w3-tag w3-small w3-theme-d5">News</span>
-            <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-            <span class="w3-tag w3-small w3-theme-d2">Games</span>
-            <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-            <span class="w3-tag w3-small w3-theme">Games</span>
-            <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-            <span class="w3-tag w3-small w3-theme-l2">Food</span>
-            <span class="w3-tag w3-small w3-theme-l3">Design</span>
-            <span class="w3-tag w3-small w3-theme-l4">Art</span>
-            <span class="w3-tag w3-small w3-theme-l5">Photos</span>
-          </p>
-        </div>
-      </div>
-      <br>
+     
       
     
     <!-- End Left Column -->
@@ -164,6 +142,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <img id = "profilePicUser" src="" style="width:100%">
        <div id="Major"></div>
        <div id="Location"></div>
+       <div id="interests"></div>
        <div id="profDescription"></div>
       </div>
         <hr class="w3-clear">
@@ -735,7 +714,7 @@ function openNav() {
 
                             document.getElementById("Major").innerHTML = "Major: " + updatepage.Major
                             document.getElementById("Location").innerHTML = "Location: " + updatepage.Location
-            
+                            document.getElementById("interests").innerHTML = 'Interests: ' + updatepage.Interests;
                             const friendEmail = data.email;
                             const img = document.getElementById("profilePicUser");
 
