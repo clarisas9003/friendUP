@@ -94,6 +94,16 @@ function yesFunction(){
   //when that happens, display friend pending
 }
 
+function GetUniqname()
+{
+    return uniqname;
+}
+
+function GetEmail()
+{
+    return email;
+}
+
 function loadFriendPending(){
 
 }

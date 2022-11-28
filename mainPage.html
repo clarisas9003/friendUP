@@ -9,7 +9,7 @@
   #friendPending{display:none}
   #userProfile {display: none}
   #settings{display: none}
-  #chatbox{display:none}
+  #chatbox{display: none}
 </style>
 
 
@@ -495,6 +495,8 @@ function openNav() {
 
         function displayChat(chatKey, friend)
         {
+            document.getElementById("chatbox").style.display = "block";
+
             //Chat Header
             get(child(user, friend)).then((snapshot) => {
                 if (snapshot.exists()) {
@@ -745,6 +747,9 @@ function openNav() {
             //Clear Chat
 
             clearChat(chatKey);
+
+            //Hide Chat
+            document.getElementById("chatbox").style.display = "none";
             
             //Delete friend from user's Friends List
             get(friends).then((snapshot) => {
@@ -777,7 +782,115 @@ function openNav() {
                     });
                 }
             });
-          }
+        }
+
+        //Add Friend is called automatically by clicking the thumbs up button (for testing purposes, this will need to be changed later)
+        function AddFriend()
+        {
+            //Get Friend's Information
+            const uniqname = GetUniqname();
+            const friendEmail = GetEmail();
+
+            //Create new chat key
+            AddChatKey();
+            
+            get(ref(database, "Chat/ChatCount")).then((snapshot) => {
+                const newChatKey = snapshot.val() + 1;
+                console.log("New Chat Key: " + newChatKey);
+
+                //Get Last Friend Key in User's Friends List
+                get(query(ref(database, "Friends/" + currentUser + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const newFriendKey = parseInt(childKey) + 1;
+
+                            //Add new friend to user's friends list
+                            const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                            set(userFriend, {
+                                Name: uniqname,
+                                email: friendEmail,
+                                ChatKey: newChatKey
+                            });
+                        });
+                    }
+                    else //if friends list is empty
+                    {
+                        const newFriendKey = 0;
+
+                        //Add new friend to user's friends list
+                        const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                        set(userFriend, {
+                            Name: uniqname,
+                            email: friendEmail,
+                            ChatKey: newChatKey
+                        });
+                    }
+                });
+
+                //Get Last Friend Key in Friend's Friends List
+                get(query(ref(database, "Friends/" + uniqname + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const newFriendKey = parseInt(childKey) + 1;
+
+                            //Get User's Email
+                            get(child(user, currentUser)).then((snapshot) => {
+                                if (snapshot.exists()) {
+                                    const userEmail = snapshot.val().email;
+                                    console.log(userEmail);
+
+                                    //Add user to new friend's friends list
+                                    const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                                    set(friendUser, {
+                                        Name: currentUser,
+                                        email: userEmail,
+                                        ChatKey: newChatKey
+                                    });
+                                }
+                            });
+
+                        });
+                    }
+                    else //if friends list is empty
+                    {
+                        const newFriendKey = 0;
+
+                        //Get User's Email
+                        get(child(user, currentUser)).then((snapshot) => {
+                            if (snapshot.exists()) {
+                                const userEmail = snapshot.val().email;
+
+                                //Add user to new friend's friends list
+                                const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                                set(friendUser, {
+                                    Name: currentUser,
+                                    email: userEmail,
+                                    ChatKey: newChatKey
+                                });
+
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+    //Updates the chat count in the database
+    function AddChatKey()
+    {
+        get(ref(database, "Chat/ChatCount")).then((snapshot) => {
+            const chatCount = snapshot.val();
+
+            const newKey = chatCount + 1;
+
+            update(ref(database, "Chat"), {
+                ChatCount: newKey
+            });
+            
+        });
+    }
  
  let emale =0;
  let userArray = [];
@@ -1027,6 +1140,9 @@ frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", incrementIt);
+
+//TEMPORARY
+frenPend.onclick = function () { AddFriend() };
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
