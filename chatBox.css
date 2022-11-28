@@ -32,16 +32,16 @@
 
 .incomingMessage img {
     float: left;
-    max-width: 60px;
-    width: 100%;
+    width: 60px;
+    height: 60px;
     margin-right: 20px;
     border-radius: 50%;
 }
 
 .outgoingMessage img {
     float: right;
-    max-width: 60px;
-    width: 100%;
+    width: 60px;
+    height: 60px;
     margin-left: 20px;
     margin-right: 0;
     border-radius: 50%;
@@ -58,4 +58,3 @@
     float: left;
     color: #999;
 }
-
