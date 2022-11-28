@@ -2,7 +2,6 @@
 <html>
 <head>
 <link href="profile.css" rel="stylesheet" type="text/css" />
-<link rel="icon" type="image/x-icon" href="https://i.pinimg.com/564x/c6/b8/d4/c6b8d40a0af2b06eafc9b8c2d7ba30d2.jpg">
 
 
 <div class="container-xl px-4 mt-4">
@@ -49,7 +48,7 @@
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (major)-->
                             <div class="col-md-6">
-                                <label class="small mb-1 input-title" for="inputMajor">Major</label>
+                                <label class="small mb-1 input-title" for="inputMajor"">Major</label>
                                 <input class="form-control" id="inputMajor" type="text" placeholder="Enter Major">
                             </div>
                             <!-- Form Group (location)-->
@@ -123,8 +122,7 @@
           Major:major,
           Description:description,
           Interests:"",
-          uniqname:sessionStorage.getItem('un'),
-          email:sessionStorage.getItem('email')
+          
         });
         var upadateImg = document.getElementById("profile_picture_input").files[0]
         if(upadateImg != undefined){
@@ -134,7 +132,7 @@
                     }
         else{console.log("imgage not updated")}
 
-        window.location.href = "mainPage.html";
+        window.location.href = "interests.html";
 
       }
       
