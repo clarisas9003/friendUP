@@ -10,6 +10,8 @@
   #userProfile {display: none}
   #settings{display: none}
   #chatbox{display:none}
+  #otherFriended{display:none}
+  #alertBox{display:none}
 </style>
 
 
@@ -55,7 +57,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <div id="Demo4" class="w3-hide w3-container">
             <div class="w3-container">
          <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
+         <p class="w3-center"><img src="" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
          <hr>
          <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
          <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
@@ -63,16 +65,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         </div>
     </div>
 
+
     <!-- Chat Catalogue -->
     <link rel="stylesheet" href="friendEntry.css">
     <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
     <div id="Demo1" class="w3-hide w3-container"></div>
     <!-- Chat Catalog End -->
          
-          <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Events I'm Attending</button>
-          <div id="Demo2" class="w3-hide w3-container">
-            <p>UMD Homecoming</p>
-          </div>
+  
           <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
           <div id="Demo3" class="w3-hide w3-container">
 
@@ -82,7 +82,15 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
       <br>
       
-     
+           <!-- Alert Box -->
+      <div id = "alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
+          <i class="fa fa-remove"></i>
+        </span>
+        <p><strong>Hey!</strong></p>
+        <p>friendUp! with a quick chat!</p>
+      </div>
+    
       
     
     <!-- End Left Column -->
@@ -164,10 +172,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
         <hr class="w3-clear">
         
         </div>
+        <!--issue-->
         <button id = "thumbsUp" onclick= "yesFunction()" type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  friendUP!</button> 
         <button id = "thumbsDown" type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>Nope</button> 
       </div>
-      <!--Needs work-->
+      
       <div id = "endOfdbPage"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class = "container">
@@ -197,7 +206,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
               <div class="w3-row-padding" style="margin:0 -16px">
                 <div class = "container">
                   <img id = "profilePicforUser" src="" style="width:100%" alt="Northern Lights">
-                 <!-- <div class="top-left">Coffee Guy AA</div>-->
+                 
                  <div id="profileDescription">Me: "I almost slept for 12 hours but I might still be tired so I'll go for 12 more just to be sure." My friend: "That's a coma." Me, an intellectual: "Sounds festive"        </div>
                 </div>
                 
@@ -264,10 +273,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     <!-- End Middle Column -->
     </div>
 
-
-
-
-
     <!-- Right Column -->
     <div class="w3-col m2">
       <div class="w3-card w3-round w3-white w3-center">
@@ -277,30 +282,40 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       
       <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
-          <p>friend Pending</p>
+          <p>Currently Pending</p>
           <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
           <h3 id = "friendPendName"> Jane Doe</h3>
           <div class="w3-row w3-opacity">
             <div class="w3-half">
-              <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+              
             </div>
             <div class="w3-half">
-              <button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
             </div>
           </div>
         </div>
       </div>
       <br>
+    
+      <br>   
       
-    <!--<div class="w3-card w3-round w3-white w3-padding-16 w3-center">
-        <p>ADS</p>
-      </div>-->
-      <br>
-      
-      <!--<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-        <p><i class="fa fa-bug w3-xxlarge"></i></p>
-      </div>-->
-      
+      <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
+        <div class="w3-container">
+          <p>friend Pending</p>
+          <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
+          <h3 id = "newFriendName"> Jane Doe</h3>
+          <h3 id = "descrip"> Jane Doe</h3>
+          <h3 id = "email4"> Jane Doe</h3>
+          <div class="w3-row w3-opacity">
+            <div class="w3-half">
+              <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+              </div>
+            <div class="w3-half">
+              <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+              </div>
+          </div>
+        </div>
+      </div>
+
     <!-- End Right Column -->
     </div>
     
@@ -779,15 +794,16 @@ function openNav() {
             });
           }
  
- let emale =0;
+ let emale = 0;
  let userArray = [];
  let dataArray = [];
  let emailArray = [];
  let friendPendArray = [];
  let pendNum = 0;
+ let currentUserEmail = sessionStorage.getItem('email');
+ let currentUserName = sessionStorage.getItem('un');
 
 
- 
   function getData(tableName){
     const db = getDatabase();
     const userTableGet = ref(db, tableName);
@@ -813,141 +829,278 @@ function openNav() {
       loadNextImg(emailArray);
       updatefriendArray(friendPendArray)
       incrementIt(userArray);
-      //loadImg(emailArray);
+      loadImg(emailArray);
+      addFriend(userArray);
     });
   }
-  //in progress
-let incremen = 0;
-let incre = [];
-function incrementIt(userArray){
-  let num3 = 0; 
-  if (incre.length == 0){
-    
-    incre[num3] = userArray[num3];
-    num3 = num3 + 1;
-  }
-  console.log(incre)
-  if (currentUser == userArray[incremen+1]){
-    incremen = incremen + 2;
-  }
-  else {
-    incremen = incremen + 1;
-  }
-  console.log(incremen)
+  function handleNewFriend(data){
+    document.getElementById("newFriendName").innerHTML = data["Username"];
+    document.getElementById("descrip").innerHTML = data["Description"];
+    document.getElementById("email4").innerHTML = data["email"];
 }
 
-
+//handles friend pending picture assigning
+let incremen = 0;
+function incrementIt(){
+  incremen = incremen + 1;
+ // console.log(incremen)
+}
 
 getData("users");
 
 
 let myArray3 = [];
-//erases with current method
-
-//pull array with snapshot, assign to variable, push, and update
-function updatefriendArray(friendPendArray) {
-
-  const db = getDatabase();
-  let friendsPending = [];
-  friendsPending.push("Bforger");
-  update(ref(db, "users/" + "Aforger"), {
-    friendsPending: friendsPending
-    
-  });
-}
-
-updatefriendArray();
-
-
-
-//need favicon to not be in array!!!
-//creates next profile
+//creates next profile for no function
 function loadNextImg(data){
-  //have second variable that pulls the CURRENT USER TO USE THE IF STATEMENTS
 
-  if(myArray.length==0){
-    while(data.length > num2){
-      myArray[num2] = data[num2]
-      num2 = num2 + 1;
-    }
+if(myArray.length==0){
+  while(data.length > num2){
+    myArray[num2] = data[num2]
+    num2 = num2 + 1;
   }
+}
+else{
   let electronicMail = myArray[num]
-  if (currentUser == electronicMail){
+  if (currentUserEmail == electronicMail){
     if((num+1) < (myArray.length)){ num = num + 1; }
-  else { endOfDB = true; }
+    else { endOfDB = true; }
+    electronicMail = myArray[num];
   }
-  else{
-    assignPicture(electronicMail)
+  //else{
+  assignPicture(electronicMail);
+  
   if((num+1) < (myArray.length)){ num = num + 1; }
   else { endOfDB = true; }
-  }
-  if (endOfDB == true){
-    console.log("hello");
-    //call function here
-    endOfDatabase();
-  }
+  //}
+}
+if (endOfDB == true){
+  //call function here
+  endOfDatabase();
+}
+
 }
 
 
 //loads image for friend Pending
 //needs cookie once connected
 let myArray2 = [];
+let num4 = 0;
+
 function loadImg(data){
-  num2 = 0;
+let num2 = 0;
+if(myArray2.length==0){
+  while(data.length > num2){
+    myArray2[num2] = data[num2]
+    num2 = num2 + 1;
+  }
+}
 
-  let ii= 0; 
-  let friend =  document.getElementById("friendPendName").innerHTML;
-  let [first, last] = friend.split(' ');
-  let friend2 = first.slice(0,1) + last.toLowerCase();
-  friend2 = friend2 + "@gmail.com"
+else {
 
-  const img = document.getElementById("friendWaiting");
+  if(currentUserEmail == myArray2[incremen]){
+    incremen = incremen + 1;
+  }
+  let friend2 = myArray2[incremen];
+  console.log(friend2);
+  console.log(myArray2);
+  getDownloadURL(sRef(storage, friend2))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+}
+}
+let myArray5 = [];
+function loadPending(data){
 
-  setImg(friend2, img);
+ let friend2 = data["email"]
+ console.log(friend2);
+  getDownloadURL(sRef(storage, friend2))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendPicWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+      
+}
 
+function updatefriendArray(data) {
+const db = getDatabase();
+let num2 = 0;
+//if(myArray3.length==0){
+  if(myArray3.length==0){
+  while(data.length > num2){
+    myArray3[num2] = data[num2]
+    num2 = num2 + 1;
+    }
+  //}
+}
+else{
+  //change name
+  let currentFriend = "";
+  currentFriend = myArray3[incremen];
+  //currentFriend = "whoever was friended"
+  //friendsPending = "Lforger"
+  friendsPending = currentUserName;
+  update(ref(db, "users/" + currentFriend), {
+    friendsPending: friendsPending,
+    isNew: true
+  });
+}
+}
+
+function deletefriendArray() {
+const db = getDatabase();
+
+//need current user
+     update(ref(db, "users/" + currentUserName), {
+    friendsPending: "",      
+    isNew: false
+  });
 }
 
 //create div, show when end of database is reached
 function endOfDatabase(){
-  var x = document.getElementById("endOfdbPage");
-  var y = document.getElementById("coffeeGuy");
-  x.style.display = "block"; //show
-  y.style.display = "none"; //hide
-  
-  console.log("before assignPic")
+var x = document.getElementById("endOfdbPage");
+var y = document.getElementById("coffeeGuy");
+x.style.display = "block"; //show
+y.style.display = "none"; //hide
 
-  const img = document.getElementById("faviconPic");
-
-  setImg("favicon", img);
-
-  //needs work
-  //store where the user leaves off/ how many times they hit the end to only pull from the users added since last time
+getDownloadURL(sRef(storage, "favicon"))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("faviconPic");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      }); 
 }
 
 //main picture loading handler for noFunction
 function assignPicture(email3){
+ let Email = email3;
 
-   let Email = email3;
-
-  //retrieving image attached to email
-      getDownloadURL(sRef(storage, Email))
-          .then((url) => {
-          // Or inserted into an <img> element
-        const img = document.getElementById("profilePic");
-        img.setAttribute('src', url);
-        })
-        .catch((error) => {
-        console.log(error)
-        });
-  }
+//retrieving image attached to email
+    getDownloadURL(sRef(storage, Email))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("profilePic");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+}
 
 //controls hiding of friend pending
 function showHide(){
-  var x = document.getElementById("friendPending");
-  x.style.display = "block"; //show
+var x = document.getElementById("friendPending");
+x.style.display = "block"; //show
+}
+function showHideS(){
+var x = document.getElementById("otherFriended");
+x.style.display = "block"; //show
+}
+function showHideSS(){
+var x = document.getElementById("alertBox");
+x.style.display = "block"; //show
+}
+function hideShow(){
+var x = document.getElementById("otherFriended");
+x.style.display = "none"; //hide
+}
+
+function listener(){
+const daba = getDatabase();
+let checkNew = "";
+let users2 = [];
+let newFriend = "";
+//needs to be current user
+  const dab = getDatabase();
+  const userTable = ref(dab, "users");
+  onValue(userTable, (snapshot) => {
+    snapshot.forEach(childSnapshot => {
+      users2.push(childSnapshot.key);
+      newFriend = users2[incremen];
+    });
+  });
+
+//currentFriend = currentUsers now
+const friendChange = ref(daba, 'users/' + currentUserName);
+  onValue(friendChange, (snapshot) => {
+    const data = snapshot.val();
+    checkNew = data["isNew"];
+  });
+ 
+     //currentFriend is the other person
+    const dabado = getDatabase();
+  if(checkNew == true){
+    //needs to be current user
+      const loadFriendChange = ref(dabado, 'users/' + newFriend);
+      onValue(loadFriendChange, (snapshot) => {
+      const data = snapshot.val();
+      showHideS();
+      handleNewFriend(data);
+      loadPending(data);
+
+  
+    });
+  } 
+      else{
+        console.log("CheckNew is false");
+      }
+}
+
+let assignNum = 0;
+let myArray7 = [];
+let friend3 = "";
+function addFriend(data){
+ 
+let num2 = 0;
+if(myArray7.length==0){
+  while(data.length > num2){
+    myArray7[num2] = data[num2]
+    num2 = num2 + 1;
+  }
+}
+
+else {
+
+  if(currentUserName == myArray7[incremen]){
+    incremen = incremen + 1;
+  }
+  friend3 = myArray7[incremen];
+  console.log(friend3);
+  
+}
+      const dabadaba = getDatabase();
+      const dabadabado = getDatabase();
+      //sessionStorage.getItem('un')
+      //needs to be by the uniqname
+       set(ref(dabadaba, "Friends/" + currentUserName + "/Friends List/" + assignNum), {
+        ChatKey:'',
+        Name:friend3,//sessionStorage.getItem('un')
+        email: friend3 + "@gmail.com"
+      });
+      set(ref(dabadabado, "Friends/" + friend3 + "/Friends List/" + assignNum), {
+        ChatKey:'',
+        Name:currentUserName, //sessionStorage.getItem('un')
+        email:currentUserEmail
+        
+      });
+assignNum = assignNum + 1;
 }
 
 
+//here
 function loadProfile() {
   var updatepage
 
@@ -1018,15 +1171,35 @@ var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", noFunction);
 nextImg.addEventListener("click", incrementIt);
+nextImg.addEventListener("click", listener);
+
+//read from friend pending array to friend Pending unit
 
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", yesFunction);
-frenPend.addEventListener("click", loadImg)
+frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
+frenPend.addEventListener("click", updatefriendArray);
+frenPend.addEventListener("click", listener);
 frenPend.addEventListener("click", incrementIt);
+
+
+
+var greenCheck = document.querySelector('#greenCheck');
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", showHideSS);
+greenCheck.addEventListener("click", addFriend);
+greenCheck.addEventListener("click", listener);
+
+
+var redX = document.querySelector('#redX');
+redX.addEventListener("click", deletefriendArray);
+redX.addEventListener("click", hideShow);
+redX.addEventListener("click", listener);
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
