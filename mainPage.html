@@ -82,30 +82,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       </div>
       <br>
       
-      <!-- Interests --> 
-      <div class="w3-card w3-round w3-white w3-hide-small">
-        <div class="w3-container">
-          <p>Interests</p>
-          <p>
-          
-          <!--load into an array from initial profile creation-->
-          <!--have person indicate level of interest on profile creation??-->
-          
-            <span class="w3-tag w3-small w3-theme-d5">News</span>
-            <span class="w3-tag w3-small w3-theme-d3">Labels</span>
-            <span class="w3-tag w3-small w3-theme-d2">Games</span>
-            <span class="w3-tag w3-small w3-theme-d1">Friends</span>
-            <span class="w3-tag w3-small w3-theme">Games</span>
-            <span class="w3-tag w3-small w3-theme-l1">Friends</span>
-            <span class="w3-tag w3-small w3-theme-l2">Food</span>
-            <span class="w3-tag w3-small w3-theme-l3">Design</span>
-            <span class="w3-tag w3-small w3-theme-l4">Art</span>
-            <span class="w3-tag w3-small w3-theme-l5">Photos</span>
-          </p>
-        </div>
-      </div>
-      <br>
-      
       <!-- Alert Box -->
       <div id = "alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
         <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
@@ -306,6 +282,7 @@ function openNav() {
       loadNextImg(emailArray);
       updatefriendArray(userArray);
       loadImg(emailArray);
+      addFriend(userArray);
     });
   }
 
@@ -330,18 +307,17 @@ getData("users");
 let friendsPending = "";
 let myArray3 = [];
 let usArray = [];
-
 let num = 1;
 let num2 = 0;
 let myArray = [];
-let currentUser = "Lforger@gmail.com";
-let currentRec = "Lforger";
+let currentUserEmail = "Lforger@gmail.com";
+let currentUserName = "Lforger";
 let endOfDB = false;
 
-//need favicon to not be in array!!!
-//creates next profile
+
+//might be broken because currentUserEmail is the email fix
+//creates next profile for no function
 function loadNextImg(data){
-  //have second variable that pulls the CURRENT USER TO USE THE IF STATEMENTS
 
   if(myArray.length==0){
     while(data.length > num2){
@@ -351,7 +327,7 @@ function loadNextImg(data){
   }
   else{
     let electronicMail = myArray[num]
-    if (currentUser == electronicMail){
+    if (currentUserEmail == electronicMail){
       if((num+1) < (myArray.length)){ num = num + 1; }
       else { endOfDB = true; }
       electronicMail = myArray[num];
@@ -386,11 +362,13 @@ let num2 = 0;
   }
 
   else {
-    //not skipping current user
-    if(currentUser == myArray2[incremen]){
+
+    if(currentUserEmail == myArray2[incremen]){
       incremen = incremen + 1;
     }
     let friend2 = myArray2[incremen];
+    console.log(friend2);
+    console.log(myArray2);
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
           // Or inserted into an <img> element
@@ -405,7 +383,7 @@ let num2 = 0;
 let myArray5 = [];
 function loadPending(data){
 
-    let friend2 = data["email"]
+   let friend2 = data["email"]
    console.log(friend2);
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
@@ -422,37 +400,35 @@ function loadPending(data){
 function updatefriendArray(data) {
   const db = getDatabase();
   let num2 = 0;
-  if(myArray3.length==0){
+  //if(myArray3.length==0){
     if(myArray3.length==0){
     while(data.length > num2){
       myArray3[num2] = data[num2]
       num2 = num2 + 1;
       }
-    }
+    //}
   }
   else{
-    /*let currentUsers = "";
-    currentUsers = myArray3[incremen];
-    friendsPending = currentRec;
-    update(ref(db, "users/" + currentUsers), {
-      friendsPending: friendsPending
-    });*/
-    let currentUsers = "";
-    currentUsers = myArray3[incremen];
-    friendsPending = currentRec;
-    update(ref(db, "users/" + "Lforger"), {
-      friendsPending: friendsPending
+    //change name
+    let currentFriend = "";
+    currentFriend = myArray3[incremen];
+    //currentFriend = "whoever was friended"
+    //friendsPending = "Lforger"
+    friendsPending = currentUserName;
+    update(ref(db, "users/" + currentFriend), {
+      friendsPending: friendsPending,
+      isNew: true
     });
   }
 }
 
 function deletefriendArray() {
   const db = getDatabase();
-    let currentUsers = "";
-    currentUsers = currentRec;
-    let friendsPending = null;
-    update(ref(db, "users/" + currentUsers), {
-      friendsPending: friendsPending
+
+  //need current user
+       update(ref(db, "users/" + currentUserName), {
+      friendsPending: "",      
+      isNew: false
     });
 }
 
@@ -471,9 +447,7 @@ function endOfDatabase(){
         })
         .catch((error) => {
         console.log(error)
-        });
-  //needs work
-  //store where the user leaves off/ how many times they hit the end to only pull from the users added since last time
+        }); 
 }
 
 //main picture loading handler for noFunction
@@ -507,21 +481,90 @@ function showHideSS(){
 }
 function hideShow(){
   var x = document.getElementById("otherFriended");
-  x.style.display = "none"; //show
+  x.style.display = "none"; //hide
 }
-
 
 function listener(){
   const daba = getDatabase();
-  const friendChange = ref(daba, 'users/' + currentUsers);
-  onValue(friendChange, (snapshot) => {
-    const data = snapshot.val();
-    showHideS();
+  let checkNew = "";
+  let users2 = [];
+  let newFriend = "";
+  //needs to be current user
+    const dab = getDatabase();
+    const userTable = ref(dab, "users");
+    onValue(userTable, (snapshot) => {
+      snapshot.forEach(childSnapshot => {
+        users2.push(childSnapshot.key);
+        newFriend = users2[incremen];
+      });
+    });
 
-    handleNewFriend(data);
-    loadPending(data);
-  });
+//currentFriend = currentUsers now
+  const friendChange = ref(daba, 'users/' + currentUserName);
+    onValue(friendChange, (snapshot) => {
+      const data = snapshot.val();
+      checkNew = data["isNew"];
+    });
+   
+       //currentFriend is the other person
+      const dabado = getDatabase();
+    if(checkNew == true){
+      //needs to be current user
+        const loadFriendChange = ref(dabado, 'users/' + newFriend);
+        onValue(loadFriendChange, (snapshot) => {
+        const data = snapshot.val();
+        showHideS();
+        handleNewFriend(data);
+        loadPending(data);
+
+    
+      });
+    } 
+        else{
+          console.log("CheckNew is false");
+        }
 }
+
+let assignNum = 0;
+let myArray7 = [];
+let friend3 = "";
+function addFriend(data){
+   
+  let num2 = 0;
+  if(myArray7.length==0){
+    while(data.length > num2){
+      myArray7[num2] = data[num2]
+      num2 = num2 + 1;
+    }
+  }
+
+  else {
+
+    if(currentUserName == myArray7[incremen]){
+      incremen = incremen + 1;
+    }
+    friend3 = myArray7[incremen];
+    console.log(friend3);
+    
+  }
+        const dabadaba = getDatabase();
+        const dabadabado = getDatabase();
+        //sessionStorage.getItem('un')
+        //needs to be by the uniqname
+         set(ref(dabadaba, "Friends/" + currentUserName + "/Friends List/" + assignNum), {
+          ChatKey:'',
+          Name:friend3,//sessionStorage.getItem('un')
+          email: friend3 + "@gmail.com"
+        });
+        set(ref(dabadabado, "Friends/" + friend3 + "/Friends List/" + assignNum), {
+          ChatKey:'',
+          Name:currentUserName, //sessionStorage.getItem('un')
+          email:currentUserEmail
+          
+        });
+assignNum = assignNum + 1;
+}
+
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
@@ -540,14 +583,16 @@ frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", updatefriendArray);
-frenPend.addEventListener("click", incrementIt);
 frenPend.addEventListener("click", listener);
+frenPend.addEventListener("click", incrementIt);
+
 
 
 var greenCheck = document.querySelector('#greenCheck');
 greenCheck.addEventListener("click", deletefriendArray);
 greenCheck.addEventListener("click", hideShow);
 greenCheck.addEventListener("click", showHideSS);
+greenCheck.addEventListener("click", addFriend);
 greenCheck.addEventListener("click", listener);
 
 
@@ -555,6 +600,7 @@ var redX = document.querySelector('#redX');
 redX.addEventListener("click", deletefriendArray);
 redX.addEventListener("click", hideShow);
 redX.addEventListener("click", listener);
+
 
 
   </script>
