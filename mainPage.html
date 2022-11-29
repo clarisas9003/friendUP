@@ -296,7 +296,7 @@ function handleNewFriend(data){
 let incremen = 0;
 function incrementIt(){
   incremen = incremen + 1;
- // console.log(incremen)
+  console.log(incremen)
 }
 
 
@@ -310,8 +310,8 @@ let usArray = [];
 let num = 1;
 let num2 = 0;
 let myArray = [];
-let currentUserEmail = "Lforger@gmail.com";
-let currentUserName = "Lforger";
+let currentUserEmail = "Yforger@gmail.com";
+let currentUserName = "Yforger";
 let endOfDB = false;
 
 
@@ -333,6 +333,7 @@ function loadNextImg(data){
       electronicMail = myArray[num];
     }
     //else{
+      console.log(electronicMail + " from loadNextImg")
     assignPicture(electronicMail);
     
     if((num+1) < (myArray.length)){ num = num + 1; }
@@ -367,8 +368,7 @@ let num2 = 0;
       incremen = incremen + 1;
     }
     let friend2 = myArray2[incremen];
-    console.log(friend2);
-    console.log(myArray2);
+    console.log(friend2 + " from loadImg");
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
           // Or inserted into an <img> element
@@ -384,7 +384,7 @@ let myArray5 = [];
 function loadPending(data){
 
    let friend2 = data["email"]
-   console.log(friend2);
+   console.log(friend2 + "from loadImg");
     getDownloadURL(sRef(storage, friend2))
           .then((url) => {
           // Or inserted into an <img> element
@@ -544,7 +544,7 @@ function addFriend(data){
       incremen = incremen + 1;
     }
     friend3 = myArray7[incremen];
-    console.log(friend3);
+    console.log(friend3 + "from add friend");
     
   }
         const dabadaba = getDatabase();

@@ -13,7 +13,7 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUsers = "Lforger"
+let currentUsers = "Yforger"
 //THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
 
 //transfer database to workable array
