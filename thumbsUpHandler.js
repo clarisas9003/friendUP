@@ -13,8 +13,8 @@ let major= "";
 let dataList = [];
 let userList = [];
 let i = 0;
-let currentUser = "Aforger"
-//THE ABOVE IS TEMPORARY UNTIL SESSION KEY CAN BE ACCESSED!!!!!
+let currentUser = sessionStorage.getItem('un')
+
 
 //transfer database to workable array
 function assignData(dataArray, userArray){
