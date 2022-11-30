@@ -382,8 +382,6 @@ function openNav() {
   let currentUser = sessionStorage.getItem('un')
   let endOfDB = false;
 
-        
-
         //Universal image function
         function setImg(email, img)
         {
@@ -848,7 +846,7 @@ function incrementIt(){
 
 getData("users");
 
-
+//let num = 0;
 let myArray3 = [];
 //creates next profile for no function
 function loadNextImg(data){
@@ -860,7 +858,7 @@ if(myArray.length==0){
   }
 }
 else{
-  let electronicMail = myArray[num]
+  let electronicMail = myArray[num];
   if (currentUserEmail == electronicMail){
     if((num+1) < (myArray.length)){ num = num + 1; }
     else { endOfDB = true; }
@@ -1187,27 +1185,12 @@ var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
-frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
+frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
 
-
-
-
-/*var greenCheck = document.querySelector('#greenCheck');
-greenCheck.addEventListener("click", deletefriendArray);
-greenCheck.addEventListener("click", hideShow);
-greenCheck.addEventListener("click", showHideSS);
-greenCheck.addEventListener("click", addFriend);
-//greenCheck.addEventListener("click", listener);
-
-
-var redX = document.querySelector('#redX');
-redX.addEventListener("click", deletefriendArray);
-redX.addEventListener("click", hideShow);
-redX.addEventListener("click", listener);*/
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
@@ -1217,11 +1200,6 @@ settingsBtn.addEventListener('click',loadSettings)
 
 var updateSettingsBtn = document.querySelector('#updateProfileBtn')
 updateSettingsBtn.addEventListener('click',updateSettings)
-
-
-
-
-
 
   </script>
 
