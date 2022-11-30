@@ -859,10 +859,17 @@ if(myArray.length==0){
 }
 else{
   let electronicMail = myArray[num];
+  console.log(electronicMail)
+  if(myArray[0] == currentUserEmail){
+    num = num + 1;
+    electronicMail = myArray[num];
+    console.log(electronicMail)
+  }
   if (currentUserEmail == electronicMail){
     if((num+1) < (myArray.length)){ num = num + 1; }
     else { endOfDB = true; }
     electronicMail = myArray[num];
+    console.log(electronicMail)
   }
   //else{
   assignPicture(electronicMail);
