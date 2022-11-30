@@ -382,7 +382,7 @@ function openNav() {
   let currentUser = sessionStorage.getItem('un')
   let endOfDB = false;
 
-        const friends = ref(database, "Friends/" + currentUser + "/Friends List");
+        
 
         //Universal image function
         function setImg(email, img)
@@ -396,11 +396,11 @@ function openNav() {
         }
 
         // Chat Catalog
-
+        const friends = ref(database, "Friends/" + currentUser + "/Friends List");
         onValue(friends, (snapshot) => {
-            if (snapshot.exists())
-            {
-                const catalog = document.getElementById("Demo1");
+          const catalog = document.getElementById("Demo1");  
+          if (snapshot.exists())
+            {   
                 catalog.innerHTML = '';
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
@@ -827,8 +827,8 @@ function openNav() {
       
       assignPicture(emails);
       loadNextImg(emailArray);
-      updatefriendArray(friendPendArray)
-      incrementIt(userArray);
+      updatefriendArray(userArray)
+      //incrementIt(userArray);
       loadImg(emailArray);
       addFriend(userArray);
     });
@@ -899,7 +899,8 @@ else {
   if(currentUserEmail == myArray2[incremen]){
     incremen = incremen + 1;
   }
-  let friend2 = myArray2[incremen-1];
+  //issue
+  let friend2 = myArray2[incremen];
   console.log(friend2);
   console.log(myArray2);
   getDownloadURL(sRef(storage, friend2))
@@ -916,7 +917,7 @@ else {
 let myArray5 = [];
 function loadPending(data){
 
- let friend2 = data["email"]
+ let friend2 = data["email"];
  console.log(friend2);
   getDownloadURL(sRef(storage, friend2))
         .then((url) => {
@@ -956,10 +957,10 @@ else{
 }
 
 function deletefriendArray() {
-const db = getDatabase();
-
+const deleteArray = getDatabase();
+console.log("in delete friend array");
 //need current user
-     update(ref(db, "users/" + currentUserName), {
+     update(ref(deleteArray, "users/" + currentUserName), {
     friendsPending: "",      
     isNew: false
   });
@@ -1004,20 +1005,20 @@ function showHide(){
 var x = document.getElementById("friendPending");
 x.style.display = "block"; //show
 }
-function showHideS(){
+/*function showHideS(){
 var x = document.getElementById("otherFriended");
-x.style.display = "block"; //show
-}
+x.display = "block"; //show
+}*/
 function showHideSS(){
 var x = document.getElementById("alertBox");
 x.style.display = "block"; //show
 }
-function hideShow(){
+/*function hideShow(){
 var x = document.getElementById("otherFriended");
 x.style.display = "none"; //hide
-}
+}*/
 
-function listener(){
+/*function listener(){
 const daba = getDatabase();
 let checkNew = "";
 let users2 = [];
@@ -1033,7 +1034,7 @@ let newFriend = "";
   });
 
 //currentFriend = currentUsers now
-const friendChange = ref(daba, 'users/' + currentUserName);
+  const friendChange = ref(daba, 'users/' + currentUserName);
   onValue(friendChange, (snapshot) => {
     const data = snapshot.val();
     checkNew = data["isNew"];
@@ -1056,46 +1057,53 @@ const friendChange = ref(daba, 'users/' + currentUserName);
       else{
         console.log("CheckNew is false");
       }
-}
+}*/
 
 let assignNum = 0;
 let myArray7 = [];
 let friend3 = "";
+
 function addFriend(data){
  
-let num2 = 0;
-if(myArray7.length==0){
-  while(data.length > num2){
-    myArray7[num2] = data[num2]
-    num2 = num2 + 1;
+  let num2 = 0;
+  if(myArray7.length==0){
+    while(data.length > num2){
+      myArray7[num2] = data[num2]
+      num2 = num2 + 1;
+    }
+    console.log(myArray7);
+    console.log("hi from if in add friend");
   }
-}
 
 else {
-
+  //issue
+  console.log("hi from else in add friend")
   if(currentUserName == myArray7[incremen]){
+    
     incremen = incremen + 1;
   }
   friend3 = myArray7[incremen];
-  console.log(friend3);
-  
-}
-      const dabadaba = getDatabase();
+  console.log(friend3 + "from addFriend");
+  const dabadaba = getDatabase();
       const dabadabado = getDatabase();
       //sessionStorage.getItem('un')
       //needs to be by the uniqname
+      friend3 = friend3 + "@gmail.com";
+      console.log(friend3);
        set(ref(dabadaba, "Friends/" + currentUserName + "/Friends List/" + assignNum), {
-        ChatKey:'',
-        Name:friend3,//sessionStorage.getItem('un')
-        email: friend3 + "@gmail.com"
-      });
+        ChatKey:assignNum,
+        Name:friend3, //sessionStorage.getItem('un')
+        email: friend3
+      }); 
       set(ref(dabadabado, "Friends/" + friend3 + "/Friends List/" + assignNum), {
-        ChatKey:'',
+        ChatKey:assignNum,
         Name:currentUserName, //sessionStorage.getItem('un')
         email:currentUserEmail
         
       });
-assignNum = assignNum + 1;
+}
+      
+  assignNum = assignNum + 1;
 }
 
 
@@ -1182,23 +1190,24 @@ frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", updatefriendArray);
-frenPend.addEventListener("click", listener);
+frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
 
 
 
-var greenCheck = document.querySelector('#greenCheck');
+
+/*var greenCheck = document.querySelector('#greenCheck');
 greenCheck.addEventListener("click", deletefriendArray);
 greenCheck.addEventListener("click", hideShow);
 greenCheck.addEventListener("click", showHideSS);
 greenCheck.addEventListener("click", addFriend);
-greenCheck.addEventListener("click", listener);
+//greenCheck.addEventListener("click", listener);
 
 
 var redX = document.querySelector('#redX');
 redX.addEventListener("click", deletefriendArray);
 redX.addEventListener("click", hideShow);
-redX.addEventListener("click", listener);
+redX.addEventListener("click", listener);*/
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
