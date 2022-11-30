@@ -44,57 +44,55 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
   <!-- The Grid -->
   <div class="w3-row">
     <!-- Left Column -->
-    <div class="w3-col m3">
-      <!-- Profile -->
-      <div class="w3-card w3-round w3-white">
-      </div>
-      <br>
-      
-      <!-- Accordion -->
-      <div class="w3-card w3-round">
-        <div class="w3-white">
-          <button id = 'profileClick' onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
-          <div id="Demo4" class="w3-hide w3-container">
-            <div class="w3-container">
-         <h4 class="w3-center">My Profile</h4>
-         <p class="w3-center"><img src="" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
-         <hr>
-         <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
-         <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
-         <p id="proEmail"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-        </div>
-    </div>
-
-
-    <!-- Chat Catalogue -->
-    <link rel="stylesheet" href="friendEntry.css">
-    <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
-    <div id="Demo1" class="w3-hide w3-container"></div>
-    <!-- Chat Catalog End -->
-         
-  
-          <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
-          <div id="Demo3" class="w3-hide w3-container">
-
-          
+      <div class="w3-col m3">
+          <!-- Profile -->
+          <div class="w3-card w3-round w3-white">
           </div>
-        </div>      
+          <br>
+
+          <!-- Accordion -->
+          <div class="w3-card w3-round">
+              <div class="w3-white">
+                  <button id='profileClick' onclick="myFunction('Demo4');openProfile(sideMenu,'userProfile','middleColumn','settings');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home fa-fw w3-margin-right"></i> Profile </button>
+                  <div id="Demo4" class="w3-hide w3-container">
+                      <div class="w3-container">
+                          <h4 class="w3-center">My Profile</h4>
+                          <p class="w3-center"><img src="" class="w3-circle" style="height:106px;width:106px" alt="Avatar" id="miniImage"></p>
+                          <hr>
+                          <p id="proMajor"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Major: Computer Science</p>
+                          <p id="proLocation"><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>Year At U of M: 3rd </p>
+                          <p id="proEmail"><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+                      </div>
+                  </div>
+
+
+                  <!-- Chat Catalogue -->
+                  <link rel="stylesheet" href="friendEntry.css">
+                  <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
+                  <div id="Demo1" class="w3-hide w3-container"></div>
+                  <!-- Chat Catalog End -->
+
+
+                  <button onclick=" openSettings(sideMenu,'settings','middleColumn','userProfile')" class="w3-button w3-block w3-theme-l1 w3-left-align" id="settingsClick"><i class="fa fa-users fa-fw w3-margin-right"></i> Settings </button>
+                  <div id="Demo3" class="w3-hide w3-container">
+
+
+                  </div>
+              </div>
+          </div>
+          <br>
+
+          <!-- Alert Box -->
+          <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+              <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
+                  <i class="fa fa-remove"></i>
+              </span>
+              <p><strong>Hey!</strong></p>
+              <p>friendUp! with a quick chat!</p>
+          </div>
+
+          <!-- End Left Column -->
       </div>
-      <br>
-      
-           <!-- Alert Box -->
-      <div id = "alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
-        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
-          <i class="fa fa-remove"></i>
-        </span>
-        <p><strong>Hey!</strong></p>
-        <p>friendUp! with a quick chat!</p>
-      </div>
-    
-      
-    
-    <!-- End Left Column -->
-    </div>
     
     <!-- Middle Column -->
     
@@ -277,22 +275,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     <div class="w3-col m2">
       <div class="w3-card w3-round w3-white w3-center">
         
-      </div>
-      <br>
-      
-      <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>Currently Pending</p>
-          <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
-          <h3 id = "friendPendName"> Jane Doe</h3>
-          <div class="w3-row w3-opacity">
-            <div class="w3-half">
-              
-            </div>
-            <div class="w3-half">
-            </div>
-          </div>
-        </div>
       </div>
       <br>
     
@@ -832,7 +814,7 @@ function openNav() {
       loadNextImg(emailArray);
       updatefriendArray(userArray)
       //incrementIt(userArray);
-      loadImg(emailArray);
+      //loadImg(emailArray);
       //addFriend(userArray);
     });
   }
@@ -854,41 +836,8 @@ getData("users");
 //let num = 0;
 let myArray3 = [];
 //creates next profile for no function
-function loadNextImg(data){
+function loadNextImg(data) {    if (myArray.length == 0) {         while (data.length > num2) {             myArray[num2] = data[num2]             num2 = num2 + 1;         }    }    else {          let electronicMail = GetEmail();            assignPicture(electronicMail);            if ((num + 1) < (myArray.length)) { num = num + 1; }            else { endOfDB = true; }        }        if (endOfDB == true) {            //call function here            endOfDatabase();        }        console.log(incremen);    }
 
-if(myArray.length==0){
-  while(data.length > num2){
-    myArray[num2] = data[num2]
-    num2 = num2 + 1;
-  }
-}
-else{
-  let electronicMail = myArray[num];
-  console.log(electronicMail)
-  if(myArray[0] == currentUserEmail){
-    num = num + 1;
-    electronicMail = myArray[num];
-    console.log(electronicMail)
-  }
-  if (currentUserEmail == electronicMail){
-    if((num+1) < (myArray.length)){ num = num + 1; }
-    else { endOfDB = true; }
-    electronicMail = myArray[num];
-    console.log(electronicMail)
-  }
-  //else{
-  assignPicture(electronicMail);
-  
-  if((num+1) < (myArray.length)){ num = num + 1; }
-  else { endOfDB = true; }
-  //}
-}
-if (endOfDB == true){
-  //call function here
-  endOfDatabase();
-}
-
-}
 
 
 //loads image for friend Pending
@@ -1248,8 +1197,8 @@ function updateSettings()
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
-nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", noFunction);
+nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", incrementIt);
 //nextImg.addEventListener("click", listener);
 
@@ -1257,11 +1206,11 @@ nextImg.addEventListener("click", incrementIt);
 
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
-frenPend.addEventListener("click", yesFunction);
-frenPend.addEventListener("click", loadImg);
-frenPend.addEventListener("click", showHide);
-frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", noFunction);
+frenPend.addEventListener("click", loadNextImg);
+//frenPend.addEventListener("click", yesFunction);
+//frenPend.addEventListener("click", loadImg);
+//frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
