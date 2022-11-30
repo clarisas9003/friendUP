@@ -128,9 +128,9 @@
           isNew: false,
           friendsPending: "" 
         });
-        let imagePull = "hifive@gmail.com";
-        //sessionStorage.getItem('email')
+        let imagePull = sessionStorage.getItem('email');
         var upadateImg = document.getElementById("profile_picture_input").files[0];
+        
         if(upadateImg != undefined){
         uploadBytes(sRef(storage, imagePull), upadateImg).then((snapshot) => {
                           console.log('Uploaded a blob or file!');
@@ -138,7 +138,7 @@
                     }
         else{console.log("imgage not updated")}
 
-       //window.location.href = "interests.html";
+       window.location.href = "interests.html";
 
       }
       
