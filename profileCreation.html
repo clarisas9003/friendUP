@@ -122,11 +122,15 @@
           Major:major,
           Description:description,
           Interests:"",
-          
+          Username: sessionStorage.getItem('un'),
+          email: sessionStorage.getItem('email'),
+          uniqname: sessionStorage.getItem('un'),
+          isNew: false,
+          friendsPending: "" 
         });
         var upadateImg = document.getElementById("profile_picture_input").files[0]
         if(upadateImg != undefined){
-        uploadBytes(sRef(storage, sessionStorage.getItem('un') +'@gmail.com'), upadateImg).then((snapshot) => {
+        uploadBytes(sRef(storage, sessionStorage.getItem('email')), upadateImg).then((snapshot) => {
                           console.log('Uploaded a blob or file!');
                       });
                     }
