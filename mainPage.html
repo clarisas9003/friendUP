@@ -894,13 +894,12 @@ if(myArray2.length==0){
     num2 = num2 + 1;
   }
 }
-
+//currently pending is changing with the main picture
 else {
-
   if(currentUserEmail == myArray2[incremen]){
     incremen = incremen + 1;
   }
-  let friend2 = myArray2[incremen];
+  let friend2 = myArray2[incremen-1];
   console.log(friend2);
   console.log(myArray2);
   getDownloadURL(sRef(storage, friend2))
@@ -948,7 +947,7 @@ else{
   currentFriend = myArray3[incremen];
   //currentFriend = "whoever was friended"
   //friendsPending = "Lforger"
-  friendsPending = currentUserName;
+  let friendsPending = currentUserName;
   update(ref(db, "users/" + currentFriend), {
     friendsPending: friendsPending,
     isNew: true

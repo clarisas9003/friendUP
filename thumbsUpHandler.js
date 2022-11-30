@@ -23,8 +23,7 @@ function assignData(dataArray, userArray){
     i = i + 1;
    }
    i = 0;
-   console.log(userArray)
-   console.log(userArray.length)
+   
    while((userArray.length) > (i)){
     userList[i] = userArray[i]
     i = i + 1;
