@@ -784,6 +784,7 @@ function openNav() {
  let dataArray = [];
  let emailArray = [];
  let friendPendArray = [];
+ let seenArray = [];
  let pendNum = 0;
  let currentUserEmail = sessionStorage.getItem('email');
  let currentUserName = sessionStorage.getItem('un');
@@ -792,32 +793,56 @@ function openNav() {
   function getData(tableName){
     const db = getDatabase();
     const userTableGet = ref(db, tableName);
-    let emails ="";
-    onValue(userTableGet, (snapshot) => {
-      snapshot.forEach(childSnapshot => {
-        userArray.push(childSnapshot.key)
-        dataArray.push(childSnapshot.val())
-        //super costly at high volumes, add in better parameters later
+    let emails = "";
+      get(ref(database, "users/" + currentUser + "/Seen")).then((snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+              seenArray.push(childSnapshot.val());
+          }); 
       });
-      while(emale < dataArray.length){
-        emailArray.push(dataArray[emale]["email"])
-        emale = emale + 1;
-      }
-      while(pendNum < dataArray.length){
-        friendPendArray.push(dataArray[pendNum]["friendsPending"])
-        pendNum = pendNum + 1;
-      }
 
-     emails = pageOnLoad(dataArray, userArray);
-      
-      assignPicture(emails);
-      loadNextImg(emailArray);
-      updatefriendArray(userArray)
-      //incrementIt(userArray);
-      //loadImg(emailArray);
-      //addFriend(userArray);
+    get(userTableGet).then((snapshot) => {
+        snapshot.forEach(childSnapshot => {
+            if (!seenArray.includes(childSnapshot.key))
+            {
+                if (childSnapshot.key != currentUser)
+                {
+                    userArray.push(childSnapshot.key)
+                    dataArray.push(childSnapshot.val())
+                }
+            }
+            //super costly at high volumes, add in better parameters later
+        });
+
+        if (userArray.length == 0)
+        {
+            endOfDatabase();
+        }
+        else
+        {
+            while (emale < dataArray.length) {
+                emailArray.push(dataArray[emale]["email"])
+                emale = emale + 1;
+            }
+            while (pendNum < dataArray.length) {
+                friendPendArray.push(dataArray[pendNum]["friendsPending"])
+                pendNum = pendNum + 1;
+            }
+
+            emails = pageOnLoad(dataArray, userArray);
+
+            assignPicture(emails);
+            loadNextImg(emailArray);
+            updatefriendArray(userArray)
+            //incrementIt(userArray);
+            //loadImg(emailArray);
+            //addFriend(userArray);
+        }
+
+
     });
   }
+
+
   function handleNewFriend(data){
     document.getElementById("newFriendName").innerHTML = data["Username"];
     document.getElementById("descrip").innerHTML = data["Description"];
@@ -1194,9 +1219,53 @@ function updateSettings()
   else{console.log("imgage not updated")}
 }
 
+    function updateSeenList()
+    {
+
+        const seenUser = GetUniqname();
+        const seenCount = ref(database, "users/" + currentUser + "/seenCount");
+
+        get(seenCount).then((snapshot) => {
+            if (snapshot.exists())
+            {
+                const seenNum = snapshot.val();
+
+                const newNum = seenNum + 1;
+
+                //update seen count
+                update(ref(database, "users/" + currentUser), {
+                    seenCount: newNum
+                });
+
+                const seenList = ref(database, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
+
+                //update seen list
+                set(seenList, seenUser);
+
+            }
+            else
+            {
+                const newNum = 0;
+
+                //create new seen count
+                update(ref(database, "users/" + currentUser), {
+                    seenCount: newNum
+                });
+
+                const seenList = ref(database, "users/" + currentUser + "/Seen/0");
+
+                //update seen list
+                set(seenList, seenUser);
+            }
+        });
+
+        console.log("Seen: " + seenUser);
+
+    }
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
+nextImg.addEventListener("click", updateSeenList);
 nextImg.addEventListener("click", noFunction);
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", incrementIt);
@@ -1206,6 +1275,7 @@ nextImg.addEventListener("click", incrementIt);
 
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
+frenPend.addEventListener("click", updateSeenList);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 //frenPend.addEventListener("click", yesFunction);
