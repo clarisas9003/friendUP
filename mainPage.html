@@ -82,7 +82,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
               </div>
           </div>
           <br>
-
+          <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
+            <div class="w3-container">
+              <p>Recently Friended</p>
+              <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
+              <h3 id = "friendPendName"> Jane Doe</h3>
+              <div class="w3-row w3-opacity">
+                <div class="w3-half">
+                  <!--<button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+                  --></div>
+                <div class="w3-half">
+                  <!--<button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+                  --></div>
+              </div>
+            </div>
+          </div>
           <!-- Alert Box -->
           <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
               <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
@@ -179,8 +193,18 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div id = "endOfdbPage"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class = "container">
-            <img id = "faviconPic" src="" style="width:60%" alt="friendUpIcon" class = "w3-center">
+            <img id = "faviconPic" src=""  alt="friendUpIcon" class = "center">
+            <style>
+              .container img {width: 100%;}
+            </style>
+            
             <div id = "endOfNote" class="w3-center"> Congratulations! You have seen all potential friends!</div>
+            <style>
+              .w3-center{font-size: 1000%}
+              .w3-center{font-size: 3rem}
+              .w3-center{font-size: 3em}
+              .w3-center{font-size: 30px}
+          </style>
             <div id = "endOfNote" class="w3-center"> Use the chat feature to levelUP your new friendships</div>
           </div>
           
@@ -884,7 +908,6 @@ function loadNextImg(data) {
             //call function here
             endOfDatabase();
         }
-        console.log(incremen);
 
 
     }
@@ -896,24 +919,10 @@ function loadNextImg(data) {
 let myArray2 = [];
 let num4 = 0;
 
-function loadImg(data){
-let num2 = 0;
-if(myArray2.length==0){
-  while(data.length > num2){
-    myArray2[num2] = data[num2]
-    num2 = num2 + 1;
-  }
-}
-//currently pending is changing with the main picture
-else {
-  if(currentUserEmail == myArray2[incremen]){
-    incremen = incremen + 1;
-  }
-  //issue
-  let friend2 = myArray2[incremen];
-  console.log(friend2);
-  console.log(myArray2);
-  getDownloadURL(sRef(storage, friend2))
+function loadImg(){
+  let electronicMail = GetEmail();
+  console.log("hi from loadimg "+ electronicMail)
+  getDownloadURL(sRef(storage, electronicMail))
         .then((url) => {
         // Or inserted into an <img> element
       const img = document.getElementById("friendWaiting");
@@ -923,7 +932,7 @@ else {
       console.log(error)
       });
 }
-}
+
 let myArray5 = [];
 function loadPending(data){
 
@@ -982,6 +991,7 @@ var x = document.getElementById("endOfdbPage");
 var y = document.getElementById("coffeeGuy");
 x.style.display = "block"; //show
 y.style.display = "none"; //hide
+document.getElementById("friendPending").style.display = "none";
 
 getDownloadURL(sRef(storage, "favicon"))
         .then((url) => {
@@ -1307,11 +1317,13 @@ nextImg.addEventListener("click", incrementIt);
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", updateSeenList);
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
-//frenPend.addEventListener("click", yesFunction);
-//frenPend.addEventListener("click", loadImg);
-//frenPend.addEventListener("click", showHide);
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg);
+frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
