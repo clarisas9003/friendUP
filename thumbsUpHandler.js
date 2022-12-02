@@ -78,13 +78,14 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-  console.log(email);
+  console.log("Hi from onPageLoad " + email);
   return email;
 }
 
 //most functionality not here
 //what happens when you thumb
 function yesFunction(){
+  console.log("hi from yes function: "+ email)
   //puts the side friend pending div in
   document.getElementById("friendPendName").innerHTML = FN + " " + LN;
   //calls noFunction so next user will be called on event
@@ -132,6 +133,21 @@ function openProfile(openProfile,myProfile,notProfile,settings)
   }
   
   else{/* do nothing */}
+}
+
+function openChat(openChat,myProfile,notProfile,profile){
+let hello = "";
+  if(openChat.chatOpen==false)  {
+    hideShow(myProfile,notProfile)
+  }
+  else
+  { 
+    hideShow(notProfile,myProfile) 
+    var y = document.getElementById(profile);
+    y.style.display = "none"; //hide
+  }
+  openChat.chatOpen = !openChat.chatOpen;
+
 }
 
 

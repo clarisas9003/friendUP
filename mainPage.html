@@ -14,6 +14,7 @@
   #alertBox{display:none}
 </style>
 
+<!--Need last added user. Need friendPending-->
 
 <script src="thumbsUpHandler.js"></script>
 
@@ -27,7 +28,7 @@
 html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
-<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false,chatOpen:false}">
+<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false,chatOpen:false, frenProfileOpen:false}">
 
   <script> window.email3; </script>
 
@@ -68,7 +69,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
                   <!-- Chat Catalogue -->
                   <link rel="stylesheet" href="friendEntry.css">
-                  <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
+                  <button id = 'friendsChatClick' onclick="myFunction('Demo1'); openChat(sideMenu,'chatbox','coffeeGuy','profile');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
                   <div id="Demo1" class="w3-hide w3-container"></div>
                   <!-- Chat Catalog End -->
 
@@ -81,7 +82,21 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
               </div>
           </div>
           <br>
-
+          <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
+            <div class="w3-container">
+              <p>Recently Friended</p>
+              <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
+              <h3 id = "friendPendName"> Jane Doe</h3>
+              <div class="w3-row w3-opacity">
+                <div class="w3-half">
+                  <!--<button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+                  --></div>
+                <div class="w3-half">
+                  <!--<button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+                  --></div>
+              </div>
+            </div>
+          </div>
           <!-- Alert Box -->
           <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
               <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
@@ -178,8 +193,18 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div id = "endOfdbPage"  class="w3-container w3-card w3-white w3-round w3-margin"><br>
         <div class="w3-row-padding" style="margin:0 -16px">
           <div class = "container">
-            <img id = "faviconPic" src="" style="width:60%" alt="friendUpIcon" class = "w3-center">
+            <img id = "faviconPic" src=""  alt="friendUpIcon" class = "center">
+            <style>
+              .container img {width: 100%;}
+            </style>
+            
             <div id = "endOfNote" class="w3-center"> Congratulations! You have seen all potential friends!</div>
+            <style>
+              .w3-center{font-size: 1000%}
+              .w3-center{font-size: 3rem}
+              .w3-center{font-size: 3em}
+              .w3-center{font-size: 30px}
+          </style>
             <div id = "endOfNote" class="w3-center"> Use the chat feature to levelUP your new friendships</div>
           </div>
           
@@ -861,7 +886,31 @@ getData("users");
 //let num = 0;
 let myArray3 = [];
 //creates next profile for no function
-function loadNextImg(data) {    if (myArray.length == 0) {         while (data.length > num2) {             myArray[num2] = data[num2]             num2 = num2 + 1;         }    }    else {          let electronicMail = GetEmail();            assignPicture(electronicMail);            if ((num + 1) < (myArray.length)) { num = num + 1; }            else { endOfDB = true; }        }        if (endOfDB == true) {            //call function here            endOfDatabase();        }        console.log(incremen);    }
+function loadNextImg(data) {
+    if (myArray.length == 0) {
+         while (data.length > num2) {
+             myArray[num2] = data[num2]
+             num2 = num2 + 1;
+         }
+    }
+    else {
+
+          let electronicMail = GetEmail();
+            assignPicture(electronicMail);
+
+            if ((num + 1) < (myArray.length)) { num = num + 1; }
+            else { endOfDB = true; }
+
+
+
+        }
+        if (endOfDB == true) {
+            //call function here
+            endOfDatabase();
+        }
+
+
+    }
 
 
 
@@ -870,24 +919,10 @@ function loadNextImg(data) {    if (myArray.length == 0) {         while (data
 let myArray2 = [];
 let num4 = 0;
 
-function loadImg(data){
-let num2 = 0;
-if(myArray2.length==0){
-  while(data.length > num2){
-    myArray2[num2] = data[num2]
-    num2 = num2 + 1;
-  }
-}
-//currently pending is changing with the main picture
-else {
-  if(currentUserEmail == myArray2[incremen]){
-    incremen = incremen + 1;
-  }
-  //issue
-  let friend2 = myArray2[incremen];
-  console.log(friend2);
-  console.log(myArray2);
-  getDownloadURL(sRef(storage, friend2))
+function loadImg(){
+  let electronicMail = GetEmail();
+  console.log("hi from loadimg "+ electronicMail)
+  getDownloadURL(sRef(storage, electronicMail))
         .then((url) => {
         // Or inserted into an <img> element
       const img = document.getElementById("friendWaiting");
@@ -897,7 +932,7 @@ else {
       console.log(error)
       });
 }
-}
+
 let myArray5 = [];
 function loadPending(data){
 
@@ -956,6 +991,7 @@ var x = document.getElementById("endOfdbPage");
 var y = document.getElementById("coffeeGuy");
 x.style.display = "block"; //show
 y.style.display = "none"; //hide
+document.getElementById("friendPending").style.display = "none";
 
 getDownloadURL(sRef(storage, "favicon"))
         .then((url) => {
@@ -1162,7 +1198,7 @@ function loadProfile() {
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    console.log(data)
+    //console.log(data)
     document.getElementById("profileDescription").innerHTML = data.Description 
     document.getElementById("proMajor").innerHTML = "Major: " + updatepage.Major
     document.getElementById("proLocation").innerHTML = "Location: " + updatepage.Location
@@ -1172,12 +1208,17 @@ function loadProfile() {
     const img = document.getElementById("profilePicforUser")
     const miniImg = document.getElementById("miniImage")
 
-    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
-    setImg(sessionStorage.getItem('un') + '@gmail.com', miniImg);
-
+    setImg(sessionStorage.getItem('email'), img);
+    setImg(sessionStorage.getItem('email'), miniImg);
+console.log("from profile")
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
   document.getElementById("profilePicforUser").innerHTML   
 }
+function loadChatStuff(){
+console.log("hi")
+
+}
+
 
 function loadSettings()
 {
@@ -1193,7 +1234,7 @@ function loadSettings()
 
     const img = document.getElementById("settingsPicUser")
 
-    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
+    setImg(sessionStorage.getItem('email'), img);
 
 }
 
@@ -1212,7 +1253,7 @@ function updateSettings()
   });
   var upadateImg = document.getElementById("submitNewPic").files[0]
   if(upadateImg != undefined){
-  uploadBytes(sRef(storage, sessionStorage.getItem('un')+'@gmail.com'), upadateImg).then((snapshot) => {
+  uploadBytes(sRef(storage, sessionStorage.getItem('email')), upadateImg).then((snapshot) => {
                     console.log('Uploaded a blob or file!');
                 });
               }
@@ -1276,11 +1317,13 @@ nextImg.addEventListener("click", incrementIt);
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", updateSeenList);
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
-//frenPend.addEventListener("click", yesFunction);
-//frenPend.addEventListener("click", loadImg);
-//frenPend.addEventListener("click", showHide);
+frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", loadImg);
+frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
@@ -1292,6 +1335,9 @@ loadProfilebtn.addEventListener('click', loadProfile)
 
 var settingsBtn = document.querySelector('#settingsClick')
 settingsBtn.addEventListener('click',loadSettings)
+
+//var friendsChatbtn = document.querySelector('#friendsChatClick')
+//friendsChatbtn.addEventListener('click', document.getElementById("chatbox").style.display = "none")
 
 var updateSettingsBtn = document.querySelector('#updateProfileBtn')
 updateSettingsBtn.addEventListener('click',updateSettings)
