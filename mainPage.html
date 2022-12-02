@@ -14,6 +14,7 @@
   #alertBox{display:none}
 </style>
 
+<!--Need last added user. Need friendPending-->
 
 <script src="thumbsUpHandler.js"></script>
 
@@ -27,7 +28,7 @@
 html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 </style>
 </head>
-<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false,chatOpen:false}">
+<body style = "background-color:#003166" onload="sideMenu={profileOpen:false,settingsOpen:false,chatOpen:false, frenProfileOpen:false}">
 
   <script> window.email3; </script>
 
@@ -68,7 +69,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
 
                   <!-- Chat Catalogue -->
                   <link rel="stylesheet" href="friendEntry.css">
-                  <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
+                  <button id = 'friendsChatClick' onclick="myFunction('Demo1'); openChat(sideMenu,'chatbox','coffeeGuy','profile');" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Friends/Chat</button>
                   <div id="Demo1" class="w3-hide w3-container"></div>
                   <!-- Chat Catalog End -->
 
@@ -861,7 +862,32 @@ getData("users");
 //let num = 0;
 let myArray3 = [];
 //creates next profile for no function
-function loadNextImg(data) {    if (myArray.length == 0) {         while (data.length > num2) {             myArray[num2] = data[num2]             num2 = num2 + 1;         }    }    else {          let electronicMail = GetEmail();            assignPicture(electronicMail);            if ((num + 1) < (myArray.length)) { num = num + 1; }            else { endOfDB = true; }        }        if (endOfDB == true) {            //call function here            endOfDatabase();        }        console.log(incremen);    }
+function loadNextImg(data) {
+    if (myArray.length == 0) {
+         while (data.length > num2) {
+             myArray[num2] = data[num2]
+             num2 = num2 + 1;
+         }
+    }
+    else {
+
+          let electronicMail = GetEmail();
+            assignPicture(electronicMail);
+
+            if ((num + 1) < (myArray.length)) { num = num + 1; }
+            else { endOfDB = true; }
+
+
+
+        }
+        if (endOfDB == true) {
+            //call function here
+            endOfDatabase();
+        }
+        console.log(incremen);
+
+
+    }
 
 
 
@@ -1162,7 +1188,7 @@ function loadProfile() {
     onValue(starCountRef, (snapshot) => {
     const data = snapshot.val();
     updatepage = data
-    console.log(data)
+    //console.log(data)
     document.getElementById("profileDescription").innerHTML = data.Description 
     document.getElementById("proMajor").innerHTML = "Major: " + updatepage.Major
     document.getElementById("proLocation").innerHTML = "Location: " + updatepage.Location
@@ -1172,12 +1198,17 @@ function loadProfile() {
     const img = document.getElementById("profilePicforUser")
     const miniImg = document.getElementById("miniImage")
 
-    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
-    setImg(sessionStorage.getItem('un') + '@gmail.com', miniImg);
-
+    setImg(sessionStorage.getItem('email'), img);
+    setImg(sessionStorage.getItem('email'), miniImg);
+console.log("from profile")
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
   document.getElementById("profilePicforUser").innerHTML   
 }
+function loadChatStuff(){
+console.log("hi")
+
+}
+
 
 function loadSettings()
 {
@@ -1193,7 +1224,7 @@ function loadSettings()
 
     const img = document.getElementById("settingsPicUser")
 
-    setImg(sessionStorage.getItem('un') + '@gmail.com', img);
+    setImg(sessionStorage.getItem('email'), img);
 
 }
 
@@ -1212,7 +1243,7 @@ function updateSettings()
   });
   var upadateImg = document.getElementById("submitNewPic").files[0]
   if(upadateImg != undefined){
-  uploadBytes(sRef(storage, sessionStorage.getItem('un')+'@gmail.com'), upadateImg).then((snapshot) => {
+  uploadBytes(sRef(storage, sessionStorage.getItem('email')), upadateImg).then((snapshot) => {
                     console.log('Uploaded a blob or file!');
                 });
               }
@@ -1292,6 +1323,9 @@ loadProfilebtn.addEventListener('click', loadProfile)
 
 var settingsBtn = document.querySelector('#settingsClick')
 settingsBtn.addEventListener('click',loadSettings)
+
+//var friendsChatbtn = document.querySelector('#friendsChatClick')
+//friendsChatbtn.addEventListener('click', document.getElementById("chatbox").style.display = "none")
 
 var updateSettingsBtn = document.querySelector('#updateProfileBtn')
 updateSettingsBtn.addEventListener('click',updateSettings)

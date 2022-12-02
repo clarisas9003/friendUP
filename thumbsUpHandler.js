@@ -134,6 +134,21 @@ function openProfile(openProfile,myProfile,notProfile,settings)
   else{/* do nothing */}
 }
 
+function openChat(openChat,myProfile,notProfile,profile){
+let hello = "";
+  if(openChat.chatOpen==false)  {
+    hideShow(myProfile,notProfile)
+  }
+  else
+  { 
+    hideShow(notProfile,myProfile) 
+    var y = document.getElementById(profile);
+    y.style.display = "none"; //hide
+  }
+  openChat.chatOpen = !openChat.chatOpen;
+
+}
+
 
 function openSettings(openSettings,settings,middle,profile)
 {
