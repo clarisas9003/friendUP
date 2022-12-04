@@ -78,16 +78,20 @@ function pageOnLoad(data, userArray){
     count = count + 1;
   }
   else { count = 0; flag = true; }
-  
+  console.log("Hi from onPageLoad " + email);
   return email;
 }
 
 //most functionality not here
 //what happens when you thumb
 function yesFunction(){
-
+  console.log("hi from yes function: "+ email)
+  //puts the side friend pending div in
   document.getElementById("friendPendName").innerHTML = FN + " " + LN;
-
+  //calls noFunction so next user will be called on event
+  //load friend pending into each user's array
+  //listener for array update 
+  //when that happens, display friend pending
 }
 
 function GetUniqname()
