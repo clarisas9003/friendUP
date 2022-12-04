@@ -97,26 +97,28 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
               </div>
             </div>
           </div>
-<!--issue-->
-          <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
-            <div class="w3-container">
-              <p>friend Pending</p>
-              <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
-              <h3 id = "newFriendName"> Jane Doe</h3>
-              <h3 id = "descrip"> Jane Doe</h3>
-              <h3 id = "email4"> Jane Doe</h3>
-              <div class="w3-row w3-opacity">
-                <div class="w3-half">
-                  <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-                  </div>
-                <div class="w3-half">
-                  <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-                  </div>
-              </div>
-            </div>
-          </div>
-
           <br>
+          <br>
+<!--issue-->
+<div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
+  <div class="w3-container">
+    <p>friend Pending</p>
+    <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
+    <h3 id = "newFriendName"> Jane Doe</h3>
+    <h3 id = "descrip"> Jane Doe</h3>
+    <h3 id = "email4"> Jane Doe</h3>
+    <div class="w3-row w3-opacity">
+      <div class="w3-half">
+        <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+        </div>
+      <div class="w3-half">
+        <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
           <br>
           <!-- Alert Box -->
           <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
@@ -318,13 +320,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     </div>
 
     <!-- Right Column -->
-    <div class="w3-col m2">
+    <div class="w3-col m3">
       <div class="w3-card w3-round w3-white w3-center">
-        
       </div>
-      <br>
-    
-      <br>   
+      
       
       
     <!-- End Right Column -->
@@ -861,7 +860,7 @@ function openNav() {
 
             assignPicture(emails);
             loadNextImg(emailArray);
-            updatefriendArray(userArray)
+           // updatefriendArray(userArray)
             //incrementIt(userArray);
             //loadImg(emailArray);
             //addFriend(userArray);
@@ -954,29 +953,20 @@ function loadPending(data){
       
 }
 
-function updatefriendArray(data) {
+function updatefriendArray() {
 const db = getDatabase();
-let num2 = 0;
-//if(myArray3.length==0){
-  if(myArray3.length==0){
-  while(data.length > num2){
-    myArray3[num2] = data[num2]
-    num2 = num2 + 1;
-    }
-  //}
-}
-else{
-  //change name
-  let currentFriend = "";
-  currentFriend = myArray3[incremen];
-  //currentFriend = "whoever was friended"
-  //friendsPending = "Lforger"
+const database = getDatabase();
+//console.log(GetUniqname())
+ let currentFriend = GetUniqname();
+
   let friendsPending = currentUserName;
   update(ref(db, "users/" + currentFriend), {
     friendsPending: friendsPending,
     isNew: true
   });
-}
+  update(ref(database, "users/" + currentUserName), {
+    pending: true
+  });
 }
 
 function deletefriendArray() {
@@ -1031,13 +1021,14 @@ x.style.display = "block"; //show
 
 }
 function showHideS(){
-var x = document.getElementById("otherFriended");
-x.display = "block"; //show
+var y = document.getElementById("otherFriended");
+y.style.display = "block"; //show
 }
 function showHideSS(){
 var x = document.getElementById("alertBox");
 x.style.display = "block"; //show
 }
+
 function hideShow(){
 var x = document.getElementById("otherFriended");
 x.style.display = "none"; //hide
@@ -1089,13 +1080,24 @@ let myArray7 = [];
 let friend3 = "";
 
     //Add Friend is called automatically by clicking the thumbs up button (for testing purposes, this will need to be changed later)
-    function AddFriend() {
+    function AddFriend(data) {
         //Get Friend's Information
-        const uniqname = GetUniqname();
-        const friendEmail = GetEmail();
+        const uniqname = data['uniqname'];
+        const friendEmail = data['email'];
 
         //Create new chat key
         AddChatKey();
+
+        update(ref(database, "users/" + currentUserName), {
+          friendsPending: friendsPending,
+          isNew: false,
+          pending:false
+          });
+        update(ref(database, "users/" + uniqname), {
+          friendsPending: friendsPending,
+          isNew: false,
+          pending: false
+          });
 
         get(ref(database, "Chat/ChatCount")).then((snapshot) => {
             const newChatKey = snapshot.val() + 1;
@@ -1142,7 +1144,6 @@ let friend3 = "";
                         get(child(user, currentUser)).then((snapshot) => {
                             if (snapshot.exists()) {
                                 const userEmail = snapshot.val().email;
-                                console.log(userEmail);
 
                                 //Add user to new friend's friends list
                                 const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
@@ -1308,19 +1309,41 @@ function updateSettings()
         console.log("Seen: " + seenUser);
 
     }
-//expect errors until db is updated
+
+    //expect errors until db is updated
 const dataInst = getDatabase();
+const dabado = getDatabase();
 const checkNew = ref(dataInst, 'users/' + currentUserName);
 onValue(checkNew, (snapshot) => {
   const someData = snapshot.val();
   let newVar = someData['isNew'];
+  let newFriend = someData["friendsPending"];
   if (newVar == true){
-    //call show friend pending div
+    showHideS();
+    const loadFriendChange = ref(dabado, 'users/' + newFriend);
+      onValue(loadFriendChange, (snapshot) => {
+      const data = snapshot.val();
+      handleNewFriend(data);
+      loadPending(data);
+      AddFriend(data);
+    });
   }
   else{
     //ignore
   }
 });
+
+const checkPending = ref(dataInst, 'users/' + currentUserName);
+onValue(checkPending, (snapshot) => {
+  const someData = snapshot.val();
+  let newVar = someData['pending'];
+  if (newVar == false){
+    showHideSS();
+  }
+});
+
+
+
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", updateSeenList);
@@ -1334,18 +1357,37 @@ nextImg.addEventListener("click", incrementIt);
 //monitors and controls thumbsUp
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", updateSeenList);
-frenPend.addEventListener("click", yesFunction);
+//frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
-frenPend.addEventListener("click", showHideSS);
+//frenPend.addEventListener("click", showHideSS);
 frenPend.addEventListener("click", showHide);
+//frenPend.addEventListener("click", showHideS);
 frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", incrementIt);
-frenPend.addEventListener("click", showHideS);
-frenPend.onclick = function () { AddFriend() };
+
+//frenPend.onclick = function () { showHideS() };
+//frenPend.onclick = function () { AddFriend() };
+
+
+
+var greenCheck = document.querySelector('#greenCheck');
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
+//need a listner to let the other person know they're friends too
+//greenCheck.addEventListener("click", showHideSS);
+greenCheck.onclick = function () { AddFriend() };
+
+
+var redX = document.querySelector('#redX');
+redX.addEventListener("click", deletefriendArray);
+redX.addEventListener("click", hideShow);
+//redX.addEventListener("click", listener);
+
+
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
