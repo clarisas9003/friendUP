@@ -1024,6 +1024,7 @@ function assignPicture(email3){
 function showHide(){
 var x = document.getElementById("friendPending");
 x.style.display = "block"; //show
+
 }
 /*function showHideS(){
 var x = document.getElementById("otherFriended");
@@ -1304,6 +1305,7 @@ function updateSettings()
 
     }
 
+
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", updateSeenList);
@@ -1323,7 +1325,9 @@ frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
+//frenPend.onclick = function () { loadImg("friendPending") };
 frenPend.addEventListener("click", showHide);
+//frenPend.onclick = function () { showHide("friendPending") };
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
