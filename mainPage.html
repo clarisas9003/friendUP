@@ -1049,7 +1049,7 @@ function getNewFrenData(data){
 //create a checker called by or before AddFriend to see if they are friends already
     
     function AddFriend() {
-
+console.log("hi")
         //Get Friend's Information
         const uniqname = AddFriendUniqname;
         const friendEmail = AddFriendEmail;
@@ -1283,6 +1283,7 @@ function updateSettings()
 const dataInst = getDatabase();
 const dabado = getDatabase();
 const checkNew = ref(dataInst, 'users/' + currentUserName);
+
 onValue(checkNew, (snapshot) => {
   const someData = snapshot.val();
   let newVar = someData['isNew'];
@@ -1378,15 +1379,15 @@ frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
 frenPend.addEventListener("click", incrementIt);
 
-//write function to check if isSeen?
-//if true automatically call all necessary no functons
+
+
 
 var greenCheck = document.querySelector('#greenCheck');
 greenCheck.addEventListener("click", deletefriendArray);
 greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", AddFriend);
 greenCheck.addEventListener("click", addFren2Seen);
-//greenCheck.addEventListener("click", showHideSS);
-greenCheck.onclick = function () { AddFriend() };
+
 
 
 var redX = document.querySelector('#redX');
