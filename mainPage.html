@@ -99,7 +99,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           </div>
           <br>
           <br>
-<!--issue-->
+
 <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
   <div class="w3-container">
     <p>friend Pending</p>
@@ -860,10 +860,7 @@ function openNav() {
 
             assignPicture(emails);
             loadNextImg(emailArray);
-           // updatefriendArray(userArray)
-            //incrementIt(userArray);
-            //loadImg(emailArray);
-            //addFriend(userArray);
+           
         }
 
 
@@ -1060,6 +1057,8 @@ function getNewFrenData(data){
 
         //Create new chat key
         AddChatKey();
+        console.log(AddFriendEmail);
+        console.log(AddFriendUniqname);
 
         update(ref(newDB, "users/" + currentUserName), {
           isNew: false
@@ -1068,17 +1067,6 @@ function getNewFrenData(data){
           isNew: false
           });
 
-        /*onValue(newDB, "Friends/" + currentUserName + "FriendsList"){
-          
-          const checkFriend = ref(newDB, "Friends/" + currentUserName + "FriendsList")
-          onValue(checkFriend, (snapshot)=>{
-            snapshot.
-            const data = snapshot.val()
-            document.getElementById("settingsFirstName").value = data.FN
-            document.getElementById("settingsLastname").value = data.LN
-            document.getElementById("settingsDescription").value = data.Description
-            document.getElementById("settingsInterests").value = data.Interests
-          });*/
 
         get(ref(database, "Chat/ChatCount")).then((snapshot) => {
             const newChatKey = snapshot.val() + 1;
