@@ -106,7 +106,11 @@
         const data = snapshot.val();
         pageOnLoad(data);
       });
-       
+      function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
+
       //saves info to database
       function saveProfile()
       {
@@ -137,8 +141,8 @@
                       });
                     }
         else{console.log("imgage not updated")}
-
-       window.location.href = "interests.html";
+    
+        delay(2000).then(() => window.location.href = "interests.html");
 
       }
       
