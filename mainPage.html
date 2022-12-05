@@ -97,6 +97,27 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
               </div>
             </div>
           </div>
+
+          <br>
+          <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
+            <div class="w3-container">
+              <p>friend Pending</p>
+              <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
+              <h3 id = "newFriendName"> Jane Doe</h3>
+              <h3 id = "descrip"> Jane Doe</h3>
+              <h3 id = "email4"> Jane Doe</h3>
+              <div class="w3-row w3-opacity">
+                <div class="w3-half">
+                  <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
+                  </div>
+                <div class="w3-half">
+                  <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+                  </div>
+              </div>
+            </div>
+          </div>
+    
+
           <!-- Alert Box -->
           <div id="alertBox" class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
               <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
@@ -297,7 +318,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     </div>
 
     <!-- Right Column -->
-    <div class="w3-col m2">
+    <div class="w3-col m3">
       <div class="w3-card w3-round w3-white w3-center">
         
       </div>
@@ -305,24 +326,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
     
       <br>   
       
-      <div id = "otherFriended" class="w3-card w3-round w3-white w3-center">
-        <div class="w3-container">
-          <p>friend Pending</p>
-          <img id = "friendPicWaiting" src="" alt="Avatar" style="width:50%"><br>
-          <h3 id = "newFriendName"> Jane Doe</h3>
-          <h3 id = "descrip"> Jane Doe</h3>
-          <h3 id = "email4"> Jane Doe</h3>
-          <div class="w3-row w3-opacity">
-            <div class="w3-half">
-              <button id = "greenCheck" class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-              </div>
-            <div class="w3-half">
-              <button id = "redX" class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-              </div>
-          </div>
-        </div>
-      </div>
-
+      
     <!-- End Right Column -->
     </div>
     
@@ -1085,11 +1089,22 @@ let assignNum = 0;
 let myArray7 = [];
 let friend3 = "";
 
+let AddFriendUniqname = "";
+let AddFriendEmail = "";
+
+function getNewFrenData(data){
+  
+    AddFriendUniqname = data["uniqname"];
+    AddFriendEmail = data["email"]
+    console.log("getNewFrenData: " + AddFriendUniqname);
+}
+
     //Add Friend is called automatically by clicking the thumbs up button (for testing purposes, this will need to be changed later)
     function AddFriend() {
         //Get Friend's Information
-        const uniqname = GetUniqname();
-        const friendEmail = GetEmail();
+        const uniqname = AddFriendEmail;
+        const friendEmail = AddFriendUniqname;
+        console.log(AddFriendUniqname)
 
         //Create new chat key
         AddChatKey();
@@ -1306,6 +1321,33 @@ function updateSettings()
 
     }
 
+//expect errors until db is updated
+const dataInst = getDatabase();
+const dabado = getDatabase();
+const checkNew = ref(dataInst, 'users/' + currentUserName);
+onValue(checkNew, (snapshot) => {
+  const someData = snapshot.val();
+  let newVar = someData['isNew'];
+  let newFriend = someData["friendsPending"];
+  console.log("isNew: " + newVar + " friendpending: "+ newFriend)
+  if (newVar == true){
+    showHideS();
+    const loadFriendChange = ref(dabado, 'users/' + newFriend);
+      onValue(loadFriendChange, (snapshot) => {
+      const data = snapshot.val();
+      console.log("data from loadFriendChange")
+      console.log(data)
+      handleNewFriend(data);
+      loadPending(data);
+      getNewFrenData(data);
+    });
+  }
+  else{
+    //ignore
+  }
+});
+
+
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
 nextImg.addEventListener("click", updateSeenList);
@@ -1320,13 +1362,14 @@ nextImg.addEventListener("click", incrementIt);
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", updateSeenList);
 frenPend.addEventListener("click", yesFunction);
+frenPend.addEventListener("click", showHideS);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
-frenPend.addEventListener("click", showHideS);
+
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
