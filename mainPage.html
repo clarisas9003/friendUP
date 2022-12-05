@@ -932,6 +932,30 @@ function loadImg(){
       console.log(error)
       });
 }
+let userFN = " ";
+let userLN = " ";
+let userEmail = "";
+
+function getEmail(data){
+  userFN = data["FN"];
+  userLN = data["LN"];
+  userEmail = data["email"];
+}
+function load2Img(){
+  let electronicMail = userEmail;
+  document.getElementById("friendPendName").innerHTML = userFN + " " + userLN;
+  //console.log("hi from loadimg "+ electronicMail)
+  getDownloadURL(sRef(storage, electronicMail))
+        .then((url) => {
+        // Or inserted into an <img> element
+      const img = document.getElementById("friendWaiting");
+      img.setAttribute('src', url);
+      })
+      .catch((error) => {
+      console.log(error)
+      });
+
+}
 
 let myArray5 = [];
 function loadPending(data){
@@ -1295,6 +1319,7 @@ onValue(checkNew, (snapshot) => {
       handleNewFriend(data);
       loadPending(data);
       getNewFrenData(data);
+      getEmail(data);
       
     });
   }
@@ -1303,52 +1328,54 @@ onValue(checkNew, (snapshot) => {
   }
 });
 function addFren2Seen()    {
+          const dadabass = getDatabase();
+          const seenUser = AddFriendUniqname;
+          const seenCount = ref(dadabass, "users/" + currentUserName + "/seenCount");
 
-const seenUser = AddFriendUniqname;
-const seenCount = ref(database, "users/" + currentUserName + "/seenCount");
+          get(seenCount).then((snapshot) => {
+              if (snapshot.exists())
+              {
+                  const seenNum = snapshot.val();
 
-get(seenCount).then((snapshot) => {
-    if (snapshot.exists())
-    {
-        const seenNum = snapshot.val();
+                  const newNum = seenNum + 1;
 
-        const newNum = seenNum + 1;
+                  //update seen count
+                  update(ref(dadabass, "users/" + currentUser), {
+                      seenCount: newNum
+                  });
 
-        //update seen count
-        update(ref(database, "users/" + currentUser), {
-            seenCount: newNum
-        });
+                  const seenList = ref(dadabass, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
 
-        const seenList = ref(database, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
+                  //update seen list
+                  set(seenList, seenUser);
 
-        //update seen list
-        set(seenList, seenUser);
+              }
+              else
+              {
+                  const newNum = 0;
 
-    }
-    else
-    {
-        const newNum = 0;
+                  //create new seen count
+                  update(ref(dadabass, "users/" + currentUser), {
+                      seenCount: newNum
+                  });
 
-        //create new seen count
-        update(ref(database, "users/" + currentUser), {
-            seenCount: newNum
-        });
+                  const seenList = ref(dadabass, "users/" + currentUser + "/Seen/0");
 
-        const seenList = ref(database, "users/" + currentUser + "/Seen/0");
-
-        //update seen list
-        set(seenList, seenUser);
-        }
-    });
-      let checkUser = GetUniqname();
-      console.log(checkUser + " " + seenUser);
-      if (seenUser == checkUser){
-          window.location.reload(false);
-          console.log("I do a reload")
-}
+                  //update seen list
+                  set(seenList, seenUser);
+                  }
+                  let checkUser = GetUniqname();
+                  console.log(checkUser + " " + seenUser);
+                  if (seenUser == checkUser){
+                    //window.location.reload(false);
+                    console.log("I do a reload")
+                  }
+              });
+              
+          }
 
 
-}
+
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
@@ -1368,9 +1395,7 @@ frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
-frenPend.addEventListener("click", loadImg);
-frenPend.addEventListener("click", showHide);
-//frenPend.addEventListener("click", AddFriend);
+frenPend.addEventListener("click", showHide); 
 frenPend.addEventListener("click", incrementIt);
 
 
@@ -1379,6 +1404,9 @@ greenCheck.addEventListener("click", AddFriend);
 greenCheck.addEventListener("click", addFren2Seen);
 greenCheck.addEventListener("click", deletefriendArray);
 greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", showHide);
+greenCheck.addEventListener("click", load2Img);
+
 
 
 
