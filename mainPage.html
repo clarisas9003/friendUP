@@ -953,14 +953,13 @@ function loadPending(data){
 }
 
 function updatefriendArray() {
-const db = getDatabase();
 const database = getDatabase();
 //console.log(GetUniqname())
  let currentFriend = GetUniqname();
 console.log("UpdateFriendArray: " + currentFriend);
 console.log("UpdateFriendArray: " + currentUserName)
   //let friendsPending = currentUserName;
-  update(ref(db, "users/" + currentFriend), {
+  update(ref(database, "users/" + currentFriend), {
     friendsPending: currentUserName,
     isNew: true
   });
@@ -1061,28 +1060,9 @@ function getNewFrenData(data){
         //Create new chat key
         AddChatKey();
 
-        update(ref(newDB, "users/" + currentUserName), {
-          isNew: false
-          });
-        update(ref(newDB, "users/" + uniqname), {
-          isNew: false
-          });
-
-        /*onValue(newDB, "Friends/" + currentUserName + "FriendsList"){
-          
-          const checkFriend = ref(newDB, "Friends/" + currentUserName + "FriendsList")
-          onValue(checkFriend, (snapshot)=>{
-            snapshot.
-            const data = snapshot.val()
-            document.getElementById("settingsFirstName").value = data.FN
-            document.getElementById("settingsLastname").value = data.LN
-            document.getElementById("settingsDescription").value = data.Description
-            document.getElementById("settingsInterests").value = data.Interests
-          });*/
-
         get(ref(database, "Chat/ChatCount")).then((snapshot) => {
             const newChatKey = snapshot.val() + 1;
-           // console.log("New Chat Key: " + newChatKey);
+            console.log("New Chat Key: " + newChatKey);
 
             //Get Last Friend Key in User's Friends List
             get(query(ref(database, "Friends/" + currentUserName + "/Friends List"), limitToLast(1))).then((snapshot) => {
