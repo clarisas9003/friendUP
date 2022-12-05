@@ -1024,19 +1024,21 @@ function assignPicture(email3){
 function showHide(){
 var x = document.getElementById("friendPending");
 x.style.display = "block"; //show
+
 }
-/*function showHideS(){
-var x = document.getElementById("otherFriended");
-x.display = "block"; //show
-}*/
+function showHideS(){
+var y = document.getElementById("otherFriended");
+y.style.display = "block"; //show
+}
 function showHideSS(){
 var x = document.getElementById("alertBox");
 x.style.display = "block"; //show
 }
-/*function hideShow(){
+
+function hideShow(){
 var x = document.getElementById("otherFriended");
 x.style.display = "none"; //hide
-}*/
+}
 
 /*function listener(){
 const daba = getDatabase();
@@ -1310,7 +1312,7 @@ nextImg.addEventListener("click", updateSeenList);
 nextImg.addEventListener("click", noFunction);
 nextImg.addEventListener("click", loadNextImg);
 nextImg.addEventListener("click", incrementIt);
-//nextImg.addEventListener("click", listener);
+
 
 //read from friend pending array to friend Pending unit
 
@@ -1324,11 +1326,23 @@ frenPend.addEventListener("click", loadNextImg);
 frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
+frenPend.addEventListener("click", showHideS);
 frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
 
-frenPend.onclick = function () { AddFriend() };
+
+var greenCheck = document.querySelector('#greenCheck');
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
+//greenCheck.addEventListener("click", addFren2Seen);
+greenCheck.onclick = function () { AddFriend() };
+
+
+var redX = document.querySelector('#redX');
+redX.addEventListener("click", deletefriendArray);
+redX.addEventListener("click", hideShow);
+//redX.addEventListener("click", listener);
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
