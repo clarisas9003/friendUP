@@ -84,16 +84,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
           <br>
           <div id = "friendPending" class="w3-card w3-round w3-white w3-center">
             <div class="w3-container">
-              <p>Recently Friended</p>
+              <p>FriendUp!</p>
               <img id = "friendWaiting" src="" alt="Avatar" style="width:50%"><br>
               <h3 id = "friendPendName"> Jane Doe</h3>
               <div class="w3-row w3-opacity">
                 <div class="w3-half">
-                  <!--<button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-                  --></div>
+                 </div>
                 <div class="w3-half">
-                  <!--<button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-                  --></div>
+                  </div>
               </div>
             </div>
           </div>
@@ -322,9 +320,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Alternate Gothic", Oswald}
       <div class="w3-card w3-round w3-white w3-center">
         
       </div>
-      <br>
-    
-      <br>   
+      
       
       
     <!-- End Right Column -->
@@ -861,7 +857,7 @@ function openNav() {
 
             assignPicture(emails);
             loadNextImg(emailArray);
-            updatefriendArray(userArray)
+            //updatefriendArray(userArray)
             //incrementIt(userArray);
             //loadImg(emailArray);
             //addFriend(userArray);
@@ -954,29 +950,18 @@ function loadPending(data){
       
 }
 
-function updatefriendArray(data) {
-const db = getDatabase();
-let num2 = 0;
-//if(myArray3.length==0){
-  if(myArray3.length==0){
-  while(data.length > num2){
-    myArray3[num2] = data[num2]
-    num2 = num2 + 1;
-    }
-  //}
-}
-else{
-  //change name
-  let currentFriend = "";
-  currentFriend = myArray3[incremen];
-  //currentFriend = "whoever was friended"
-  //friendsPending = "Lforger"
-  let friendsPending = currentUserName;
+function updatefriendArray() {
+  const db = getDatabase();
+const database = getDatabase();
+//console.log(GetUniqname())
+ let currentFriend = GetUniqname();
+console.log("UpdateFriendArray: " + currentFriend);
+console.log("UpdateFriendArray: " + currentUserName)
+  //let friendsPending = currentUserName;
   update(ref(db, "users/" + currentFriend), {
-    friendsPending: friendsPending,
+    friendsPending: currentUserName,
     isNew: true
   });
-}
 }
 
 function deletefriendArray() {
@@ -1044,51 +1029,10 @@ var x = document.getElementById("otherFriended");
 x.style.display = "none"; //hide
 }
 
-/*function listener(){
-const daba = getDatabase();
-let checkNew = "";
-let users2 = [];
-let newFriend = "";
-//needs to be current user
-  const dab = getDatabase();
-  const userTable = ref(dab, "users");
-  onValue(userTable, (snapshot) => {
-    snapshot.forEach(childSnapshot => {
-      users2.push(childSnapshot.key);
-      newFriend = users2[incremen];
-    });
-  });
-
-//currentFriend = currentUsers now
-  const friendChange = ref(daba, 'users/' + currentUserName);
-  onValue(friendChange, (snapshot) => {
-    const data = snapshot.val();
-    checkNew = data["isNew"];
-  });
- 
-     //currentFriend is the other person
-    const dabado = getDatabase();
-  if(checkNew == true){
-    //needs to be current user
-      const loadFriendChange = ref(dabado, 'users/' + newFriend);
-      onValue(loadFriendChange, (snapshot) => {
-      const data = snapshot.val();
-      showHideS();
-      handleNewFriend(data);
-      loadPending(data);
-
-  
-    });
-  } 
-      else{
-        console.log("CheckNew is false");
-      }
-}*/
 
 let assignNum = 0;
 let myArray7 = [];
 let friend3 = "";
-
 let AddFriendUniqname = "";
 let AddFriendEmail = "";
 
@@ -1099,29 +1043,37 @@ function getNewFrenData(data){
     console.log("getNewFrenData: " + AddFriendUniqname);
 }
 
-    //Add Friend is called automatically by clicking the thumbs up button (for testing purposes, this will need to be changed later)
+
     function AddFriend() {
         //Get Friend's Information
         const uniqname = AddFriendEmail;
         const friendEmail = AddFriendUniqname;
         console.log(AddFriendUniqname)
+        const newDB = getDatabase();
+
+        update(ref(newDB, "users/" + currentUserName), {
+          isNew: false
+          });
+        update(ref(newDB, "users/" + uniqname), {
+          isNew: false
+          });
 
         //Create new chat key
         AddChatKey();
 
         get(ref(database, "Chat/ChatCount")).then((snapshot) => {
             const newChatKey = snapshot.val() + 1;
-            console.log("New Chat Key: " + newChatKey);
+            //console.log("New Chat Key: " + newChatKey);
 
             //Get Last Friend Key in User's Friends List
-            get(query(ref(database, "Friends/" + currentUser + "/Friends List"), limitToLast(1))).then((snapshot) => {
+            get(query(ref(database, "Friends/" + currentUserName + "/Friends List"), limitToLast(1))).then((snapshot) => {
                 if (snapshot.exists()) {
                     snapshot.forEach((childSnapshot) => {
                         const childKey = childSnapshot.key;
                         const newFriendKey = parseInt(childKey) + 1;
 
                         //Add new friend to user's friends list
-                        const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                        const userFriend = ref(database, "Friends/" + currentUserName + "/Friends List/" + newFriendKey);
                         set(userFriend, {
                             Name: uniqname,
                             email: friendEmail,
@@ -1159,7 +1111,7 @@ function getNewFrenData(data){
                                 //Add user to new friend's friends list
                                 const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
                                 set(friendUser, {
-                                    Name: currentUser,
+                                    Name: currentUserName,
                                     email: userEmail,
                                     ChatKey: newChatKey
                                 });
@@ -1173,14 +1125,14 @@ function getNewFrenData(data){
                     const newFriendKey = 0;
 
                     //Get User's Email
-                    get(child(user, currentUser)).then((snapshot) => {
+                    get(child(user, currentUserName)).then((snapshot) => {
                         if (snapshot.exists()) {
                             const userEmail = snapshot.val().email;
 
                             //Add user to new friend's friends list
                             const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
                             set(friendUser, {
-                                Name: currentUser,
+                                Name: currentUserName,
                                 email: userEmail,
                                 ChatKey: newChatKey
                             });
@@ -1227,12 +1179,12 @@ function loadProfile() {
 
     setImg(sessionStorage.getItem('email'), img);
     setImg(sessionStorage.getItem('email'), miniImg);
-console.log("from profile")
+//console.log("from profile")
   document.getElementById("profId").innerHTML = sessionStorage.getItem('un')
   document.getElementById("profilePicforUser").innerHTML   
 }
 function loadChatStuff(){
-console.log("hi")
+//console.log("hi")
 
 }
 
@@ -1332,6 +1284,7 @@ onValue(checkNew, (snapshot) => {
   console.log("isNew: " + newVar + " friendpending: "+ newFriend)
   if (newVar == true){
     showHideS();
+    console.log("isNew: " + newVar + " friendpending: "+ newFriend)
     const loadFriendChange = ref(dabado, 'users/' + newFriend);
       onValue(loadFriendChange, (snapshot) => {
       const data = snapshot.val();
@@ -1340,13 +1293,60 @@ onValue(checkNew, (snapshot) => {
       handleNewFriend(data);
       loadPending(data);
       getNewFrenData(data);
+      
     });
   }
   else{
     //ignore
   }
 });
+function addFren2Seen()    {
 
+const seenUser = AddFriendUniqname;
+const seenCount = ref(database, "users/" + currentUserName + "/seenCount");
+
+get(seenCount).then((snapshot) => {
+    if (snapshot.exists())
+    {
+        const seenNum = snapshot.val();
+
+        const newNum = seenNum + 1;
+
+        //update seen count
+        update(ref(database, "users/" + currentUser), {
+            seenCount: newNum
+        });
+
+        const seenList = ref(database, "users/" + currentUser + "/Seen/" + (snapshot.val() + 1));
+
+        //update seen list
+        set(seenList, seenUser);
+
+    }
+    else
+    {
+        const newNum = 0;
+
+        //create new seen count
+        update(ref(database, "users/" + currentUser), {
+            seenCount: newNum
+        });
+
+        const seenList = ref(database, "users/" + currentUser + "/Seen/0");
+
+        //update seen list
+        set(seenList, seenUser);
+        }
+    });
+      let checkUser = GetUniqname();
+      console.log(checkUser + " " + seenUser);
+      if (seenUser == checkUser){
+          window.location.reload(false);
+          console.log("I do a reload")
+}
+
+
+}
 
 //monitors and controls thumbsDown
 var nextImg = document.querySelector('#thumbsDown');
@@ -1362,30 +1362,28 @@ nextImg.addEventListener("click", incrementIt);
 var frenPend = document.querySelector('#thumbsUp');
 frenPend.addEventListener("click", updateSeenList);
 frenPend.addEventListener("click", yesFunction);
-frenPend.addEventListener("click", showHideS);
 frenPend.addEventListener("click", loadImg);
+frenPend.addEventListener("click", updatefriendArray);
 frenPend.addEventListener("click", noFunction);
 frenPend.addEventListener("click", loadNextImg);
-frenPend.addEventListener("click", yesFunction);
 frenPend.addEventListener("click", loadImg);
 frenPend.addEventListener("click", showHide);
-
-frenPend.addEventListener("click", updatefriendArray);
 //frenPend.addEventListener("click", AddFriend);
 frenPend.addEventListener("click", incrementIt);
 
 
 var greenCheck = document.querySelector('#greenCheck');
-greenCheck.addEventListener("click", deletefriendArray);
-greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", AddFriend);
 //greenCheck.addEventListener("click", addFren2Seen);
-greenCheck.onclick = function () { AddFriend() };
+//greenCheck.addEventListener("click", deletefriendArray);
+//greenCheck.addEventListener("click", hideShow);
+
+
 
 
 var redX = document.querySelector('#redX');
 redX.addEventListener("click", deletefriendArray);
 redX.addEventListener("click", hideShow);
-//redX.addEventListener("click", listener);
 
 var loadProfilebtn = document.querySelector('#profileClick')
 loadProfilebtn.addEventListener('click', loadProfile)
