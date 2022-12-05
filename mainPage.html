@@ -921,7 +921,7 @@ let num4 = 0;
 
 function loadImg(){
   let electronicMail = GetEmail();
-  console.log("hi from loadimg "+ electronicMail)
+  //console.log("hi from loadimg "+ electronicMail)
   getDownloadURL(sRef(storage, electronicMail))
         .then((url) => {
         // Or inserted into an <img> element
@@ -937,7 +937,7 @@ let myArray5 = [];
 function loadPending(data){
 
  let friend2 = data["email"];
- console.log(friend2);
+ //console.log(friend2);
   getDownloadURL(sRef(storage, friend2))
         .then((url) => {
         // Or inserted into an <img> element
@@ -955,18 +955,18 @@ function updatefriendArray() {
 const database = getDatabase();
 //console.log(GetUniqname())
  let currentFriend = GetUniqname();
-console.log("UpdateFriendArray: " + currentFriend);
-console.log("UpdateFriendArray: " + currentUserName)
-  //let friendsPending = currentUserName;
+  console.log("UpdateFriendArray: " + currentFriend);
+  console.log("UpdateFriendArray: " + currentUserName)
+  let friendPending = currentUserName;
   update(ref(db, "users/" + currentFriend), {
-    friendsPending: currentUserName,
+    friendsPending: friendPending,
     isNew: true
   });
 }
 
 function deletefriendArray() {
 const deleteArray = getDatabase();
-console.log("in delete friend array");
+//console.log("in delete friend array");
 //need current user
      update(ref(deleteArray, "users/" + currentUserName), {
     friendsPending: "",      
@@ -1019,6 +1019,7 @@ function showHideS(){
 var y = document.getElementById("otherFriended");
 y.style.display = "block"; //show
 }
+
 function showHideSS(){
 var x = document.getElementById("alertBox");
 x.style.display = "block"; //show
@@ -1046,10 +1047,13 @@ function getNewFrenData(data){
 
     function AddFriend() {
         //Get Friend's Information
-        const uniqname = AddFriendEmail;
-        const friendEmail = AddFriendUniqname;
+        const uniqname = AddFriendUniqname;
+        const friendEmail = AddFriendEmail;
         console.log(AddFriendUniqname)
         const newDB = getDatabase();
+
+        //Create new chat key
+        AddChatKey();
 
         update(ref(newDB, "users/" + currentUserName), {
           isNew: false
@@ -1058,90 +1062,88 @@ function getNewFrenData(data){
           isNew: false
           });
 
-        //Create new chat key
-        AddChatKey();
 
-        get(ref(database, "Chat/ChatCount")).then((snapshot) => {
-            const newChatKey = snapshot.val() + 1;
-            //console.log("New Chat Key: " + newChatKey);
+          get(ref(database, "Chat/ChatCount")).then((snapshot) => {
+              const newChatKey = snapshot.val() + 1;
+              console.log("New Chat Key: " + newChatKey);
 
-            //Get Last Friend Key in User's Friends List
-            get(query(ref(database, "Friends/" + currentUserName + "/Friends List"), limitToLast(1))).then((snapshot) => {
-                if (snapshot.exists()) {
-                    snapshot.forEach((childSnapshot) => {
-                        const childKey = childSnapshot.key;
-                        const newFriendKey = parseInt(childKey) + 1;
+              //Get Last Friend Key in User's Friends List
+              get(query(ref(database, "Friends/" + currentUser + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                  if (snapshot.exists()) {
+                      snapshot.forEach((childSnapshot) => {
+                          const childKey = childSnapshot.key;
+                          const newFriendKey = parseInt(childKey) + 1;
 
-                        //Add new friend to user's friends list
-                        const userFriend = ref(database, "Friends/" + currentUserName + "/Friends List/" + newFriendKey);
-                        set(userFriend, {
-                            Name: uniqname,
-                            email: friendEmail,
-                            ChatKey: newChatKey
-                        });
-                    });
-                }
-                else //if friends list is empty
-                {
-                    const newFriendKey = 0;
+                          //Add new friend to user's friends list
+                          const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                          set(userFriend, {
+                              Name: uniqname,
+                              email: friendEmail,
+                              ChatKey: newChatKey
+                          });
+                      });
+                  }
+                  else //if friends list is empty
+                  {
+                      const newFriendKey = 0;
 
-                    //Add new friend to user's friends list
-                    const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
-                    set(userFriend, {
-                        Name: uniqname,
-                        email: friendEmail,
-                        ChatKey: newChatKey
-                    });
-                }
-            });
+                      //Add new friend to user's friends list
+                      const userFriend = ref(database, "Friends/" + currentUser + "/Friends List/" + newFriendKey);
+                      set(userFriend, {
+                          Name: uniqname,
+                          email: friendEmail,
+                          ChatKey: newChatKey
+                      });
+                  }
+              });
 
-            //Get Last Friend Key in Friend's Friends List
-            get(query(ref(database, "Friends/" + uniqname + "/Friends List"), limitToLast(1))).then((snapshot) => {
-                if (snapshot.exists()) {
-                    snapshot.forEach((childSnapshot) => {
-                        const childKey = childSnapshot.key;
-                        const newFriendKey = parseInt(childKey) + 1;
+              //Get Last Friend Key in Friend's Friends List
+              get(query(ref(database, "Friends/" + uniqname + "/Friends List"), limitToLast(1))).then((snapshot) => {
+                  if (snapshot.exists()) {
+                      snapshot.forEach((childSnapshot) => {
+                          const childKey = childSnapshot.key;
+                          const newFriendKey = parseInt(childKey) + 1;
 
-                        //Get User's Email
-                        get(child(user, currentUser)).then((snapshot) => {
-                            if (snapshot.exists()) {
-                                const userEmail = snapshot.val().email;
-                                console.log(userEmail);
+                          //Get User's Email
+                          get(child(user, currentUser)).then((snapshot) => {
+                              if (snapshot.exists()) {
+                                  const userEmail = snapshot.val().email;
+                                  console.log(userEmail);
 
-                                //Add user to new friend's friends list
-                                const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
-                                set(friendUser, {
-                                    Name: currentUserName,
-                                    email: userEmail,
-                                    ChatKey: newChatKey
-                                });
-                            }
-                        });
+                                  //Add user to new friend's friends list
+                                  const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                                  set(friendUser, {
+                                      Name: currentUser,
+                                      email: userEmail,
+                                      ChatKey: newChatKey
+                                  });
+                              }
+                          });
 
-                    });
-                }
-                else //if friends list is empty
-                {
-                    const newFriendKey = 0;
+                      });
+                  }
+                  else //if friends list is empty
+                  {
+                      const newFriendKey = 0;
 
-                    //Get User's Email
-                    get(child(user, currentUserName)).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            const userEmail = snapshot.val().email;
+                      //Get User's Email
+                      get(child(user, currentUser)).then((snapshot) => {
+                          if (snapshot.exists()) {
+                              const userEmail = snapshot.val().email;
 
-                            //Add user to new friend's friends list
-                            const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
-                            set(friendUser, {
-                                Name: currentUserName,
-                                email: userEmail,
-                                ChatKey: newChatKey
-                            });
+                              //Add user to new friend's friends list
+                              const friendUser = ref(database, "Friends/" + uniqname + "/Friends List/" + newFriendKey);
+                              set(friendUser, {
+                                  Name: currentUser,
+                                  email: userEmail,
+                                  ChatKey: newChatKey
+                              });
 
-                        }
-                    });
-                }
-            });
-        });
+                          }
+                      });
+                  }
+              });
+          });
     }
 
     //Updates the chat count in the database
@@ -1374,9 +1376,9 @@ frenPend.addEventListener("click", incrementIt);
 
 var greenCheck = document.querySelector('#greenCheck');
 greenCheck.addEventListener("click", AddFriend);
-//greenCheck.addEventListener("click", addFren2Seen);
-//greenCheck.addEventListener("click", deletefriendArray);
-//greenCheck.addEventListener("click", hideShow);
+greenCheck.addEventListener("click", addFren2Seen);
+greenCheck.addEventListener("click", deletefriendArray);
+greenCheck.addEventListener("click", hideShow);
 
 
 
